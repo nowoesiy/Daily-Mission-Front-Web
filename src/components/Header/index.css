@@ -1,0 +1,17 @@
+.App-header {
+    position : fixed;
+    top : 0;
+    right : 0;
+    left : 0;
+    z-index : 10000;
+    width : 100vw;
+    background-color: #ffffff;
+    min-height: 5vmin;
+    padding : 0 20px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.05);
+}
+
+.App-header .Header-logo{
+    font-size: 1.6rem;
+    color : #1f1f1f
+}
