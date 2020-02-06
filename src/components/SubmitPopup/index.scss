@@ -2,31 +2,21 @@
   border-radius: 15px;
 }
 
-.submit-board-box {
-  color: #000000;
-  margin: 10px 20px;
-
-  &__main-title {
-    font-size: 1.5rem;
-    margin: 10px;
-  }
-
-  &__submit-board {
-  }
-}
-
 .submit-board {
+  color: #000000;
+  margin: 30px 20px 20px 20px;
   &__title {
     display: flex;
   }
-  &__board-title {
-    font-size: 1.5rem;
-    width: 50px;
-  }
 
   &__board-title-input {
-    margin-left: 10px;
+    border: none;
+    font-size: 26px;
     width: 100%;
+    margin: 20px 0px 10px 0px;
+    &:focus {
+      outline: none;
+    }
   }
 
   &__author {
@@ -35,18 +25,49 @@
 
   &__contents {
     display: flex;
-    margin-top: 10px;
-  }
-  &__contents-title {
-    font-size: 1.5rem;
-    width: 50px;
   }
 
   &__contents-input {
-    margin-left: 10px;
+    border: none;
+    font-size: 20px;
     width: 100%;
+    margin: 20px 0px 10px 0px;
+    resize: none;
+    &:focus {
+      outline: none;
+    }
   }
 
-  &__submit-button {
+  &__img-box {
+    text-align: left;
+  }
+
+  &__img {
+    border: 2px dotted #aaa;
+    height: 15%;
+    width: 15%;
+  }
+
+  &__button {
+    height: 40px;
+    width: 70px;
+    font-size: 1rem;
+    color: #ffffff;
+    border-radius: 13px;
+    border: 1px solid #aaa;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+    &--submit {
+      background-color: green;
+      margin-left: 10px;
+    }
+
+    &--cancel {
+      background-color: #eee;
+      color: #000000;
+    }
   }
 }
