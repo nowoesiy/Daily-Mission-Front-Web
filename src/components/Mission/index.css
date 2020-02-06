@@ -1,3 +1,26 @@
 .App-Calendar {
   margin: 10px;
 }
+
+.profile {
+  display: table;
+}
+
+.profile__img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.profile__title {
+  padding-left: 10px;
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+#profileTitle:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
