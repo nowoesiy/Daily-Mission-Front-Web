@@ -2,14 +2,13 @@ import React from 'react';
 import './index.css';
 
 class Header extends React.Component {
-
-  render(){
+  render() {
     return (
-        <div className="App-header">
-            <div className="Header-logo">
-                <strong>DailyMission</strong>
-            </div>
+      <div className="App-header">
+        <div className="Header-logo">
+          <strong>DailyMission</strong>
         </div>
+      </div>
     );
   }
 }

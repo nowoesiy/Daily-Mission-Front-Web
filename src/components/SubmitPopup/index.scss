@@ -1,0 +1,52 @@
+.popup-content {
+  border-radius: 15px;
+}
+
+.submit-board-box {
+  color: #000000;
+  margin: 10px 20px;
+
+  &__main-title {
+    font-size: 1.5rem;
+    margin: 10px;
+  }
+
+  &__submit-board {
+  }
+}
+
+.submit-board {
+  &__title {
+    display: flex;
+  }
+  &__board-title {
+    font-size: 1.5rem;
+    width: 50px;
+  }
+
+  &__board-title-input {
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  &__author {
+    display: none;
+  }
+
+  &__contents {
+    display: flex;
+    margin-top: 10px;
+  }
+  &__contents-title {
+    font-size: 1.5rem;
+    width: 50px;
+  }
+
+  &__contents-input {
+    margin-left: 10px;
+    width: 100%;
+  }
+
+  &__submit-button {
+  }
+}
