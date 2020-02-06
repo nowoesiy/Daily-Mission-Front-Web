@@ -1,15 +1,55 @@
-.box {
-  border-radius: 16px;
+$green: #00c860;
+.submit {
+  padding: 15px 150px;
+  background-color: #f2f2f3;
+  height: 340px;
+  min-height: 340px;
+  border: 1px solid #e6e6e6;
   &__title {
-    margin: 5px 5px 10px 5px;
+    font-size: 0.8rem;
+  }
+}
+
+.box {
+  width: 800px;
+  height: 250px;
+  border: 1px solid #294e80;
+  background-color: #ffffff;
+  margin: 0 auto;
+  border-radius: 17px;
+
+  &--submit {
+    border: 1px solid green;
+  }
+
+  &__top {
+    border-radius: 14px 14px 0px 0px;
+    padding: 4px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #95a6be;
+    background-color: #294e80;
+    color: #ffffff;
+
+    &--submit {
+      background-color: green;
+      color: #ffffff;
+    }
+  }
+
+  &__title {
+    margin: 5px 5px 5px 5px;
     font-size: 1.3rem;
+  }
+
+  &__body {
+    margin: 15px;
+    height: 150px;
   }
 }
 
 .drop-upload-box {
-  background-color: skyblue;
-  border-radius: 16px;
-  border: 2px dotted #eee;
+  cursor: pointer;
   height: 90px;
   text-align: center;
   font-size: 20px;
@@ -17,6 +57,20 @@
   margin-top: 50px;
   color: #ffffff;
   font-weight: 700;
+
+  &__wrap {
+    border-radius: 16px;
+    border: 2px dotted #eee;
+    background-color: #95a6be;
+    border-radius: 16px;
+    height: 90px;
+    &--submit {
+      background-color: $green;
+      border: 1px solid $green;
+      border-radius: 16px;
+      height: 90px;
+    }
+  }
 
   &__title {
     margin-left: 15px;
