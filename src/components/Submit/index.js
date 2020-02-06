@@ -1,17 +1,21 @@
 import React from 'react';
 import SubmitPopup from '../SubmitPopup';
-import './index.css';
 import './index.scss';
 import FileDrop from 'react-file-drop';
 
 class Submit extends React.Component {
   state = {
     file: '',
+    fileImgUrl: '',
+    submit: true,
   };
 
   handleDrop = (files, event) => {
     console.log(files);
-    this.setState({ file: files[0].name });
+    this.setState({
+      file: files[0].name,
+      fileImgUrl: URL.createObjectURL(files[0]),
+    });
   };
 
   CreateSubmitBox = ({
@@ -20,12 +24,18 @@ class Submit extends React.Component {
     PostBoard,
     updateInputValue,
     file,
+    submit,
+    fileImgUrl,
   }) => {
     return (
       <div className="submit__box">
-        <div className="box">
-          <div className="box__top">
-            <h2 className="box__title">알고리즘 미션</h2>
+        <div className={`box ${this.state.submit ? 'box--submit' : ''}`}>
+          <div
+            className={`box__top ${
+              this.state.submit ? 'box__top--submit' : ''
+            }`}
+          >
+            <h2 className="box__title">1일 1알고리즘 미션</h2>
           </div>
           <div className="box__body">
             <div className="drop-upload-box">
@@ -36,6 +46,8 @@ class Submit extends React.Component {
                   updateInputValue={updateInputValue}
                   PostBoard={PostBoard}
                   file={file}
+                  submit={submit}
+                  fileImgUrl={fileImgUrl}
                 />
               </FileDrop>
             </div>
@@ -92,11 +104,11 @@ class Submit extends React.Component {
       DeleteBoard,
     } = this.props;
 
-    const { file } = this.state;
+    const { file, submit, fileImgUrl } = this.state;
     return (
       <div className="submit">
         <div className="submit__title">
-          <h1 className="submit__title-who">이수백 님의 미션</h1>
+          <h1 className="submit__title-who">'수박' 님의 미션</h1>
         </div>
         <div className="submit__contents">
           <this.CreateSubmitBox
@@ -107,6 +119,8 @@ class Submit extends React.Component {
             PostBoard={PostBoard}
             DeleteBoard={DeleteBoard}
             file={file}
+            submit={submit}
+            fileImgUrl={fileImgUrl}
           />
         </div>
       </div>
