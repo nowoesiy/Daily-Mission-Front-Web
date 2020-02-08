@@ -1,3 +1,5 @@
+$green: #00c860;
+
 .popup-content {
   border-radius: 15px;
 }
@@ -61,7 +63,7 @@
       outline: none;
     }
     &--submit {
-      background-color: green;
+      background-color: $green;
       margin-left: 10px;
     }
 
