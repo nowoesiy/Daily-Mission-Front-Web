@@ -7,7 +7,7 @@ class Submit extends React.Component {
   state = {
     file: '',
     fileImgUrl: '',
-    submit: true,
+    submit: false,
   };
 
   handleDrop = (files, event) => {
@@ -97,6 +97,7 @@ class Submit extends React.Component {
   render() {
     const {
       team,
+      mission,
       posts,
       inputValue,
       PostBoard,
@@ -108,7 +109,7 @@ class Submit extends React.Component {
     return (
       <div className="submit">
         <div className="submit__title">
-          <h1 className="submit__title-who">'수박' 님의 미션</h1>
+          <h1 className="submit__title-who">'수박' 님의 미션 😎</h1>
         </div>
         <div className="submit__contents">
           <this.CreateSubmitBox

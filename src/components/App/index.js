@@ -31,6 +31,20 @@ class App extends React.Component {
         date: '2020-02-03 17:10:00',
       },
     ],
+    mission: [
+      {
+        name: '1일 1알고리즘 미션',
+        submit: false,
+      },
+      {
+        name: '아침 챙겨먹기',
+        submit: false,
+      },
+      {
+        name: '8시 기상 미션',
+        submit: false,
+      },
+    ],
     posts: [],
     posting: [],
     inputValue: '',
@@ -90,6 +104,7 @@ class App extends React.Component {
         <Aside />
         <div className="container">
           <Submit
+            mission={this.state.mission}
             team={this.state.team}
             posts={this.state.posts}
             inputValue={this.state.inputValue}
