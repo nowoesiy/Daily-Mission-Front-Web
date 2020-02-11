@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 import Header from '../Header';
 import Aside from '../Aside';
-import Submit from '../Submit';
+import Submit from '../../containers/Submit';
 import Mission from '../Mission';
 import axios from 'axios';
 
@@ -106,7 +106,7 @@ class App extends React.Component {
           <Submit
             mission={this.state.mission}
             team={this.state.team}
-            posts={this.state.posts}
+            //posts={this.state.posts}
             inputValue={this.state.inputValue}
             inputValue2={this.state.inputValue2}
             updateInputValue={this.updateInputValue}

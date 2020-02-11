@@ -1,13 +1,20 @@
 import React from 'react';
 import './index.scss';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {
+  updateTitleValue,
+  updateContentValue,
+} from '../../reducers/reducer_submitPost';
 import Popup from 'reactjs-popup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faSmileWink } from '@fortawesome/free-solid-svg-icons';
 
 const SubmitPopup = ({
-  inputValue,
-  inputValue2,
-  updateInputValue,
+  title,
+  content,
+  updateTitleValue,
+  updateContentValue,
   PostBoard,
   file,
   submit,
@@ -40,8 +47,8 @@ const SubmitPopup = ({
             type="text"
             placeholder="제목"
             autocomplete="off"
-            value={inputValue}
-            onChange={updateInputValue}
+            value={title}
+            onChange={updateTitleValue}
           />
         </div>
         <hr />
@@ -61,8 +68,8 @@ const SubmitPopup = ({
             cols="40"
             rows="13"
             placeholder="글 써주실꺼죠? :)"
-            value={inputValue2}
-            onChange={updateInputValue}
+            value={content}
+            onChange={updateContentValue}
           ></textarea>
         </div>
         <hr />
@@ -88,4 +95,27 @@ const SubmitPopup = ({
   );
 };
 
-export default SubmitPopup;
+const mapStateToProps = state => ({
+  title: state.submitpost.titleValue,
+  content: state.submitpost.contentValue,
+});
+
+// const mapDispatchToProps = dispatch => ({
+//   updateTitleValue: () => {
+//     dispatch(updateTitleValue());
+//   },
+//   updateContentValue: () => {
+//     dispatch(updateContentValue());
+//   },
+// });
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      updateTitleValue,
+      updateContentValue,
+    },
+    dispatch,
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubmitPopup);
