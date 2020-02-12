@@ -2,9 +2,10 @@ import React from 'react';
 import './index.css';
 import Header from '../Header';
 import Aside from '../Aside';
-import Submit from '../../containers/Submit';
+import Submit from '../../containers/SubmitContainer';
 import Mission from '../Mission';
 import axios from 'axios';
+import SubmitContainer from '../../containers/SubmitContainer';
 
 class App extends React.Component {
   state = {
@@ -74,7 +75,7 @@ class App extends React.Component {
 
   PostBoard = () => {
     axios
-      .post('http://13.125.252.144/api/posts', {
+      .post('http://54.180.80.58/api/posts', {
         headers: {
           'Content-type': 'application/x-www-form-urlencoded',
         },
@@ -103,14 +104,10 @@ class App extends React.Component {
         <Header />
         <Aside />
         <div className="container">
-          <Submit
+          <SubmitContainer
             mission={this.state.mission}
             team={this.state.team}
-            //posts={this.state.posts}
-            inputValue={this.state.inputValue}
-            inputValue2={this.state.inputValue2}
-            updateInputValue={this.updateInputValue}
-            PostBoard={this.PostBoard}
+            //PostBoard={this.PostBoard}
             DeleteBoard={this.DeleteBoard}
           />
           <Mission />
