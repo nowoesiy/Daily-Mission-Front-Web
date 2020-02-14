@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import SubmitPopup from '../../components/SubmitPopup';
 import './index.scss';
 import {
@@ -96,16 +95,16 @@ export default connect(
     fileImgUrl: state.submitpost.fileImgUrl,
     submit: state.submitpost.submit,
   }),
-  // {
-  //   updateTitleValue,
-  //   updateContentValue,
-  //   postBoard,
-  //   handleDrop,
-  // },
-  dispatch => ({
-    updateTitleValue: bindActionCreators(updateTitleValue, dispatch),
-    updateContentValue: bindActionCreators(updateContentValue, dispatch),
-    postBoard: bindActionCreators(postBoard, dispatch),
-    handleDrop: bindActionCreators(handleDrop, dispatch),
-  }),
+  {
+    updateTitleValue,
+    updateContentValue,
+    postBoard,
+    handleDrop,
+  },
+  // dispatch => ({
+  //   updateTitleValue: bindActionCreators(updateTitleValue, dispatch),
+  //   updateContentValue: bindActionCreators(updateContentValue, dispatch),
+  //   postBoard: bindActionCreators(postBoard, dispatch),
+  //   handleDrop: bindActionCreators(handleDrop, dispatch),
+  // }),
 )(Submit);

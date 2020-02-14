@@ -4,6 +4,7 @@ const UPDATE_TITLE_VALUE = 'UPDATE_TITLE_VALUE';
 const UPDATE_CONTENT_VALUE = 'UPDATE_CONTENT_VALUE';
 const HANDLE_DROP = 'HANDLE_DROP';
 const POST_BOARD_SUCCESS = 'POST_BOARD_SUCCESS';
+const GET_BOARD_SUCCESS = 'GET_BOARD_SUCCESS';
 
 // 액션 타입 함수
 
@@ -22,6 +23,14 @@ export const handleDrop = (files, event) => ({
   files,
 });
 
+const postBoardSuccess = () => ({
+  type: POST_BOARD_SUCCESS,
+});
+
+const getBoardSuccess = response => ({
+  type: GET_BOARD_SUCCESS,
+  response,
+});
 export const postBoard = (titleValue, contentValue) => {
   return dispatch => {
     axios
@@ -42,12 +51,22 @@ export const postBoard = (titleValue, contentValue) => {
   };
 };
 
-const postBoardSuccess = () => ({
-  type: POST_BOARD_SUCCESS,
-});
+export const getBoard = () => {
+  return dispatch => {
+    axios.get('http://13.125.252.144/api/posts/1').then(response => {
+      getBoardSuccess(response);
+    });
+  };
+};
+
+export const DeleteBoard = id => {
+  axios.delete(`http://13.125.252.144/api/posts/${id}`, { crossdomain: true });
+};
+
 //액션 생성함수
 
 const initialState = {
+  posts: '',
   titleValue: '',
   contentValue: '',
   fileName: '',
@@ -74,6 +93,11 @@ export default function SubmitPost(state = initialState, action) {
         submit: true,
         titleValue: '',
         contentValue: '',
+      };
+    case GET_BOARD_SUCCESS:
+      return {
+        ...state,
+        posts: action.response.data,
       };
     case HANDLE_DROP:
       return {

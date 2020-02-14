@@ -1,0 +1,58 @@
+.header {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10000;
+  width: 98%;
+  background-color: #ffffff;
+  min-height: 50px;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  &__logo {
+    line-height: 3.2rem;
+    font-size: 1.6rem;
+    color: #1f1f1f;
+  }
+
+  &__login {
+    line-height: 3.2rem;
+    color: #1f1f1f;
+  }
+
+  &__logInOut-button {
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      cursor: pointer;
+      color: darkblue;
+    }
+  }
+}
+
+.login {
+  &__profile-img {
+    border-radius: 18px;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+  }
+  .popup-content {
+    max-width: 500px;
+    width: 500px;
+  }
+  &__profile-name {
+  }
+}
+
+.popup-overlay .popup-content {
+  max-width: 600px;
+  width: 600px;
+}

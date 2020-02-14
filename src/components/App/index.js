@@ -1,10 +1,16 @@
 import React from 'react';
 import './index.css';
+import { Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {
+  handleLogin,
+  handleLogout,
+  LoadToGetCurrentUser,
+} from '../../modules/reduer_loginAuth';
+import OAuth2RedirectHandler from '../../oauth2/OAuth2RedirectHandler';
 import Header from '../Header';
 import Aside from '../Aside';
-import Submit from '../../containers/SubmitContainer';
 import Mission from '../Mission';
-import axios from 'axios';
 import SubmitContainer from '../../containers/SubmitContainer';
 
 class App extends React.Component {
@@ -48,67 +54,34 @@ class App extends React.Component {
     ],
     posts: [],
     posting: [],
-    inputValue: '',
-    inputValue2: '',
   };
 
-  updateInputValue = e => {
-    if (e.target.name === 'content') {
-      this.setState({
-        inputValue2: e.target.value,
-      });
-    } else {
-      this.setState({
-        inputValue: e.target.value,
-      });
-    }
-  };
-
-  getBoard = async () => {
-    const response = await axios.get('http://13.125.252.144/api/posts/1');
-    console.log(response.data);
-
-    this.setState({
-      posts: response.data,
-    });
-  };
-
-  PostBoard = () => {
-    axios
-      .post('http://54.180.80.58/api/posts', {
-        headers: {
-          'Content-type': 'application/x-www-form-urlencoded',
-        },
-        title: this.state.inputValue,
-        content: this.state.inputValue2,
-        author: '이수백',
-      })
-      .then(response => {
-        console.log('response', JSON.stringify(response, null, 2));
-      })
-      .catch(error => {
-        console.log('failed', error);
-      });
-  };
-
-  DeleteBoard = () => {
-    axios.delete('http://13.125.252.144/api/posts/10', { crossdomain: true });
-  };
   componentDidMount() {
-    this.getBoard();
+    this.props.LoadToGetCurrentUser();
   }
 
   render() {
+    const { authenticated, currentUser, handleLogout } = this.props;
     return (
       <div className="App">
-        <Header />
+        <Switch>
+          <Route
+            path="/oauth2/redirect"
+            component={OAuth2RedirectHandler}
+          ></Route>
+        </Switch>
+        <Header
+          authenticated={authenticated}
+          currentUser={currentUser}
+          handleLogout={handleLogout}
+        />
         <Aside />
         <div className="container">
           <SubmitContainer
             mission={this.state.mission}
             team={this.state.team}
             //PostBoard={this.PostBoard}
-            DeleteBoard={this.DeleteBoard}
+            //DeleteBoard={this.DeleteBoard}
           />
           <Mission />
         </div>
@@ -117,4 +90,15 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect(
+  state => ({
+    authenticated: state.loginAuth.authenticated,
+    currentUser: state.loginAuth.currentUser,
+    loading: state.loginAuth.loading,
+  }),
+  {
+    handleLogin,
+    handleLogout,
+    LoadToGetCurrentUser,
+  },
+)(App);
