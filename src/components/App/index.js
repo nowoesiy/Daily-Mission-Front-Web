@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   handleLogin,
@@ -11,6 +11,7 @@ import OAuth2RedirectHandler from '../../oauth2/OAuth2RedirectHandler';
 import Header from '../Header';
 import Aside from '../Aside';
 import Mission from '../Mission';
+import HotMission from '../HotMission';
 import Landing from '../Landing';
 import SubmitContainer from '../../containers/SubmitContainer';
 
@@ -76,23 +77,27 @@ class App extends React.Component {
           currentUser={currentUser}
           handleLogout={handleLogout}
         />
-        <Aside />
-        {currentUser ? (
-          <div className="container">
-            <SubmitContainer
-              currentUser={currentUser}
-              mission={this.state.mission}
-              team={this.state.team}
-              //PostBoard={this.PostBoard}
-              //DeleteBoard={this.DeleteBoard}
-            />
-            <Mission />
-          </div>
-        ) : (
-          <div className="container">
-            <Landing />
-          </div>
-        )}
+        <Aside currentUser={currentUser} />
+        <div className="container">
+          <Switch>
+            <Route path="/" exact component={Landing}></Route>
+            <Route path="/mission" component={Mission}></Route>
+            <Route path="/hot-mission" component={HotMission}></Route>
+            <Route path="/my" exact>
+              {currentUser ? (
+                <SubmitContainer
+                  currentUser={currentUser}
+                  mission={this.state.mission}
+                  team={this.state.team}
+                  //PostBoard={this.PostBoard}
+                  //DeleteBoard={this.DeleteBoard}
+                />
+              ) : (
+                <Redirect to={'/'} />
+              )}
+            </Route>
+          </Switch>
+        </div>
       </div>
     );
   }

@@ -8,6 +8,11 @@ body {
   font-size: 62.5%;
 }
 
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

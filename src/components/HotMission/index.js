@@ -140,7 +140,7 @@ const mission = [
   },
 ];
 
-class Mission extends React.Component {
+class HotMission extends React.Component {
   MissionBox = () => {
     return mission.map(m => {
       return (
@@ -174,7 +174,7 @@ class Mission extends React.Component {
   render() {
     return (
       <div className="mission">
-        <span className="mission__upper-text">🚀 전체 미션</span>
+        <span className="mission__upper-text">🔥 핫 미션</span>
         <div className="mission__list-box">
           <this.MissionBox />
         </div>
@@ -183,4 +183,4 @@ class Mission extends React.Component {
   }
 }
 
-export default Mission;
+export default HotMission;

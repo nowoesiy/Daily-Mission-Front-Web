@@ -1,7 +1,9 @@
 import React from 'react';
 import './index.scss';
 import Login from '../Login';
+import logo from '../../static/img/logo.png';
 import Popup from 'reactjs-popup';
+import { Link } from 'react-router-dom';
 import Dropdown, {
   DropdownTrigger,
   DropdownContent,
@@ -19,8 +21,11 @@ class Header extends React.Component {
     const { authenticated, currentUser, handleLogout } = this.props;
     return (
       <div className="header">
-        <div className="header__logo">
-          <strong>DailyMission</strong>
+        <div className="header__logo-wrap">
+          {/* <strong>DailyMission</strong> */}
+          <Link to="/" exact>
+            <img className="header__logo " src={logo} />
+          </Link>
         </div>
         <div className="header__login">
           {!currentUser ? (
@@ -48,8 +53,11 @@ class Header extends React.Component {
                   <div className="login__profile-dropdown">
                     <div className="profile-dropdown">
                       <span className="profile-dropdown__user-name">
-                        {currentUser.name}
+                        {currentUser.name} 님
                       </span>
+                      <Link to="/my">
+                        <span className="profile-dropdown__my-page">👤MY</span>
+                      </Link>
                       <button
                         onClick={handleLogout}
                         className="profile-dropdown__logout-button"

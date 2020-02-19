@@ -8,6 +8,7 @@ import {
   postBoard,
   handleDrop,
 } from '../../modules/reducer_submitPost';
+import { Link } from 'react-router-dom';
 import FileDrop from 'react-file-drop';
 
 class Submit extends React.Component {
@@ -52,10 +53,11 @@ class Submit extends React.Component {
   CreateMissionBox = () => {
     return (
       <div className="mission-attend">
-        <div className="mission-attend__text">
-          수박님의 인생을 바꿔 줄 미션을 추가해 주세요 !
+        <div className="mission-attend__text">미션을 추가해 주세요 !</div>
+
+        <div className="mission-attend__mission-go">
+          <Link to={'/mission'}>+</Link>
         </div>
-        <div className="mission-attend__mission-go">+</div>
       </div>
     );
   };

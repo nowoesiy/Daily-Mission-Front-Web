@@ -1,26 +1,50 @@
-.landing {
+/* .App-Calendar {
+  margin: 10px;
+}
+
+.profile {
+  display: table;
+}
+
+.profile__img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.profile__title {
+  padding-left: 10px;
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+#profileTitle:hover {
+  text-decoration: underline;
+  cursor: pointer;
+} */
+
+.mission {
   margin: 30px 30px;
-  &__popular-text {
+
+  &__upper-text {
     font-size: 1.5rem;
     font-weight: 700;
   }
 
-  &__popular-box {
+  &__list-box {
     display: flex;
-    padding-bottom: 60px;
-  }
-
-  &__new-text {
-    font-size: 1.5rem;
-    font-weight: 700;
+    flex-wrap: wrap;
   }
 }
 
-.mission-box {
+.all-mission-box {
   cursor: pointer;
   margin-top: 10px;
   margin-right: 10px;
-  width: 350px;
+  margin-bottom: 50px;
+  width: 480px;
   height: 460px;
   //border: 2px solid #eee;
   overflow: hidden;
@@ -32,7 +56,7 @@
   }
 
   &__img {
-    width: 400px;
+    width: 480px;
     height: 300px;
     border: none;
     transition: transform 0.5s ease;

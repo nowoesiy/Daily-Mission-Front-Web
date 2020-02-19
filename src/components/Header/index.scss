@@ -6,17 +6,21 @@
   right: 0;
   left: 0;
   z-index: 10000;
-  width: 68vw;
+  height: 50px;
+  //width: 68vw;
   background-color: #ffffff;
   min-height: 50px;
-  padding: 0 300px;
+  padding: 0 280px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  // &__logo-wrap {
+  //   line-height: 3rem;
+  //   font-size: 1.6rem;
+  //   color: #1f1f1f;
+  // }
   &__logo {
-    line-height: 3.2rem;
-    font-size: 1.6rem;
-    color: #1f1f1f;
+    width: 220px;
+    cursor: pointer;
   }
-
   &__logInOut-button {
     background: none;
     border: none;
@@ -66,7 +70,15 @@
   &__user-name {
     display: flex;
     font-size: 1.1rem;
+  }
+
+  &__my-page {
+    display: flex;
+    font-size: 1.1rem;
     border-bottom: 2px solid #eee;
+    &:hover {
+      font-weight: 700;
+    }
   }
 
   &__logout-button {
