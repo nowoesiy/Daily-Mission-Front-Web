@@ -6,19 +6,14 @@
   right: 0;
   left: 0;
   z-index: 10000;
-  width: 98%;
+  width: 68vw;
   background-color: #ffffff;
   min-height: 50px;
-  padding: 0 20px;
+  padding: 0 300px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   &__logo {
     line-height: 3.2rem;
     font-size: 1.6rem;
-    color: #1f1f1f;
-  }
-
-  &__login {
-    line-height: 3.2rem;
     color: #1f1f1f;
   }
 
@@ -27,6 +22,8 @@
     border: none;
     font-size: 1.1rem;
     font-weight: 500;
+    line-height: 3rem;
+
     &:focus {
       outline: none;
     }
@@ -38,21 +35,70 @@
 }
 
 .login {
+  line-height: 3rem;
+  color: #1f1f1f;
+
   &__profile-img {
     border-radius: 18px;
-    width: 30px;
-    height: 30px;
+    width: 33px;
+    height: 33px;
     vertical-align: middle;
+    cursor: pointer;
   }
   .popup-content {
     max-width: 500px;
     width: 500px;
   }
   &__profile-name {
+    font-size: 1.3rem;
+  }
+}
+
+.profile-dropdown {
+  margin: 0 20px;
+  text-align: center;
+
+  &__user-img {
+    width: 30px;
+    height: 30px;
+  }
+
+  &__user-name {
+    display: flex;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #eee;
+  }
+
+  &__logout-button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      font-weight: 700;
+    }
   }
 }
 
 .popup-overlay .popup-content {
   max-width: 600px;
   width: 600px;
+}
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown__content {
+  display: none;
+  position: absolute;
+}
+
+.dropdown--active .dropdown__content {
+  display: block;
+  background-color: #ffffff;
+  box-shadow: 1px 0px 11px 2px rgba(0, 0, 0, 0.11);
 }

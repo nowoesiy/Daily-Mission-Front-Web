@@ -11,6 +11,7 @@ import OAuth2RedirectHandler from '../../oauth2/OAuth2RedirectHandler';
 import Header from '../Header';
 import Aside from '../Aside';
 import Mission from '../Mission';
+import Landing from '../Landing';
 import SubmitContainer from '../../containers/SubmitContainer';
 
 class App extends React.Component {
@@ -76,15 +77,22 @@ class App extends React.Component {
           handleLogout={handleLogout}
         />
         <Aside />
-        <div className="container">
-          <SubmitContainer
-            mission={this.state.mission}
-            team={this.state.team}
-            //PostBoard={this.PostBoard}
-            //DeleteBoard={this.DeleteBoard}
-          />
-          <Mission />
-        </div>
+        {currentUser ? (
+          <div className="container">
+            <SubmitContainer
+              currentUser={currentUser}
+              mission={this.state.mission}
+              team={this.state.team}
+              //PostBoard={this.PostBoard}
+              //DeleteBoard={this.DeleteBoard}
+            />
+            <Mission />
+          </div>
+        ) : (
+          <div className="container">
+            <Landing />
+          </div>
+        )}
       </div>
     );
   }

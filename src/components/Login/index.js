@@ -16,7 +16,7 @@ class Login extends React.Component {
             type="button"
           >
             <img
-              style={{ width: '25px', height: '25px' }}
+              className="login-modal__button-image"
               src={googlelogo}
               alt="google"
             ></img>
@@ -30,7 +30,7 @@ class Login extends React.Component {
             href={GOOGLE_AUTH_URL}
           >
             <img
-              style={{ width: '25px', height: '25px' }}
+              className="login-modal__button-image"
               src={kakaologo}
               alt="kakao"
             ></img>
@@ -44,7 +44,7 @@ class Login extends React.Component {
             href={GOOGLE_AUTH_URL}
           >
             <img
-              style={{ width: '25px', height: '25px' }}
+              className="login-modal__button-image"
               src={naverlogo}
               alt="naver"
             ></img>

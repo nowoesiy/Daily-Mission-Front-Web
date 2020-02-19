@@ -1,0 +1,37 @@
+.App-aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 9000;
+  border-right: 1px solid #eee;
+  margin-top: 4vmin;
+  width: 280px;
+  background-color: #ffffff;
+}
+
+.nav {
+  font-size: 1.2rem;
+  list-style: none;
+  padding-top: 30px;
+  padding-left: 0px;
+
+  &__list {
+    height: 50px;
+    line-height: 50px;
+    padding-left: 14px;
+
+    &:hover {
+      background-color: #f2f4f7;
+      font-weight: 700;
+    }
+
+    &--hot-mission {
+      border-bottom: 1px solid #eee;
+      border-right: 5px solid #69c;
+    }
+    &--recent-posting {
+      border-bottom: 1px solid #eee;
+    }
+  }
+}

@@ -14,10 +14,11 @@
     margin: 5px;
     //border: 2px solid #aaa;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     background: #ffffff;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
+    vertical-align: middle;
     &--kakao {
       background-color: #ffe812;
       &:hover {
@@ -38,5 +39,11 @@
         background-color: #32a852;
       }
     }
+  }
+
+  &__button-image {
+    vertical-align: text-bottom;
+    width: 23px;
+    height: 23px;
   }
 }

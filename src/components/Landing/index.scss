@@ -1,0 +1,76 @@
+.landing {
+  margin: 30px 130px;
+  &__popular-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  &__popular-box {
+    display: flex;
+    padding-bottom: 60px;
+  }
+
+  &__new-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}
+
+.mission-box {
+  cursor: pointer;
+  margin-top: 10px;
+  margin-right: 20px;
+  width: 380px;
+  height: 460px;
+  border: 2px solid #eee;
+  overflow: hidden;
+  &__top {
+    overflow: hidden;
+  }
+  &__body {
+    margin: 10px;
+  }
+
+  &__img {
+    width: 400px;
+    height: 300px;
+    border: none;
+    transition: transform 0.5s ease;
+    overflow: hidden;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  &__title {
+    margin-top: 7px;
+    font-size: 1.2rem;
+  }
+
+  &__admin {
+    font-size: 1rem;
+    display: flex;
+    margin-top: 3px;
+    line-height: 30px;
+    border-bottom: 1px solid #aaa;
+  }
+
+  &__admin-image {
+    width: 25px;
+    height: 25px;
+  }
+
+  &__content {
+    margin-top: 7px;
+    font-size: 1rem;
+    height: 43px;
+    line-height: 23px;
+  }
+
+  &__people {
+    color: #aaa;
+    text-align: right;
+    margin-top: 7px;
+    font-size: 1rem;
+  }
+}

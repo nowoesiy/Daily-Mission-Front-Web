@@ -50,6 +50,39 @@ $blue: #3851e7;
   }
 }
 
+.mission-attend {
+  width: 500px;
+  height: 250px;
+  margin: 0 auto;
+  border-radius: 17px;
+  background-color: #ffffff;
+  border: 3px dotted #aaa;
+  box-shadow: 1px 0px 11px 2px rgba(0, 0, 0, 0.11);
+
+  &__text {
+    font-size: 1.3rem;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+
+  &__mission-go {
+    border: 2px solid;
+    height: 100px;
+    width: 100px;
+    border-radius: 17px;
+    font-size: 5.5rem;
+    text-align: center;
+    margin: auto;
+    cursor: pointer;
+    background-color: #687bed;
+    color: #ffffff;
+
+    &:hover {
+      background-color: #3851e7;
+    }
+  }
+}
 .drop-upload-box {
   cursor: pointer;
   height: 90px;
