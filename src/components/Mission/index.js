@@ -23,7 +23,7 @@ const mission = [
     content:
       '매일매일 하루에 최소 한문제씩 알고리즘을 풀고 인증하는 미션입니다.',
     thumbnailUrl:
-      'https://bcuassets.blob.core.windows.net/img/computing-research-degrees-banner-image-131934047124660430.jpg',
+      'https://www.nexdatacenter.com/wp-content/uploads/2016/01/The-Next-Energy-Challenge-of-Computing-image-1024x747.jpg',
     startDate: '2020-01-01',
     endDate: '2020-03-28',
     ended: true,

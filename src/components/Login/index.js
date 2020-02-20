@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.scss';
 import { GOOGLE_AUTH_URL } from '../../constants';
+import logo from '../../static/img/logo.png';
 import googlelogo from '../../static/img/google-logo.png';
 import kakaologo from '../../static/img/kakao--logo.png';
 import naverlogo from '../../static/img/naver-logo.png';
@@ -9,6 +10,11 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login-modal">
+        <img
+          className="login-modal__logo"
+          src={logo}
+          alt="daily-mission-logo"
+        ></img>
         <div className="login-modal__title">로그인</div>
         <a href={GOOGLE_AUTH_URL}>
           <button

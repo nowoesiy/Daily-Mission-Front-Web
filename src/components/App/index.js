@@ -1,6 +1,6 @@
 import React from 'react';
-import './index.css';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import './index.scss';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   handleLogin,
@@ -10,10 +10,12 @@ import {
 import OAuth2RedirectHandler from '../../oauth2/OAuth2RedirectHandler';
 import Header from '../Header';
 import Aside from '../Aside';
+import Login from '../Login';
 import Mission from '../Mission';
 import HotMission from '../HotMission';
 import Landing from '../Landing';
 import SubmitContainer from '../../containers/SubmitContainer';
+import MissionDetail from '../MissionDetail';
 
 class App extends React.Component {
   state = {
@@ -77,41 +79,52 @@ class App extends React.Component {
           currentUser={currentUser}
           handleLogout={handleLogout}
         />
-        <Aside currentUser={currentUser} />
-        <div className="container">
-          <Switch>
-            <Route path="/" exact component={Landing}></Route>
-            <Route path="/mission" component={Mission}></Route>
-            <Route path="/hot-mission" component={HotMission}></Route>
-            <Route path="/my" exact>
-              {currentUser ? (
-                <SubmitContainer
-                  currentUser={currentUser}
-                  mission={this.state.mission}
-                  team={this.state.team}
-                  //PostBoard={this.PostBoard}
-                  //DeleteBoard={this.DeleteBoard}
-                />
-              ) : (
-                <Redirect to={'/'} />
-              )}
-            </Route>
-          </Switch>
-        </div>
+        {this.props.location.pathname !== '/login' ? (
+          <>
+            <Aside currentUser={currentUser} />
+            <div className="container">
+              <Switch>
+                <Route path="/missiondetail" component={MissionDetail}></Route>
+                <Route path="/" exact component={Landing}></Route>
+                <Route path="/mission" component={Mission}></Route>
+                <Route path="/hot-mission" component={HotMission}></Route>
+                <Route path="/my" exact>
+                  {currentUser ? (
+                    <SubmitContainer
+                      currentUser={currentUser}
+                      mission={this.state.mission}
+                      team={this.state.team}
+                      //PostBoard={this.PostBoard}
+                      //DeleteBoard={this.DeleteBoard}
+                    />
+                  ) : (
+                    <Redirect to={'/'} />
+                  )}
+                </Route>
+              </Switch>
+            </div>
+          </>
+        ) : (
+          <div className="App__login">
+            <Route path="/login" exact component={Login}></Route>
+          </div>
+        )}
       </div>
     );
   }
 }
 
-export default connect(
-  state => ({
-    authenticated: state.loginAuth.authenticated,
-    currentUser: state.loginAuth.currentUser,
-    loading: state.loginAuth.loading,
-  }),
-  {
-    handleLogin,
-    handleLogout,
-    LoadToGetCurrentUser,
-  },
-)(App);
+export default withRouter(
+  connect(
+    state => ({
+      authenticated: state.loginAuth.authenticated,
+      currentUser: state.loginAuth.currentUser,
+      loading: state.loginAuth.loading,
+    }),
+    {
+      handleLogin,
+      handleLogout,
+      LoadToGetCurrentUser,
+    },
+  )(App),
+);

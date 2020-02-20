@@ -29,16 +29,11 @@ class Header extends React.Component {
         </div>
         <div className="header__login">
           {!currentUser ? (
-            <Popup
-              modal
-              trigger={
-                <button className="header__logInOut-button" type="button">
-                  로그인
-                </button>
-              }
-            >
-              <Login />
-            </Popup>
+            <Link to="/login">
+              <button className="header__logInOut-button" type="button">
+                로그인
+              </button>
+            </Link>
           ) : (
             <div className="login">
               <Dropdown>

@@ -87,6 +87,10 @@
 
   &__login {
   }
+
+  &__login-text {
+    text-decoration: underline;
+  }
   &--hidden {
     display: none;
   }

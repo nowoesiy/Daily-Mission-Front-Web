@@ -15,6 +15,11 @@
 
 .App {
   background-color: #ffffff;
+
+  &__login {
+    padding: 300px;
+    background-color: #f2f4f7;
+  }
 }
 
 .container {

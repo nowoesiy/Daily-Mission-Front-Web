@@ -1,0 +1,96 @@
+.App-detail {
+}
+
+.detail {
+  display: flex;
+  background-color: #282a35;
+
+  &__img-wrap {
+    padding: 30px 0px 30px 30px;
+  }
+
+  &__img {
+    max-width: 600px;
+    border-radius: 13px;
+  }
+
+  &__content-wrap {
+    padding: 60px 30px;
+    color: #ffffff;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  &__content {
+    font-size: 1.1rem;
+    margin-top: 30px;
+    line-height: 25px;
+  }
+
+  &__attend-btn {
+    transition: background-color 0.1s ease 0s;
+    font-size: 1.2rem;
+    margin-top: 90px;
+    height: 50px;
+    width: 180px;
+    background: #1aa260;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    &:hover {
+      background: #0f8a4e;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__attend-pwd {
+    font-size: 1.1rem;
+    margin-top: 90px;
+    height: 40px;
+    width: 180px;
+    border-radius: 10px;
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__password-wrap {
+    &--hidden {
+      display: none;
+    }
+  }
+}
+
+.detail-nav-tab {
+  height: 30px;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #eee;
+  padding-top: 30px;
+}
+
+.detail-info {
+  text-align: center;
+}
+
+.shouldSubmitDay-table {
+  //background-color: #f2f4f7;
+  width: 80%;
+  font-size: 1.3rem;
+
+  &__title-row {
+    border-bottom: 3px solid #aaa;
+  }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const activeStyle = {
   fontWeight: 800,
@@ -13,6 +13,7 @@ class Aside extends React.Component {
 
   toggleBox = e => {
     this.setState(prevState => ({ isMyNavVisible: !prevState.isMyNavVisible }));
+    e.preventDefault();
   };
 
   render() {
@@ -30,25 +31,33 @@ class Aside extends React.Component {
           <NavLink to="/hot-mission" activeStyle={activeStyle}>
             <li className="nav__list nav__list--hot-mission">🔥 Hot 미션</li>
           </NavLink>
-          <NavLink to="post" activeStyle={activeStyle}>
+          <NavLink to="/post" activeStyle={activeStyle}>
             <li className="nav__list nav__list--recent-posting">
               📃 최근 포스팅
             </li>
           </NavLink>
-          <li className="nav__list nav__list--my" activeStyle={activeStyle}>
-            👤 MY
-            <input
-              className="nav__list--my-toggle"
-              type="checkbox"
-              onClick={this.toggleBox}
-              id="my-toggle"
-            ></input>
-            <label
-              className="nav__list--my-toggle-icon"
-              for="my-toggle"
-              role="button"
-            ></label>
-          </li>
+          <NavLink
+            to={currentUser ? '/my' : '/login'}
+            activeStyle={activeStyle}
+          >
+            <li className="nav__list nav__list--my">
+              👤 MY
+              <input
+                className="nav__list--my-toggle"
+                type="checkbox"
+                onClick={this.toggleBox}
+                id="my-toggle"
+              ></input>
+              <label
+                className="nav__list--my-toggle-icon"
+                for="my-toggle"
+                role="button"
+                onClick={e => {
+                  e.stopPropagation();
+                }}
+              ></label>
+            </li>
+          </NavLink>
           {currentUser ? (
             <ul className={`my-nav${isMyNavVisible ? '' : '--hidden'}`}>
               <li className="my-nav__list">1일 1알고리즘</li>
@@ -57,7 +66,12 @@ class Aside extends React.Component {
             </ul>
           ) : (
             <ul className={`my-nav${isMyNavVisible ? '' : '--hidden'}`}>
-              <div className="my-nav__login">로그인 해 주세요!</div>
+              <div className="my-nav__login">
+                <Link to={'/login'}>
+                  <span className="my-nav__login-text">로그인</span>
+                </Link>{' '}
+                해 주세요!
+              </div>
             </ul>
           )}
         </ul>
