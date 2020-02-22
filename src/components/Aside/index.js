@@ -60,9 +60,9 @@ class Aside extends React.Component {
           </NavLink>
           {currentUser ? (
             <ul className={`my-nav${isMyNavVisible ? '' : '--hidden'}`}>
-              <li className="my-nav__list">1일 1알고리즘</li>
-              <li className="my-nav__list">아침밥 먹기</li>
-              <li className="my-nav__list">매일 운동하기</li>
+              {currentUser.missions.map(mission => {
+                return <li className="my-nav__list">{mission.title}</li>;
+              })}
             </ul>
           ) : (
             <ul className={`my-nav${isMyNavVisible ? '' : '--hidden'}`}>

@@ -2,6 +2,9 @@ import React from 'react';
 import './index.scss';
 import Popup from 'reactjs-popup';
 
+import { postAttednigMission } from '../../modules/reducer_mission';
+import { connect } from 'react-redux';
+
 const mission = {
   id: 1,
   missionRule: {
@@ -105,7 +108,15 @@ class MissionDetail extends React.Component {
               >
                 취소
               </button>
-              <button className="detail__attend-enterbtn">입장</button>
+              <button
+                className="detail__attend-enterbtn"
+                onClick={postAttednigMission(
+                  1,
+                  'c3a890176e3f4c6686795b3868fbcad1',
+                )}
+              >
+                입장
+              </button>
             </div>
           </div>
         </div>
@@ -121,4 +132,4 @@ class MissionDetail extends React.Component {
   }
 }
 
-export default MissionDetail;
+export default connect(state => ({}), { postAttednigMission })(MissionDetail);
