@@ -1,5 +1,7 @@
 .landing {
-  margin: 30px 30px;
+  width: 1080px;
+  margin: 0 auto;
+  padding: 30px 30px;
   &__popular-text {
     font-size: 1.5rem;
     font-weight: 700;
@@ -17,6 +19,7 @@
 }
 
 .mission-box {
+  background-color: #ffffff;
   cursor: pointer;
   margin-top: 10px;
   margin-right: 10px;

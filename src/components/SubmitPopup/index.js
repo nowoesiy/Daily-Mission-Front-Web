@@ -2,17 +2,22 @@ import React from 'react';
 import './index.scss';
 import Popup from 'reactjs-popup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload, faSmileWink } from '@fortawesome/free-solid-svg-icons';
-
+import {
+  faUpload,
+  faSmileWink,
+  faCheck,
+} from '@fortawesome/free-solid-svg-icons';
 const SubmitPopup = ({
+  m,
   title,
   content,
   updateTitleValue,
   updateContentValue,
   postBoard,
   fileName,
-  submit,
   fileImgUrl,
+  file,
+  closeModel,
 }) => {
   return (
     <Popup
@@ -20,7 +25,7 @@ const SubmitPopup = ({
       closeOnDocumentClick
       open={fileName}
       trigger={
-        !submit ? (
+        !m.submit ? (
           <div className="drop-upload-box__wrap">
             <FontAwesomeIcon icon={faUpload} size="2x" />
             <span className="drop-upload-box__title">미션 업로드 !</span>
@@ -35,6 +40,15 @@ const SubmitPopup = ({
     >
       {close => (
         <div className="submit-board">
+          <a
+            className="submit-board__cancel-button"
+            onClick={() => {
+              close();
+              closeModel();
+            }}
+          >
+            ×
+          </a>
           <div className="submit-board__title">
             <input
               className="submit-board__board-title-input"
@@ -47,15 +61,6 @@ const SubmitPopup = ({
             />
           </div>
           <hr />
-          <div className="submit-board__author">
-            <input
-              className="submit-board__author-input"
-              id="author"
-              name="author"
-              value="이수백"
-              type="text"
-            ></input>
-          </div>
           <div className="submit-board__contents">
             <textarea
               className="submit-board__contents-input"
@@ -77,21 +82,14 @@ const SubmitPopup = ({
           </div>
           <button
             type="button"
-            className="submit-board__button submit-board__button--cancel"
-            onClick={() => {
-              close();
-            }}
-          >
-            취소
-          </button>
-          <button
-            type="button"
             className="submit-board__button submit-board__button--submit"
             onClick={() => {
-              postBoard(title, content);
+              postBoard(m.id, title, content, file);
+              close();
+              alert('제출성공');
             }}
           >
-            등록
+            <FontAwesomeIcon icon={faCheck} size="1x" /> 미션제출
           </button>
         </div>
       )}

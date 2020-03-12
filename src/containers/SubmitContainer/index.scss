@@ -2,30 +2,33 @@ $green: #00c860;
 $blue: #3851e7;
 
 .submit {
-  padding: 15px 150px;
+  padding: 15px 70px;
   background-color: #f2f2f3;
-  height: 480px;
-  min-height: 480px;
+  height: 380px;
+  min-height: 400px;
   border: 1px solid #e6e6e6;
   &__title {
     font-size: 0.8rem;
   }
+  &__contents {
+    margin: 0 auto;
+  }
 }
 
 .box {
-  width: 800px;
+  width: 600px;
   height: 250px;
-  border: 1px solid #294e80;
+  border: 1px solid #aaa;
   background-color: #ffffff;
+  // border-radius: 17px;
   margin: 0 auto;
-  border-radius: 17px;
-
+  margin-top: 40px;
   &--submit {
     border: 1px solid green;
   }
 
   &__top {
-    border-radius: 14px 14px 0px 0px;
+    //border-radius: 14px 14px 0px 0px;
     padding: 4px;
     display: flex;
     justify-content: space-between;
@@ -41,12 +44,72 @@ $blue: #3851e7;
 
   &__title {
     margin: 5px 5px 5px 5px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
   //Top
   &__body {
     margin: 15px;
     height: 150px;
+  }
+}
+
+.detail-box {
+  margin: 50px;
+  padding: 30px;
+  font-size: 1.2rem;
+
+  &__title {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__nav-wrap {
+  }
+  &__nav-button {
+    border: 1px solid #aaa;
+    background-color: #ffffff;
+    font-size: 1.6rem;
+    height: 2.3rem;
+    width: 2.3rem;
+    line-height: 1.2rem;
+    outline: none;
+    border-radius: 19px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  &__user-wrap {
+    padding: 10px 0px;
+    border-bottom: 2px solid #eee;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__user-img {
+    width: 40px;
+    border-radius: 21px;
+    vertical-align: middle;
+    margin-right: 20px;
+  }
+
+  &__submit-flag {
+    margin-left: 37px;
+    font-size: 1.7rem;
+  }
+}
+
+.day-info {
+  text-align: right;
+  &__title {
+    color: #aaa;
+    font-size: 1.2rem;
+    margin-right: 5px;
+  }
+
+  &__day {
+    margin-left: 37px;
   }
 }
 
@@ -87,7 +150,7 @@ $blue: #3851e7;
   cursor: pointer;
   height: 90px;
   text-align: center;
-  font-size: 20px;
+  font-size: 1.1rem;
   line-height: 60px;
   margin-top: 50px;
   color: #ffffff;

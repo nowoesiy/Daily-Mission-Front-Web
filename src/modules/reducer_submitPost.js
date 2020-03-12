@@ -1,10 +1,11 @@
 import axios from 'axios';
-
+import { missionSubmitTrue } from './reduer_loginAuth';
 const UPDATE_TITLE_VALUE = 'UPDATE_TITLE_VALUE';
 const UPDATE_CONTENT_VALUE = 'UPDATE_CONTENT_VALUE';
 const HANDLE_DROP = 'HANDLE_DROP';
 const POST_BOARD_SUCCESS = 'POST_BOARD_SUCCESS';
 const GET_BOARD_SUCCESS = 'GET_BOARD_SUCCESS';
+const CLOSE_MODAL = 'CLOSE_MODAL';
 
 // 액션 타입 함수
 
@@ -31,19 +32,32 @@ const getBoardSuccess = response => ({
   type: GET_BOARD_SUCCESS,
   response,
 });
-export const postBoard = (titleValue, contentValue) => {
+
+export const postBoard = (id, titleValue, contentValue, file) => {
+  const formData = new FormData();
+
+  //const json = { title: titleValue, content: contentValue, missionid: id };
+  formData.set('missionId', id);
+  formData.set('title', titleValue);
+  formData.set('content', contentValue);
+  //formData.append('requestJson', JSON.stringify(json));
+  formData.append('file', file);
+  console.log(formData);
+
+  const config = {
+    headers: {
+      'Content-type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  };
+
   return dispatch => {
     axios
-      .post('http://54.180.80.58/api/posts', {
-        headers: {
-          'Content-type': 'application/x-www-form-urlencoded',
-        },
-        title: titleValue,
-        content: contentValue,
-        author: '수박씨',
-      })
+      .post('http://api.daily-mission.com/api/post', formData, config)
       .then(() => {
         dispatch(postBoardSuccess());
+        dispatch(missionSubmitTrue(id));
+        console.log('--------------------> 미션 글 Post 성공');
       })
       .catch(error => {
         console.log('failed', error);
@@ -51,17 +65,23 @@ export const postBoard = (titleValue, contentValue) => {
   };
 };
 
-export const getBoard = () => {
+export const getBoard = id => {
   return dispatch => {
-    axios.get('http://13.125.252.144/api/posts/1').then(response => {
+    axios.get(`http://api.daily-mission.com/api/posts/${id}`).then(response => {
       getBoardSuccess(response);
     });
   };
 };
 
 export const DeleteBoard = id => {
-  axios.delete(`http://13.125.252.144/api/posts/${id}`, { crossdomain: true });
+  axios.delete(`http://api.daily-mission.com/api/posts/${id}`, {
+    crossdomain: true,
+  });
 };
+
+export const closeModel = () => ({
+  type: CLOSE_MODAL,
+});
 
 //액션 생성함수
 
@@ -71,6 +91,7 @@ const initialState = {
   contentValue: '',
   fileName: '',
   fileImgUrl: '',
+  file: '',
   submit: false,
 };
 //초기 State
@@ -93,6 +114,9 @@ export default function SubmitPost(state = initialState, action) {
         submit: true,
         titleValue: '',
         contentValue: '',
+        fileName: '',
+        fileImgUrl: '',
+        file: '',
       };
     case GET_BOARD_SUCCESS:
       return {
@@ -104,6 +128,16 @@ export default function SubmitPost(state = initialState, action) {
         ...state,
         fileName: action.files[0].name,
         fileImgUrl: URL.createObjectURL(action.files[0]),
+        file: action.files[0],
+      };
+    case CLOSE_MODAL:
+      return {
+        ...state,
+        titleValue: '',
+        contentValue: '',
+        fileName: '',
+        fileImgUrl: '',
+        file: '',
       };
     default:
       return state;

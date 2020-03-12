@@ -1,6 +1,53 @@
 import axios from 'axios';
 
 const POST_ATTENDING_MISSION = 'POST_ATTENDING_MISSION';
+const ON_CLICK_MISSION_LIST = 'ON_CLICK_MISSION_LIST';
+const ON_CLICK_MY_MISSION_LIST = 'ON_CLICK_MY_MISSION_LIST';
+const GET_MISSION_SUCCESS = 'GET_MISSION_SUCCESS';
+const GET_MISSION_DETAIL_SUCCESS = 'GET_MISSION_DETAIL_SUCCESS';
+const GET_HOME_MISSION_SUCCESS = 'GET_HOME_MISSION_SUCCESS';
+
+export const getMissionList = () => {
+  return dispatch => {
+    axios
+      .get('http://api.daily-mission.com/api/mission/all')
+      .then(response => {
+        dispatch(getMissionSuccess(response.data));
+        console.log("('--------------->미션목록GET성공");
+      })
+      .catch(error => {
+        console.log('failed', error);
+      });
+  };
+};
+
+export const getHomeMissionList = () => {
+  return dispatch => {
+    axios
+      .get('http://api.daily-mission.com/api/mission/home')
+      .then(response => {
+        dispatch(getHomeMissionSuccess(response.data));
+        console.log("('--------------->Home미션목록GET성공");
+      })
+      .catch(error => {
+        console.log('failed', error);
+      });
+  };
+};
+
+export const getMissionDetail = id => {
+  return dispatch => {
+    axios
+      .get(`http://api.daily-mission.com/api/mission/${id}`)
+      .then(response => {
+        dispatch(getMissionDetailSuccess(response.data));
+        console.log("('--------------->미션Detail GET성공");
+      })
+      .catch(error => {
+        console.log('failed', error);
+      });
+  };
+};
 
 export const postAttednigMission = (_id, _password) => {
   return dispatch => {
@@ -29,10 +76,68 @@ export const postAttednigMission = (_id, _password) => {
   };
 };
 
-const initialState = {};
+export const onClickMissionList = id => ({
+  type: ON_CLICK_MISSION_LIST,
+  id,
+});
 
-export default function auth(state = initialState, action) {
+export const onClickMyMissionList = id => ({
+  type: ON_CLICK_MY_MISSION_LIST,
+  id,
+});
+
+const getMissionSuccess = response => ({
+  type: GET_MISSION_SUCCESS,
+  response,
+});
+
+const getHomeMissionSuccess = response => ({
+  type: GET_HOME_MISSION_SUCCESS,
+  response,
+});
+
+const getMissionDetailSuccess = response => ({
+  type: GET_MISSION_DETAIL_SUCCESS,
+  response,
+});
+
+const initialState = {
+  activeMission: '',
+  missions: [],
+  homeMissions: [],
+  activeMissionId: '',
+  activeMyMissionId: 1,
+};
+
+export default function MissionReducer(state = initialState, action) {
   switch (action.type) {
+    case ON_CLICK_MISSION_LIST:
+      return {
+        ...state,
+        activeMissionId: action.id,
+      };
+    case ON_CLICK_MY_MISSION_LIST:
+      return {
+        ...state,
+        activeMyMissionId: action.id,
+      };
+
+    case GET_MISSION_SUCCESS:
+      return {
+        ...state,
+        missions: action.response,
+      };
+    case GET_HOME_MISSION_SUCCESS:
+      return {
+        ...state,
+        homeMissions: action.response,
+      };
+    case GET_MISSION_DETAIL_SUCCESS:
+      return {
+        ...state,
+        activeMission: action.response,
+      };
+
     default:
       return state;
   }

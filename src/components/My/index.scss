@@ -1,0 +1,37 @@
+.my {
+  padding: 15px 70px;
+  background-color: #f2f2f3;
+  height: 380px;
+  min-height: 400px;
+  border: 1px solid #e6e6e6;
+  &__title {
+    font-size: 0.8rem;
+  }
+  &__contents {
+    margin: 0 auto;
+  }
+}
+
+.list-box {
+  background-color: #ffffff;
+  height: 40px;
+  width: 200px;
+  font-size: 1rem;
+  margin-top: 10px;
+  line-height: 40px;
+  padding-left: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  &--submit {
+    border-left: 10px solid green;
+  }
+
+  &--not-submit {
+    border-left: 10px solid red;
+  }
+}

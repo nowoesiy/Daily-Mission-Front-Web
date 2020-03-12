@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.scss';
+import { Link } from 'react-router-dom';
 
 const mission = [
   {
@@ -141,42 +142,59 @@ const mission = [
 ];
 
 class Mission extends React.Component {
-  MissionBox = () => {
+  MissionBox = ({ mission, getMissionDetail, onClickMissionList }) => {
     return mission.map(m => {
       return (
-        <div className="all-mission-box">
-          <div className="all-mission-box__top">
-            <img className="all-mission-box__img" src={m.thumbnailUrl} />
-          </div>
-          <div className="all-mission-box__body">
-            <span>
-              <div className="all-mission-box__title">{m.title}</div>
-              <div className="all-mission-box__admin">
-                <span>
-                  <img
-                    className="all-mission-box__admin-image"
-                    src="https://images.assetsdelivery.com/compings_v2/alekseyvanin/alekseyvanin1707/alekseyvanin170700109.jpg"
-                  />
-                </span>
-                <span>{m.master}</span>
+        <Link to={'mission/detail/' + m.id}>
+          <div
+            className="all-mission-box"
+            onClick={() => {
+              getMissionDetail(m.id);
+            }}
+          >
+            <div
+              className="all-mission-box__top"
+              onClick={() => {
+                onClickMissionList(m.id);
+              }}
+            >
+              <img className="all-mission-box__img" src={m.thumbnailUrlAll} />
+            </div>
+            <div className="all-mission-box__body">
+              <span>
+                <div className="all-mission-box__title">{m.title}</div>
+                <div className="all-mission-box__admin">
+                  <span>
+                    <img
+                      className="all-mission-box__admin-image"
+                      src="https://images.assetsdelivery.com/compings_v2/alekseyvanin/alekseyvanin1707/alekseyvanin170700109.jpg"
+                    />
+                  </span>
+                  <span>{m.userName}</span>
+                </div>
+              </span>
+              <div className="all-mission-box__content">{m.content}</div>
+              <div className="all-mission-box__people">
+                {m.userCount}명 미션 참여중
               </div>
-            </span>
-            <div className="all-mission-box__content">{m.content}</div>
-            <div className="all-mission-box__people">
-              {m.numOfattend}명 미션 참여중
             </div>
           </div>
-        </div>
+        </Link>
       );
     });
   };
 
   render() {
+    const { missions, getMissionDetail, onClickMissionList } = this.props;
     return (
       <div className="mission">
         <span className="mission__upper-text">🚀 전체 미션</span>
         <div className="mission__list-box">
-          <this.MissionBox />
+          <this.MissionBox
+            mission={missions}
+            getMissionDetail={getMissionDetail}
+            onClickMissionList={onClickMissionList}
+          />
         </div>
       </div>
     );

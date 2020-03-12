@@ -4,6 +4,7 @@ const LOAD_USER_START = 'LOAD_USER_START';
 const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 const LOAD_USER_FAIL = 'LOAD_USER_FAIL';
 const LOGOUT_USER = 'LOGOUT_USER';
+const MISSION_SUBMIT_TRUE = 'MISSION_SUBMIT_TRUE';
 
 export const handleLogin = () => {};
 
@@ -31,6 +32,11 @@ export const LoadToGetCurrentUser = () => {
       });
   };
 };
+
+export const missionSubmitTrue = id => ({
+  type: MISSION_SUBMIT_TRUE,
+  payload: id,
+});
 
 const loadingBegin = () => ({
   type: LOAD_USER_START,
@@ -79,6 +85,19 @@ export default function auth(state = initialState, action) {
         ...state,
         currentUser: null,
         authenticated: false,
+      };
+
+    case MISSION_SUBMIT_TRUE:
+      return {
+        ...state,
+        currentUser: [
+          ...state.currentUser,
+          state.currentUser.missions.find(mission =>
+            mission.id === action.payload
+              ? { ...mission, submit: true }
+              : mission,
+          ),
+        ],
       };
     default:
       return state;

@@ -4,7 +4,7 @@ import submitpost from './reducer_submitPost';
 import loginAuth from './reduer_loginAuth';
 
 const rootReducer = combineReducers({
-  posts: MissionReducer,
+  MissionReducer,
   submitpost,
   loginAuth,
 });

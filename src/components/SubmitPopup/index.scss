@@ -8,6 +8,23 @@ $green: #00c860;
   color: #000000;
   margin: 30px 20px 20px 20px;
   cursor: default;
+  text-align: right;
+
+  &__cancel-button {
+    cursor: pointer;
+    position: absolute;
+    padding: 15px 20px;
+    line-height: 30px;
+    right: 0px;
+    top: 0px;
+    font-size: 2.2rem;
+    color: #aaa;
+    transition: color 0.15s ease 0s;
+    &:hover {
+      color: #000000;
+    }
+  }
+
   &__title {
     display: flex;
   }
@@ -32,7 +49,7 @@ $green: #00c860;
 
   &__contents-input {
     border: none;
-    font-size: 20px;
+    font-size: 1.5rem;
     width: 100%;
     margin: 20px 0px 10px 0px;
     resize: none;
@@ -52,25 +69,32 @@ $green: #00c860;
   }
 
   &__button {
-    height: 40px;
-    width: 70px;
-    font-size: 1rem;
+    height: 55px;
+    width: 130px;
+    font-size: 1.1rem;
     color: #ffffff;
-    border-radius: 13px;
-    border: 1px solid #aaa;
+    border-radius: 8px;
+    border: 2px solid #eee;
     cursor: pointer;
+
+    transition: border-color 0.15s ease 0s, background 0.15s ease 0s,
+      color 0.15s ease 0s;
 
     &:focus {
       outline: none;
     }
-    &--submit {
-      background-color: $green;
-      margin-left: 10px;
-    }
 
-    &--cancel {
-      background-color: #eee;
-      color: #000000;
+    &--submit {
+      margin-left: 10px;
+      color: $green;
+      border: 2px solid $green;
+      background-color: #ffffff;
+
+      &:hover {
+        border: 1px solid $green;
+        background-color: $green;
+        color: #ffffff;
+      }
     }
   }
 }

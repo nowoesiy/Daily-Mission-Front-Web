@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 import Login from '../Login';
 import logo from '../../static/img/logo.png';
-import Popup from 'reactjs-popup';
+import MissionCreatePopup from '../MissionCreatePopup';
 import { Link } from 'react-router-dom';
 import Dropdown, {
   DropdownTrigger,
@@ -10,13 +10,6 @@ import Dropdown, {
 } from 'react-simple-dropdown';
 
 class Header extends React.Component {
-  user = {
-    id: 2,
-    name: 'seowonlee',
-    imageUrl:
-      'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
-  };
-
   render() {
     const { authenticated, currentUser, handleLogout } = this.props;
     return (
@@ -36,11 +29,14 @@ class Header extends React.Component {
             </Link>
           ) : (
             <div className="login">
+              <div classNae="login__button-wrap">
+                <MissionCreatePopup />
+              </div>
               <Dropdown>
                 <DropdownTrigger>
                   <img
                     className="login__profile-img"
-                    src={currentUser.imageUrl}
+                    src={currentUser.thumbnailUrl}
                     alt={currentUser.name}
                   ></img>
                 </DropdownTrigger>

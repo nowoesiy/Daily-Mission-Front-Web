@@ -23,8 +23,12 @@
 }
 
 .container {
-  z-index: -1;
-  clear: both;
+  // position: absolute;
+  // left: 30%;
+  // top: 60px;
+  // clear: both;
   height: calc(100vh - 5vmin);
-  padding: 50px 265px 50px 520px;
+  //padding: 50px 265px 50px 520px;
+  padding: 70px 0px 0px 280px;
+  background-color: #f2f4f9;
 }

@@ -1,0 +1,142 @@
+.create-mission-btn {
+  font-weight: 900;
+  height: 40px;
+  width: 110px;
+  font-size: 1rem;
+  color: #ffffff;
+  border-radius: 8px;
+  margin-right: 20px;
+  cursor: pointer;
+  color: #294e80;
+  border: 2px solid #294e80;
+  background-color: #ffffff;
+
+  transition: border-color 0.15s ease 0s, background 0.15s ease 0s,
+    color 0.15s ease 0s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    border: 1px solid #294e80;
+    background-color: #294e80;
+    color: #ffffff;
+  }
+}
+
+.new-mission {
+  color: #000000;
+  margin: 30px 20px 20px 20px;
+  text-align: right;
+  font-size: 1.2rem;
+  text-align: left;
+
+  &__title {
+    margin-bottom: 10px;
+  }
+
+  &__input {
+    color: #666;
+    font-size: 1.4rem;
+    background-color: #fafafa;
+    line-height: 2.4rem;
+    border: none;
+    border-radius: 8px;
+    padding: 0 15px;
+    box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+    width: 93%;
+    margin: 10px 0;
+    &:focus {
+      outline: none;
+    }
+
+    &--start-date {
+      width: 80%;
+    }
+
+    &--end-date {
+      width: 86%;
+    }
+  }
+
+  &__contents {
+    margin-bottom: 10px;
+  }
+  &__date {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  &__start-date {
+    //display: grid;
+  }
+
+  &__end-date {
+    //@extend: grid;
+  }
+
+  &__submit-day-check {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 15px;
+    margin-bottom: 16px;
+  }
+
+  &__thumbnail-file-input {
+    margin-bottom: 10px;
+    margin-top: 5px;
+    display: inline-block;
+    height: 27px;
+    width: 90px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    margin-right: 20px;
+    cursor: pointer;
+    color: #ffffff;
+    border: 1px solid #aaa;
+    background-color: #aaa;
+    text-align: center;
+    line-height: 27px;
+    transition: border-color 0.15s ease 0s, background 0.15s ease 0s,
+      color 0.15s ease 0s;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      border: 1px solid #888;
+      background-color: #888;
+      color: #ffffff;
+    }
+  }
+  &__submit-button-wrap {
+    text-align: right;
+  }
+  &__submit-button {
+    font-weight: 900;
+    height: 40px;
+    width: 110px;
+    font-size: 1rem;
+    color: #ffffff;
+    border-radius: 8px;
+    margin-right: 20px;
+    cursor: pointer;
+    color: #294e80;
+    border: 2px solid #294e80;
+    background-color: #ffffff;
+
+    transition: border-color 0.15s ease 0s, background 0.15s ease 0s,
+      color 0.15s ease 0s;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      border: 1px solid #294e80;
+      background-color: #294e80;
+      color: #ffffff;
+    }
+  }
+}

@@ -17,7 +17,7 @@ class Aside extends React.Component {
   };
 
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, onClickMyMissionList } = this.props;
     const { isMyNavVisible } = this.state;
     return (
       <div className="App-aside">
@@ -61,7 +61,16 @@ class Aside extends React.Component {
           {currentUser ? (
             <ul className={`my-nav${isMyNavVisible ? '' : '--hidden'}`}>
               {currentUser.missions.map(mission => {
-                return <li className="my-nav__list">{mission.title}</li>;
+                return (
+                  <Link to={`/my/${mission.id}`} exact>
+                    <li
+                      className="my-nav__list"
+                      onClick={() => onClickMyMissionList(mission.id)}
+                    >
+                      {mission.title}
+                    </li>
+                  </Link>
+                );
               })}
             </ul>
           ) : (

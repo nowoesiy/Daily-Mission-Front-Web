@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import { GOOGLE_AUTH_URL } from '../../constants';
+import { GOOGLE_AUTH_URL, NAVER_AUTH_URL } from '../../constants';
 import logo from '../../static/img/logo.png';
 import googlelogo from '../../static/img/google-logo.png';
 import kakaologo from '../../static/img/kakao--logo.png';
@@ -43,11 +43,10 @@ class Login extends React.Component {
             <span> 카카오로 시작하기</span>
           </button>
         </a>
-        <a href={GOOGLE_AUTH_URL}>
+        <a href={NAVER_AUTH_URL}>
           <button
             className="login-modal__button login-modal__button--naver"
             type="button"
-            href={GOOGLE_AUTH_URL}
           >
             <img
               className="login-modal__button-image"
