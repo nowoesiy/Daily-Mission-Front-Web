@@ -1,5 +1,7 @@
 import { getCurrentUser } from '../util/login-util';
 import { ACCESS_TOKEN } from '../constants';
+import { Redirect } from 'react-router-dom';
+
 const LOAD_USER_START = 'LOAD_USER_START';
 const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 const LOAD_USER_FAIL = 'LOAD_USER_FAIL';

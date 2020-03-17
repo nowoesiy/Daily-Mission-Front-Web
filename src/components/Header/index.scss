@@ -10,7 +10,7 @@
   //width: 68vw;
   background-color: #ffffff;
   min-height: 70px;
-  padding: 0 260px;
+  padding: 0 15px;
   border-bottom: 1.5px solid #eee;
   //box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   // &__logo-wrap {
@@ -62,9 +62,14 @@
 }
 
 .profile-dropdown {
-  margin: 12px 20px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+  position: absolute;
+  top: 75px;
+  padding: 12px 20px;
   text-align: center;
-
+  border-radius: 16px;
+  border: 1px solid #eee;
   &__user-img {
     width: 30px;
     height: 30px;

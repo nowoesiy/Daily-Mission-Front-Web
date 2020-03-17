@@ -28,6 +28,10 @@
       font-weight: 700;
     }
 
+    &--all-mission {
+      border-bottom: 1px solid #eee;
+    }
+
     &--hot-mission {
       border-bottom: 1px solid #eee;
       //   border-right: 5px solid #69c;
@@ -42,7 +46,7 @@
     }
 
     &--my-toggle {
-      display: none;
+      //      display: none;
 
       &-icon {
         margin-top: 10px;

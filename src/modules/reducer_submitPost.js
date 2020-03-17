@@ -6,6 +6,7 @@ const HANDLE_DROP = 'HANDLE_DROP';
 const POST_BOARD_SUCCESS = 'POST_BOARD_SUCCESS';
 const GET_BOARD_SUCCESS = 'GET_BOARD_SUCCESS';
 const CLOSE_MODAL = 'CLOSE_MODAL';
+const POST_BOARD_FAIL = 'POST_BOARD_FAIL';
 
 // 액션 타입 함수
 
@@ -28,6 +29,9 @@ const postBoardSuccess = () => ({
   type: POST_BOARD_SUCCESS,
 });
 
+const postBoardFail = () => ({
+  type: POST_BOARD_FAIL,
+});
 const getBoardSuccess = response => ({
   type: GET_BOARD_SUCCESS,
   response,
@@ -60,7 +64,8 @@ export const postBoard = (id, titleValue, contentValue, file) => {
         console.log('--------------------> 미션 글 Post 성공');
       })
       .catch(error => {
-        console.log('failed', error);
+        dispatch(postBoardFail(error));
+        console.log('failed', error.message);
       });
   };
 };
@@ -87,6 +92,7 @@ export const closeModel = () => ({
 
 const initialState = {
   posts: '',
+  errorMsg: '',
   titleValue: '',
   contentValue: '',
   fileName: '',
@@ -117,6 +123,12 @@ export default function SubmitPost(state = initialState, action) {
         fileName: '',
         fileImgUrl: '',
         file: '',
+      };
+
+    case POST_BOARD_FAIL:
+      return {
+        ...state,
+        errorMsg: action.response.message,
       };
     case GET_BOARD_SUCCESS:
       return {

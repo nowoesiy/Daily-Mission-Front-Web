@@ -88,7 +88,12 @@ import { Carousel } from 'react-responsive-carousel';
 //   },
 // ];
 class Landing extends React.Component {
-  popularMissionBox = ({ mission, onClickMissionList, getMissionDetail }) => {
+  popularMissionBox = ({
+    mission,
+    onClickMissionList,
+    getMissionDetail,
+    type,
+  }) => {
     return mission.map(m => {
       return (
         <Link to={'mission/detail/' + m.id}>
@@ -102,7 +107,10 @@ class Landing extends React.Component {
               className="mission-box__top"
               onClick={() => onClickMissionList(m.id)}
             >
-              <img className="mission-box__img" src={m.thumbnailUrlHome} />
+              <img
+                className="mission-box__img"
+                src={type == 'hot' ? m.thumbnailUrlHot : m.thumbnailUrlNew}
+              />
             </div>
             <div className="mission-box__body">
               <span>
@@ -111,7 +119,7 @@ class Landing extends React.Component {
                   <span>
                     <img
                       className="mission-box__admin-image"
-                      src="https://images.assetsdelivery.com/compings_v2/alekseyvanin/alekseyvanin1707/alekseyvanin170700109.jpg"
+                      src={m.userThumbnailUrl}
                     />
                   </span>
                   <span>{m.userName}</span>
@@ -129,22 +137,24 @@ class Landing extends React.Component {
   };
 
   render() {
-    const { missions, getMissionDetail } = this.props;
-    const missionsReduce = missions.slice(0, 3);
+    const { missions, hotMissions, getMissionDetail } = this.props;
+    const missionsReduce = missions.slice(0, 4);
     return (
       <div className="landing">
-        <span className="landing__popular-text">🔥 Hot한 미션</span>
+        <div className="landing__popular-text">🔥 Hot한 미션</div>
         <div className="landing__popular-box">
           <this.popularMissionBox
-            mission={missionsReduce}
+            type={'hot'}
+            mission={hotMissions}
             onClickMissionList={this.props.onClickMissionList}
             getMissionDetail={getMissionDetail}
           />
         </div>
 
-        <span className="landing__new-text">✌ 신규 미션</span>
+        <div className="landing__new-text">✌ 신규 미션</div>
         <div className="landing__popular-box">
           <this.popularMissionBox
+            type={'new'}
             mission={missionsReduce}
             onClickMissionList={this.props.onClickMissionList}
           />

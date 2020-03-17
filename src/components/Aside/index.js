@@ -1,14 +1,18 @@
 import React from 'react';
 import './index.scss';
 import { Link, NavLink } from 'react-router-dom';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const activeStyle = {
   fontWeight: 800,
-  textDecoration: 'underline',
+  borderRight: '5px solid #798dc1',
+  display: 'block',
 };
+
 class Aside extends React.Component {
   state = {
-    isMyNavVisible: false,
+    isMyNavVisible: true,
+    checked: false,
   };
 
   toggleBox = e => {
@@ -16,25 +20,30 @@ class Aside extends React.Component {
     e.preventDefault();
   };
 
+  handleChange = e => {
+    const checked = e.target.checked;
+  };
+
   render() {
     const { currentUser, onClickMyMissionList } = this.props;
     const { isMyNavVisible } = this.state;
+    console.log(isMyNavVisible);
     return (
       <div className="App-aside">
         <ul className="nav">
           <NavLink to="/" exact activeStyle={activeStyle}>
-            <li className="nav__list nav__list--home">🏠 홈</li>
+            <li className="nav__list nav__list--home" activeStyle={activeStyle}>
+              🏠 홈
+            </li>
           </NavLink>
           <NavLink to="/mission" activeStyle={activeStyle}>
             <li className="nav__list nav__list--all-mission">🚀 전체 미션</li>
           </NavLink>
-          <NavLink to="/hot-mission" activeStyle={activeStyle}>
+          {/* <NavLink to="/hot-mission" activeStyle={activeStyle}>
             <li className="nav__list nav__list--hot-mission">🔥 Hot 미션</li>
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/post" activeStyle={activeStyle}>
-            <li className="nav__list nav__list--recent-posting">
-              📃 최근 포스팅
-            </li>
+            <li className="nav__list nav__list--recent-posting">📃 포스팅</li>
           </NavLink>
           <NavLink
             to={currentUser ? '/my' : '/login'}
@@ -46,6 +55,8 @@ class Aside extends React.Component {
                 className="nav__list--my-toggle"
                 type="checkbox"
                 onClick={this.toggleBox}
+                onChange={this.handleChange}
+                checked={isMyNavVisible}
                 id="my-toggle"
               ></input>
               <label

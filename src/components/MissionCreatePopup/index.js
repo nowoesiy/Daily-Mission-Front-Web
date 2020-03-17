@@ -143,8 +143,16 @@ class MissionCreatePopup extends React.Component {
             </a>
             <div className="new-mission__title">
               <label>미션 이름</label>
+              <label
+                className="title__description"
+                style={{ fontSize: '1rem', marginLeft: '15px' }}
+              >
+                {title.length >= 20 || title.length <= 5
+                  ? '5~20자 사이로 맞춰주세요'
+                  : ''}
+              </label>
               <input
-                className="new-mission__input"
+                className="new-mission__input new-mission__input--good"
                 name="title"
                 type="text"
                 autoComplete="off"

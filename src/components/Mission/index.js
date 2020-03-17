@@ -167,7 +167,7 @@ class Mission extends React.Component {
                   <span>
                     <img
                       className="all-mission-box__admin-image"
-                      src="https://images.assetsdelivery.com/compings_v2/alekseyvanin/alekseyvanin1707/alekseyvanin170700109.jpg"
+                      src={m.userThumbnailUrl}
                     />
                   </span>
                   <span>{m.userName}</span>
@@ -188,7 +188,7 @@ class Mission extends React.Component {
     const { missions, getMissionDetail, onClickMissionList } = this.props;
     return (
       <div className="mission">
-        <span className="mission__upper-text">🚀 전체 미션</span>
+        <div className="mission__upper-text">🚀 전체 미션</div>
         <div className="mission__list-box">
           <this.MissionBox
             mission={missions}

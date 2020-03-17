@@ -6,6 +6,7 @@ const ON_CLICK_MY_MISSION_LIST = 'ON_CLICK_MY_MISSION_LIST';
 const GET_MISSION_SUCCESS = 'GET_MISSION_SUCCESS';
 const GET_MISSION_DETAIL_SUCCESS = 'GET_MISSION_DETAIL_SUCCESS';
 const GET_HOME_MISSION_SUCCESS = 'GET_HOME_MISSION_SUCCESS';
+const GET_HOT_MISSION_SUCCESS = 'GET_HOT_MISSION_SUCCESS';
 
 export const getMissionList = () => {
   return dispatch => {
@@ -21,10 +22,24 @@ export const getMissionList = () => {
   };
 };
 
+export const getHotMissionList = () => {
+  return dispatch => {
+    axios
+      .get('http://api.daily-mission.com/api/mission/hot')
+      .then(response => {
+        dispatch(getHotMissionSuccess(response.data));
+        console.log("('--------------->Hot미션목록GET성공");
+      })
+      .catch(error => {
+        console.log('failed', error);
+      });
+  };
+};
+
 export const getHomeMissionList = () => {
   return dispatch => {
     axios
-      .get('http://api.daily-mission.com/api/mission/home')
+      .get('http://api.daily-mission.com/api/mission/new')
       .then(response => {
         dispatch(getHomeMissionSuccess(response.data));
         console.log("('--------------->Home미션목록GET성공");
@@ -96,6 +111,10 @@ const getHomeMissionSuccess = response => ({
   response,
 });
 
+const getHotMissionSuccess = response => ({
+  type: GET_HOT_MISSION_SUCCESS,
+  response,
+});
 const getMissionDetailSuccess = response => ({
   type: GET_MISSION_DETAIL_SUCCESS,
   response,
@@ -105,6 +124,7 @@ const initialState = {
   activeMission: '',
   missions: [],
   homeMissions: [],
+  hotMissions: [],
   activeMissionId: '',
   activeMyMissionId: 1,
 };
@@ -131,6 +151,11 @@ export default function MissionReducer(state = initialState, action) {
       return {
         ...state,
         homeMissions: action.response,
+      };
+    case GET_HOT_MISSION_SUCCESS:
+      return {
+        ...state,
+        hotMissions: action.response,
       };
     case GET_MISSION_DETAIL_SUCCESS:
       return {

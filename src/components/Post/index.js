@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.scss';
 import Axios from 'axios';
+import ImageDetailPopup from '../ImageDetailPopup';
 
 // const posts = [
 //   {
@@ -39,12 +40,17 @@ import Axios from 'axios';
 //   },
 // ];
 
-const CreatePostingBox = ({ post }) => {
-  //post.content = post.content.replace(/(?:\r\n|\r|\n)/g, '<br />');
+const CreatePostingBox = ({ handleClickImage, post }) => {
   return (
     <div className="post-box">
       <div className="post-box__top">
-        <img className="post-box__img" src={post.thumbnailUrl} />
+        <img
+          className="post-box__img"
+          src={post.thumbnailUrl}
+          onClick={() => {
+            handleClickImage(post.imageUrl);
+          }}
+        />
       </div>
       <div className="post-box__body">
         <div className="post-box__title">{post.title}</div>
@@ -74,8 +80,36 @@ const CreatePostingBox = ({ post }) => {
 class Post extends React.Component {
   state = {
     posts: [],
+    numOfPosts: 3,
+    activePostImg: '',
+    isPopUp: false,
   };
+
+  handleClickImage = imgUrl => {
+    this.setState({
+      isPopUp: !this.state.isPopUp,
+      activePostImg: imgUrl,
+    });
+  };
+
+  handleScroll = () => {
+    const { innerHeight } = window;
+    const { scrollHeight } = document.body;
+
+    const scrollTop =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop;
+    // 스크롤링 했을때, 브라우저의 가장 밑에서 100정도 높이가 남았을때에 실행하기위함.
+    if (scrollHeight - innerHeight - scrollTop < 100) {
+      this.setState({
+        numOfPosts: this.state.numOfPosts + 3,
+      });
+    }
+  };
+
   componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+
     Axios.get('http://api.daily-mission.com/api/post/all')
       .then(response => {
         this.setState({
@@ -86,16 +120,31 @@ class Post extends React.Component {
         console.log('failed', error);
       });
   }
+
   render() {
-    const { posts } = this.state;
+    const { numOfPosts, isPopUp, activePostImg } = this.state;
+    let posts = this.state.posts.slice(0, numOfPosts);
     return (
       <div className="post">
-        <div className="post__upper-text">📃 최근 포스팅</div>
+        <div className="post__upper-text">📃 포스팅</div>
         <div className="post__list-wrap">
           {posts
-            ? posts.map(post => <CreatePostingBox post={post} />)
+            ? posts.map(post => (
+                <CreatePostingBox
+                  post={post}
+                  handleClickImage={this.handleClickImage}
+                />
+              ))
             : 'Loading'}
         </div>
+        {isPopUp ? (
+          <ImageDetailPopup
+            handleClickImage={this.handleClickImage}
+            activePostImg={activePostImg}
+          />
+        ) : (
+          ''
+        )}
       </div>
     );
   }

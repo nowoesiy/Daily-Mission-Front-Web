@@ -1,10 +1,11 @@
 .landing {
-  width: 1080px;
+  width: 1480px;
   margin: 0 auto;
   padding: 30px 30px;
   &__popular-text {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
+    padding-bottom: 15px;
   }
 
   &__popular-box {
@@ -13,19 +14,22 @@
   }
 
   &__new-text {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 700;
+    padding-bottom: 15px;
   }
 }
 
 .mission-box {
+  border-radius: 13px;
+  border: 1px solid #e1e5f1;
   background-color: #ffffff;
   cursor: pointer;
   margin-top: 10px;
   margin-right: 10px;
   width: 350px;
   height: 460px;
-  //border: 2px solid #eee;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
   &__top {
     overflow: hidden;
@@ -39,7 +43,7 @@
     height: 300px;
     border: none;
     transition: transform 0.5s ease;
-    overflow: hidden;
+    //overflow: hidden;
     &:hover {
       transform: scale(1.2);
     }
@@ -47,33 +51,38 @@
 
   &__title {
     margin-top: 7px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
   }
 
   &__admin {
-    font-size: 1rem;
+    font-size: 0.9rem;
     display: flex;
-    margin-top: 3px;
-    line-height: 30px;
-    border-bottom: 1px solid #aaa;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    line-height: 2rem;
+    border-bottom: 1px solid #eee;
   }
 
   &__admin-image {
-    width: 25px;
-    height: 25px;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 5px;
   }
 
   &__content {
     margin-top: 7px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     height: 43px;
     line-height: 23px;
   }
 
   &__people {
-    color: #aaa;
+    color: #888;
     text-align: right;
     margin-top: 7px;
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }

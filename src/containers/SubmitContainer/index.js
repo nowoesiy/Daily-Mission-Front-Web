@@ -99,22 +99,22 @@ class Submit extends React.Component {
   };
 
   CreateSubmitDetailBox = () => {
-    const { activeMyMission, histories, dates } = this.state;
+    const { activeMyMission, histories, weekDates } = this.state;
 
     return (
       <div className="submit-detail__box">
         <div className="detail-box">
           <div className="detail-box__title">
             <span>제출 정보</span>
-            <div className="detail-box__nav-wrap">
+            {/* <div className="detail-box__nav-wrap">
               <button className="detail-box__nav-button">◀</button>
               <button className="detail-box__nav-button">▶</button>
-            </div>
+            </div> */}
           </div>
           <div className="day-info">
             <span className="day-info__title">
-              {dates
-                ? dates.map(d => {
+              {weekDates
+                ? weekDates.map(d => {
                     return (
                       <>
                         <span className="day-info__day">
@@ -131,21 +131,27 @@ class Submit extends React.Component {
             {histories
               ? histories.map(user => {
                   return (
-                    <div className="detail-box__user-wrap">
+                    <div
+                      className={
+                        !user.banned
+                          ? 'detail-box__user-wrap'
+                          : 'detail-box__user-wrap detail-box__user-wrap--banned'
+                      }
+                    >
                       <div className="user-wrap__left">
                         <img
                           className="detail-box__user-img"
-                          src={user.imageUrl}
+                          src={user.thumbnailUrl}
                           alt={user.id}
                         />
                         {user.userName}
                       </div>
                       <div>
-                        {dates.map(d => {
+                        {weekDates.map(d => {
                           return user.date.indexOf(d.date) >= 0 ? (
-                            <span className="detail-box__submit-flag">✅</span>
+                            <span className="detail-box__submit-flag">✔</span>
                           ) : (
-                            <span className="detail-box__submit-flag">❌</span>
+                            <span className="detail-box__submit-flag"></span>
                           );
                         })}
                       </div>
@@ -188,7 +194,7 @@ class Submit extends React.Component {
       .then(response => {
         this.setState({
           histories: response.data.histories,
-          dates: response.data.dates,
+          weekDates: response.data.weekDates,
         });
       })
       .catch(error => {
