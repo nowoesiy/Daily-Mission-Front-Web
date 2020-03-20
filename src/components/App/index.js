@@ -28,36 +28,36 @@ import MissionDetail from '../MissionDetail';
 import My from '../My';
 import MyEdit from '../MyEdit';
 
-const currentUser = {
-  id: 2,
-  name: 'seowon lee',
-  email: 'tjdnjs3664@gmail.com',
-  thumbnailUrl:
-    'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
-  missions: [
-    {
-      id: 50,
-      title: '1일 1유니온 가기',
-      banned: false,
-      submit: true,
-      ended: false,
-    },
-    {
-      id: 53,
-      title: '1일 1아침 밥 먹기',
-      banned: false,
-      submit: true,
-      ended: false,
-    },
-    {
-      id: 54,
-      title: '매일 매일 운동하기',
-      banned: false,
-      submit: false,
-      ended: false,
-    },
-  ],
-};
+// const currentUser = {
+//   id: 2,
+//   name: 'seowon lee',
+//   email: 'tjdnjs3664@gmail.com',
+//   thumbnailUrl:
+//     'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
+//   missions: [
+//     {
+//       id: 50,
+//       title: '1일 1유니온 가기',
+//       banned: false,
+//       submit: true,
+//       ended: false,
+//     },
+//     {
+//       id: 53,
+//       title: '1일 1아침 밥 먹기',
+//       banned: false,
+//       submit: true,
+//       ended: false,
+//     },
+//     {
+//       id: 54,
+//       title: '매일 매일 운동하기',
+//       banned: false,
+//       submit: false,
+//       ended: false,
+//     },
+//   ],
+// };
 
 class App extends React.Component {
   componentDidMount() {
@@ -70,7 +70,7 @@ class App extends React.Component {
   render() {
     const {
       authenticated,
-      //currentUser,
+      currentUser,
       handleLogout,
       missions,
       homeMissions,
@@ -175,7 +175,7 @@ export default withRouter(
   connect(
     state => ({
       authenticated: state.loginAuth.authenticated,
-      //currentUser: state.loginAuth.currentUser,
+      currentUser: state.loginAuth.currentUser,
       loading: state.loginAuth.loading,
       missions: state.MissionReducer.missions,
       activeMyMissionId: state.MissionReducer.activeMyMissionId,

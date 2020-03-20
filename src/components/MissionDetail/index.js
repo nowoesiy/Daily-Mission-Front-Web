@@ -224,7 +224,7 @@ class MissionDetail extends React.Component {
             </div>
           </div>
           <div className="detail-info__post-title">
-            구성원
+            참여자
             <span className="detail-info__mission-info-title-sub">
               {mission.participants.length}
             </span>
@@ -238,7 +238,7 @@ class MissionDetail extends React.Component {
                   src={p.thumbnailUrl}
                 />
                 <span className="detail-info__user-profile-name">
-                  <em>{p.userName}</em>
+                  {p.userName}
                 </span>
               </div>
             ))}

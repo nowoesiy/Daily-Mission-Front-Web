@@ -12,6 +12,12 @@ import {
 import { withRouter, Link } from 'react-router-dom';
 import FileDrop from 'react-file-drop';
 import { closeModel } from '../../modules/reducer_submitPost';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faUpload,
+  faSmileWink,
+  faCheck,
+} from '@fortawesome/free-solid-svg-icons';
 
 // const dayInfo = [
 //   { date: '2020-03-01', day: '일' },
@@ -51,48 +57,63 @@ import { closeModel } from '../../modules/reducer_submitPost';
 
 class Submit extends React.Component {
   state = {
-    activeMissionId: '',
+    isPostPopup: false,
     dates: [],
     histories: [],
     activeMyMission: '',
+    file: '',
   };
 
-  CreateSubmitBox = ({
-    m,
-    title,
-    content,
-    updateTitleValue,
-    updateContentValue,
-    handleDrop,
-    postBoard,
-    fileName,
-    file,
-    fileImgUrl,
-    closeModel,
-  }) => {
+  handleDrop = file => {
+    this.setState({
+      file: file[0],
+      isPostPopup: true,
+    });
+  };
+
+  handlePopUp = () => {
+    this.setState({
+      isPostPopup: !this.state.isPostPopup,
+      file: '',
+    });
+  };
+
+  handleClickFile = e => {
+    this.setState({
+      file: e.target.files[0],
+    });
+  };
+
+  CreateSubmitBox = ({ submit }) => {
     return (
       <div className="submit__box">
-        <div className={`box ${m.submit ? 'box--submit' : ''}`}>
-          <div className={`box__top ${m.submit ? 'box__top--submit' : ''}`}>
+        <div className={`box ${submit ? 'box--submit' : ''}`}>
+          <div className={`box__top ${submit ? 'box__top--submit' : ''}`}>
             <h2 className="box__title">제출 보드</h2>
           </div>
           <div className="box__body">
             <div className="box__limit-time">⏰ 03:00:33 남음</div>
             <div className="drop-upload-box">
-              <FileDrop onDrop={handleDrop}>
-                <SubmitPopup
-                  m={m}
-                  title={title}
-                  content={content}
-                  updateTitleValue={updateTitleValue}
-                  updateContentValue={updateContentValue}
-                  postBoard={postBoard}
-                  fileName={fileName}
-                  fileImgUrl={fileImgUrl}
-                  file={file}
-                  closeModel={closeModel}
-                />
-              </FileDrop>
+              {!submit ? (
+                <FileDrop onDrop={this.handleDrop}>
+                  <div
+                    className="drop-upload-box__wrap"
+                    onClick={this.handlePopUp}
+                  >
+                    <FontAwesomeIcon icon={faUpload} size="2x" />
+                    <span className="drop-upload-box__title">
+                      미션 사진을 DRAG 해주세요!
+                    </span>
+                  </div>
+                </FileDrop>
+              ) : (
+                <div className="drop-upload-box__wrap--submit">
+                  {/* <FontAwesomeIcon icon={faSmileWink} size="2x" /> */}
+                  <span className="drop-upload-box__title">
+                    😊 오늘 하루도 수고하셨습니다!!!
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -182,14 +203,12 @@ class Submit extends React.Component {
   componentDidMount() {
     const { currentUser } = this.props;
 
-    console.log(this.props.match.params.id);
     const activeMyMission = currentUser.missions.filter(
       mission => mission.id === this.props.activeMyMissionId,
     )[0];
-    console.log(activeMyMission);
+
     this.setState({
       activeMyMission,
-      //activeMissionId :
     });
     axios
       .get(
@@ -206,8 +225,8 @@ class Submit extends React.Component {
       });
   }
 
-  componentDidUpdate(prevProps) {
-    const { activeMyMissionId } = this.props;
+  componentDidUpdate(prevProps, prevState) {
+    const { activeMyMissionId, currentUser } = this.props;
 
     if (activeMyMissionId !== prevProps.activeMyMissionId) {
       const { currentUser } = this.props;
@@ -233,25 +252,18 @@ class Submit extends React.Component {
           console.log(error);
         });
     }
+    if (
+      prevState.activeMyMission.submit !== this.state.activeMyMission.submit
+    ) {
+      this.setState({
+        activeMyMission: this.state.activeMyMission,
+      });
+    }
   }
   render() {
-    const {
-      currentUser,
-      title,
-      content,
-      file,
-      fileName,
-      fileImgUrl,
-      updateTitleValue,
-      updateContentValue,
-      handleDrop,
-      postBoard,
-      DeleteBoard,
-      activeMyMissionId,
-      closeModel,
-    } = this.props;
-
-    const { activeMyMission } = this.state;
+    const { postBoard, DeleteBoard, activeMyMissionId } = this.props;
+    const { file } = this.state;
+    const { isPostPopup, activeMyMission } = this.state;
     if (!activeMyMission) return <div>로딩중..</div>;
     return (
       <>
@@ -260,25 +272,24 @@ class Submit extends React.Component {
             <h1 className="submit__title-who">{activeMyMission.title}</h1>
           </div>
           <div className="submit__contents">
-            <this.CreateSubmitBox
-              file={file}
-              m={activeMyMission}
-              title={title}
-              content={content}
-              updateTitleValue={updateTitleValue}
-              updateContentValue={updateContentValue}
-              fileName={fileName}
-              fileImgUrl={fileImgUrl}
-              handleDrop={handleDrop}
-              postBoard={postBoard}
-              DeleteBoard={DeleteBoard}
-              closeModel={closeModel}
-            />
+            <this.CreateSubmitBox submit={activeMyMission.submit} />
           </div>
         </div>
         <div className="submit-detail">
           <this.CreateSubmitDetailBox activeMyMission={activeMyMission} />
         </div>
+        {isPostPopup ? (
+          <SubmitPopup
+            id={activeMyMission.id}
+            postBoard={postBoard}
+            file={file}
+            closeModel={closeModel}
+            handlePopUp={this.handlePopUp}
+            handleClickFile={this.handleClickFile}
+          />
+        ) : (
+          ''
+        )}
       </>
     );
   }
