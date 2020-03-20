@@ -8,8 +8,6 @@ import {
   LoadToGetCurrentUser,
 } from '../../modules/reduer_loginAuth';
 import {
-  getMissionDetail,
-  onClickMissionList,
   getMissionList,
   getHomeMissionList,
   getHotMissionList,
@@ -21,27 +19,45 @@ import Header from '../Header';
 import Aside from '../Aside';
 import Login from '../Login';
 import Mission from '../Mission';
-import HotMission from '../HotMission';
+//import HotMission from '../HotMission';
 import Post from '../Post';
-import PostDetail from '../PostDetail';
+//import PostDetail from '../PostDetail';
 import Landing from '../Landing';
 import SubmitContainer from '../../containers/SubmitContainer';
 import MissionDetail from '../MissionDetail';
 import My from '../My';
 import MyEdit from '../MyEdit';
 
-// const currentUser = {
-//   id: 2,
-//   name: 'seowon lee',
-//   email: 'tjdnjs3664@gmail.com',
-//   thumbnailUrl:
-//     'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
-//   missions: [
-//     { id: 1, title: '1일 1알고리즘', banned: false, submit: true },
-//     { id: 4, title: '비타민 챙겨먹기', banned: false, submit: true },
-//     { id: 3, title: '매일 매일 운동하기', banned: false, submit: false },
-//   ],
-// };
+const currentUser = {
+  id: 2,
+  name: 'seowon lee',
+  email: 'tjdnjs3664@gmail.com',
+  thumbnailUrl:
+    'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
+  missions: [
+    {
+      id: 50,
+      title: '1일 1유니온 가기',
+      banned: false,
+      submit: true,
+      ended: false,
+    },
+    {
+      id: 53,
+      title: '1일 1아침 밥 먹기',
+      banned: false,
+      submit: true,
+      ended: false,
+    },
+    {
+      id: 54,
+      title: '매일 매일 운동하기',
+      banned: false,
+      submit: false,
+      ended: false,
+    },
+  ],
+};
 
 class App extends React.Component {
   componentDidMount() {
@@ -49,25 +65,19 @@ class App extends React.Component {
     this.props.getMissionList();
     this.props.getHotMissionList();
     this.props.getHomeMissionList();
-    this.props.getMissionDetail(this.props.activeMissionId);
   }
 
   render() {
     const {
       authenticated,
-      currentUser,
-      activeMissionId,
+      //currentUser,
       handleLogout,
       missions,
       homeMissions,
       hotMissions,
-      onClickMissionList,
       onClickMyMissionList,
-      activeMission,
-      getMissionDetail,
       activeMyMissionId,
     } = this.props;
-    const postId = '1';
 
     return (
       <div className="App">
@@ -90,35 +100,33 @@ class App extends React.Component {
             />
             <div className="container">
               <Switch>
-                <Route path={'/mission/detail/' + activeMissionId} exact>
-                  {activeMission && (
-                    <MissionDetail
-                      mission={activeMission}
-                      postAttednigMission={postAttednigMission}
+                <Route
+                  path="/mission/detail/:id"
+                  render={() => (
+                    <MissionDetail postAttednigMission={postAttednigMission} />
+                  )}
+                />
+                <Route
+                  path="/"
+                  exact
+                  render={() => (
+                    <Landing
+                      hotMissions={hotMissions}
+                      missions={homeMissions}
                     />
                   )}
-                </Route>
-                <Route path="/" exact>
-                  <Landing
-                    hotMissions={hotMissions}
-                    missions={homeMissions}
-                    onClickMissionList={onClickMissionList}
-                    getMissionDetail={getMissionDetail}
-                  />
-                </Route>
-                <Route path="/mission" exact>
-                  <Mission
-                    missions={missions}
-                    onClickMissionList={onClickMissionList}
-                    getMissionDetail={getMissionDetail}
-                  />
-                </Route>
-                <Route path="/hot-mission" component={HotMission}></Route>
-                <Route path="/post" exact component={Post}></Route>
+                />
                 <Route
+                  path="/mission"
+                  exact
+                  render={() => <Mission missions={missions} />}
+                />
+                <Route path="/post" exact component={Post}></Route>
+                {/* <Route path="/hot-mission" component={HotMission}></Route> */}
+                {/* <Route
                   path={`/post/detail/${postId}`}
                   component={PostDetail}
-                ></Route>
+                ></Route> */}
                 <Route path="/my" exact>
                   {currentUser ? (
                     <My
@@ -136,16 +144,20 @@ class App extends React.Component {
                     <Redirect to={'/'} />
                   )}
                 </Route>
-                <Route path={`/my/${activeMyMissionId}`} exact>
-                  {currentUser ? (
-                    <SubmitContainer
-                      currentUser={currentUser}
-                      activeMyMissionId={activeMyMissionId}
-                    />
-                  ) : (
-                    <Redirect to={'/'} />
-                  )}
-                </Route>
+                <Route
+                  path="/my/:id"
+                  render={() =>
+                    currentUser ? (
+                      <SubmitContainer
+                        currentUser={currentUser}
+                        activeMyMissionId={activeMyMissionId}
+                      />
+                    ) : (
+                      <Redirect to={'/'} />
+                    )
+                  }
+                  exact
+                />
               </Switch>
             </div>
           </>
@@ -163,11 +175,9 @@ export default withRouter(
   connect(
     state => ({
       authenticated: state.loginAuth.authenticated,
-      currentUser: state.loginAuth.currentUser,
+      //currentUser: state.loginAuth.currentUser,
       loading: state.loginAuth.loading,
-      activeMissionId: state.MissionReducer.activeMissionId,
       missions: state.MissionReducer.missions,
-      activeMission: state.MissionReducer.activeMission,
       activeMyMissionId: state.MissionReducer.activeMyMissionId,
       activemyMission: state.MissionReducer.activemyMission,
       homeMissions: state.MissionReducer.homeMissions,
@@ -177,11 +187,9 @@ export default withRouter(
       handleLogin,
       handleLogout,
       LoadToGetCurrentUser,
-      onClickMissionList,
       getMissionList,
       getHomeMissionList,
       getHotMissionList,
-      getMissionDetail,
       postAttednigMission,
       onClickMyMissionList,
     },

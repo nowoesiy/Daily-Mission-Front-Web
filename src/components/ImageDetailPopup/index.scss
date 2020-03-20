@@ -1,12 +1,29 @@
-.image-detail__img {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 80wh;
-  max-height: 80vh;
-  border: 2px solid #888;
-  cursor: pointer;
+.image-detail {
+  &__img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80wh;
+    max-height: 80vh;
+    border: 2px solid #888;
+    cursor: pointer;
+  }
+
+  &__cancel-button {
+    cursor: pointer;
+    position: absolute;
+    padding: 15px 20px;
+    line-height: 30px;
+    right: 0px;
+    top: 0px;
+    font-size: 3rem;
+    color: #aaa;
+    transition: color 0.15s ease 0s;
+    &:hover {
+      color: #888;
+    }
+  }
 }
 
 .overlay {

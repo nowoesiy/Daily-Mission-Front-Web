@@ -142,22 +142,12 @@ const mission = [
 ];
 
 class Mission extends React.Component {
-  MissionBox = ({ mission, getMissionDetail, onClickMissionList }) => {
+  MissionBox = ({ mission }) => {
     return mission.map(m => {
       return (
         <Link to={'mission/detail/' + m.id}>
-          <div
-            className="all-mission-box"
-            onClick={() => {
-              getMissionDetail(m.id);
-            }}
-          >
-            <div
-              className="all-mission-box__top"
-              onClick={() => {
-                onClickMissionList(m.id);
-              }}
-            >
+          <div className="all-mission-box">
+            <div className="all-mission-box__top">
               <img className="all-mission-box__img" src={m.thumbnailUrlAll} />
             </div>
             <div className="all-mission-box__body">
@@ -185,16 +175,12 @@ class Mission extends React.Component {
   };
 
   render() {
-    const { missions, getMissionDetail, onClickMissionList } = this.props;
+    const { missions } = this.props;
     return (
       <div className="mission">
         <div className="mission__upper-text">🚀 전체 미션</div>
         <div className="mission__list-box">
-          <this.MissionBox
-            mission={missions}
-            getMissionDetail={getMissionDetail}
-            onClickMissionList={onClickMissionList}
-          />
+          <this.MissionBox mission={missions} />
         </div>
       </div>
     );

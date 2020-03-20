@@ -28,12 +28,16 @@ const SubmitPopup = ({
         !m.submit ? (
           <div className="drop-upload-box__wrap">
             <FontAwesomeIcon icon={faUpload} size="2x" />
-            <span className="drop-upload-box__title">미션 업로드 !</span>
+            <span className="drop-upload-box__title">
+              미션 사진을 DRAG 해주세요!
+            </span>
           </div>
         ) : (
           <div className="drop-upload-box__wrap--submit">
-            <FontAwesomeIcon icon={faSmileWink} size="2x" />
-            <span className="drop-upload-box__title">제출완료!!!</span>
+            {/* <FontAwesomeIcon icon={faSmileWink} size="2x" /> */}
+            <span className="drop-upload-box__title">
+              😊 오늘 하루도 수고하셨습니다!!!
+            </span>
           </div>
         )
       }

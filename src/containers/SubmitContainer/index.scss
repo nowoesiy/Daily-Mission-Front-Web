@@ -16,32 +16,45 @@ $blue: #3851e7;
 }
 
 .box {
-  width: 600px;
-  height: 250px;
-  border: 1px solid #aaa;
+  width: 400px;
+  height: 300px;
+  border: 2px solid #aaa;
   background-color: #ffffff;
   // border-radius: 17px;
   margin: 0 auto;
   margin-top: 40px;
+  padding: 15px;
+  //background-color: #87ffc1;
+  border-radius: 18px;
 
-  &__top {
-    //border-radius: 14px 14px 0px 0px;
-    padding: 4px;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #95a6be;
-    background-color: #294e80;
-    color: #ffffff;
-
-    &--submit {
-      background-color: green;
-      color: #ffffff;
-    }
+  &__limit-time {
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 40px 0px;
   }
+
+  &--submit {
+    border: 2px solid #00c860;
+  }
+  // &__top {
+  //   //border-radius: 14px 14px 0px 0px;
+  //   padding: 4px;
+  //   display: flex;
+  //   justify-content: space-between;
+  //   border-bottom: 1px solid #95a6be;
+  //   background-color: #294e80;
+  //   color: #ffffff;
+
+  //   &--submit {
+  //     background-color: green;
+  //     color: #ffffff;
+  //   }
+  // }
 
   &__title {
     margin: 5px 5px 5px 5px;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
   //Top
   &__body {
@@ -56,6 +69,7 @@ $blue: #3851e7;
   font-size: 1.2rem;
   background-color: #ffffff;
   border-radius: 18px;
+  border: 2px solid #e1e5f1;
 
   &__title {
     font-size: 1.6rem;
@@ -157,13 +171,13 @@ $blue: #3851e7;
   font-size: 1.1rem;
   line-height: 60px;
   margin-top: 50px;
-  color: #ffffff;
+  //color: #ffffff;
   font-weight: 700;
 
   &__wrap {
     border-radius: 16px;
-    border: 2px dotted #eee;
-    background-color: #95a6be;
+    border: 3px dotted #aaa;
+    //background-color: #95a6be;
     border-radius: 16px;
     height: 90px;
     &--submit {

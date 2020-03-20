@@ -11,8 +11,7 @@ const activeStyle = {
 
 class Aside extends React.Component {
   state = {
-    isMyNavVisible: true,
-    checked: false,
+    isMyNavVisible: false,
   };
 
   toggleBox = e => {
@@ -20,14 +19,9 @@ class Aside extends React.Component {
     e.preventDefault();
   };
 
-  handleChange = e => {
-    const checked = e.target.checked;
-  };
-
   render() {
     const { currentUser, onClickMyMissionList } = this.props;
     const { isMyNavVisible } = this.state;
-    console.log(isMyNavVisible);
     return (
       <div className="App-aside">
         <ul className="nav">
@@ -54,8 +48,6 @@ class Aside extends React.Component {
               <input
                 className="nav__list--my-toggle"
                 type="checkbox"
-                onClick={this.toggleBox}
-                onChange={this.handleChange}
                 checked={isMyNavVisible}
                 id="my-toggle"
               ></input>
@@ -63,9 +55,12 @@ class Aside extends React.Component {
                 className="nav__list--my-toggle-icon"
                 for="my-toggle"
                 role="button"
-                onClick={e => {
-                  e.stopPropagation();
-                }}
+                onClick={
+                  (e => {
+                    e.stopPropagation();
+                  },
+                  this.toggleBox)
+                }
               ></label>
             </li>
           </NavLink>

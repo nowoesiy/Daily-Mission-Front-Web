@@ -46,11 +46,12 @@
     }
 
     &--my-toggle {
-      //      display: none;
+      display: none;
 
       &-icon {
+        position: absolute;
+        right: 15px;
         margin-top: 10px;
-        margin-right: 5px;
         border-radius: 50%;
         transition: all 0.2s ease-in-out;
         background: url('../../static/img/arrow-down-btn.png') no-repeat;
@@ -66,7 +67,8 @@
 
       &:checked + &-icon {
         margin-top: 10px;
-        margin-right: 5px;
+        position: absolute;
+        right: 15px;
         border-radius: 50%;
         transition: all 0.2s ease-in-out;
         background: url('../../static/img/arrow-up-btn.png') no-repeat;

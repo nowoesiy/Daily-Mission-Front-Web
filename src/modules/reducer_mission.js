@@ -4,7 +4,6 @@ const POST_ATTENDING_MISSION = 'POST_ATTENDING_MISSION';
 const ON_CLICK_MISSION_LIST = 'ON_CLICK_MISSION_LIST';
 const ON_CLICK_MY_MISSION_LIST = 'ON_CLICK_MY_MISSION_LIST';
 const GET_MISSION_SUCCESS = 'GET_MISSION_SUCCESS';
-const GET_MISSION_DETAIL_SUCCESS = 'GET_MISSION_DETAIL_SUCCESS';
 const GET_HOME_MISSION_SUCCESS = 'GET_HOME_MISSION_SUCCESS';
 const GET_HOT_MISSION_SUCCESS = 'GET_HOT_MISSION_SUCCESS';
 
@@ -50,19 +49,19 @@ export const getHomeMissionList = () => {
   };
 };
 
-export const getMissionDetail = id => {
-  return dispatch => {
-    axios
-      .get(`http://api.daily-mission.com/api/mission/${id}`)
-      .then(response => {
-        dispatch(getMissionDetailSuccess(response.data));
-        console.log("('--------------->미션Detail GET성공");
-      })
-      .catch(error => {
-        console.log('failed', error);
-      });
-  };
-};
+// export const getMissionDetail = id => {
+//   return dispatch => {
+//     axios
+//       .get(`http://api.daily-mission.com/api/mission/${id}`)
+//       .then(response => {
+//         dispatch(getMissionDetailSuccess(response.data));
+//         console.log("('--------------->미션Detail GET성공");
+//       })
+//       .catch(error => {
+//         console.log('failed', error);
+//       });
+//   };
+// };
 
 export const postAttednigMission = (_id, _password) => {
   return dispatch => {
@@ -115,13 +114,13 @@ const getHotMissionSuccess = response => ({
   type: GET_HOT_MISSION_SUCCESS,
   response,
 });
-const getMissionDetailSuccess = response => ({
-  type: GET_MISSION_DETAIL_SUCCESS,
-  response,
-});
+// const getMissionDetailSuccess = response => ({
+//   type: GET_MISSION_DETAIL_SUCCESS,
+//   response,
+// });
 
 const initialState = {
-  activeMission: '',
+  //activeMission: '',
   missions: [],
   homeMissions: [],
   hotMissions: [],
@@ -157,11 +156,11 @@ export default function MissionReducer(state = initialState, action) {
         ...state,
         hotMissions: action.response,
       };
-    case GET_MISSION_DETAIL_SUCCESS:
-      return {
-        ...state,
-        activeMission: action.response,
-      };
+    // case GET_MISSION_DETAIL_SUCCESS:
+    //   return {
+    //     ...state,
+    //     activeMission: action.response,
+    //   };
 
     default:
       return state;

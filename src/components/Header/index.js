@@ -16,7 +16,7 @@ class Header extends React.Component {
     });
   };
   render() {
-    const { authenticated, currentUser, handleLogout } = this.props;
+    const { currentUser, handleLogout } = this.props;
     const { profileToggle } = this.state;
     return (
       <div className="header">

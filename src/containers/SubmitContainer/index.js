@@ -9,7 +9,7 @@ import {
   postBoard,
   handleDrop,
 } from '../../modules/reducer_submitPost';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import FileDrop from 'react-file-drop';
 import { closeModel } from '../../modules/reducer_submitPost';
 
@@ -51,6 +51,7 @@ import { closeModel } from '../../modules/reducer_submitPost';
 
 class Submit extends React.Component {
   state = {
+    activeMissionId: '',
     dates: [],
     histories: [],
     activeMyMission: '',
@@ -73,9 +74,10 @@ class Submit extends React.Component {
       <div className="submit__box">
         <div className={`box ${m.submit ? 'box--submit' : ''}`}>
           <div className={`box__top ${m.submit ? 'box__top--submit' : ''}`}>
-            <h2 className="box__title">{m.title}</h2>
+            <h2 className="box__title">제출 보드</h2>
           </div>
           <div className="box__body">
+            <div className="box__limit-time">⏰ 03:00:33 남음</div>
             <div className="drop-upload-box">
               <FileDrop onDrop={handleDrop}>
                 <SubmitPopup
@@ -180,16 +182,18 @@ class Submit extends React.Component {
   componentDidMount() {
     const { currentUser } = this.props;
 
+    console.log(this.props.match.params.id);
     const activeMyMission = currentUser.missions.filter(
       mission => mission.id === this.props.activeMyMissionId,
     )[0];
-
+    console.log(activeMyMission);
     this.setState({
       activeMyMission,
+      //activeMissionId :
     });
     axios
       .get(
-        `http://api.daily-mission.com/api/post/schedule/mission/${activeMyMission.id}/0`,
+        `http://api.daily-mission.com/api/post/schedule/mission/${this.props.activeMyMissionId}/0`,
       )
       .then(response => {
         this.setState({
@@ -205,11 +209,11 @@ class Submit extends React.Component {
   componentDidUpdate(prevProps) {
     const { activeMyMissionId } = this.props;
 
-    if (this.props.activeMyMissionId !== prevProps.activeMyMissionId) {
+    if (activeMyMissionId !== prevProps.activeMyMissionId) {
       const { currentUser } = this.props;
 
       const activeMyMission = currentUser.missions.filter(
-        mission => mission.id === this.props.activeMyMissionId,
+        mission => mission.id === activeMyMissionId,
       )[0];
 
       this.setState({
@@ -217,7 +221,7 @@ class Submit extends React.Component {
       });
       axios
         .get(
-          `http://api.daily-mission.com/api/post/schedule/mission/${activeMyMission.id}/0`,
+          `http://api.daily-mission.com/api/post/schedule/mission/${this.props.match.params.id}/0`,
         )
         .then(response => {
           this.setState({
@@ -248,16 +252,12 @@ class Submit extends React.Component {
     } = this.props;
 
     const { activeMyMission } = this.state;
-
+    if (!activeMyMission) return <div>로딩중..</div>;
     return (
       <>
         <div className="submit">
           <div className="submit__title">
-            <h1 className="submit__title-who">
-              {currentUser.missions
-                ? `'${currentUser.name}'님의 미션😎`
-                : '미션이 없네요😢'}
-            </h1>
+            <h1 className="submit__title-who">{activeMyMission.title}</h1>
           </div>
           <div className="submit__contents">
             <this.CreateSubmitBox
@@ -284,19 +284,21 @@ class Submit extends React.Component {
   }
 }
 
-export default connect(
-  state => ({
-    title: state.submitpost.titleValue,
-    content: state.submitpost.contentValue,
-    fileName: state.submitpost.fileName,
-    fileImgUrl: state.submitpost.fileImgUrl,
-    file: state.submitpost.file,
-  }),
-  {
-    updateTitleValue,
-    updateContentValue,
-    postBoard,
-    handleDrop,
-    closeModel,
-  },
-)(Submit);
+export default withRouter(
+  connect(
+    state => ({
+      title: state.submitpost.titleValue,
+      content: state.submitpost.contentValue,
+      fileName: state.submitpost.fileName,
+      fileImgUrl: state.submitpost.fileImgUrl,
+      file: state.submitpost.file,
+    }),
+    {
+      updateTitleValue,
+      updateContentValue,
+      postBoard,
+      handleDrop,
+      closeModel,
+    },
+  )(Submit),
+);

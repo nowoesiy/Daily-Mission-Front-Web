@@ -14,6 +14,7 @@ export const handleLogout = () => {
   return dispatch => {
     localStorage.removeItem(ACCESS_TOKEN);
     dispatch(logoutUser());
+    document.location.href = '/';
     console.log('Logout Success');
   };
 };

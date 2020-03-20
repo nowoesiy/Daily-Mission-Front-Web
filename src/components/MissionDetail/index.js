@@ -2,6 +2,8 @@ import React from 'react';
 import './index.scss';
 import Popup from 'reactjs-popup';
 import { Line } from 'rc-progress';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 const CreateSubmitDayTable = ({ mission }) => {
   return (
@@ -58,8 +60,48 @@ const CreatePeriodProgress = ({ mission }) => {
     </div>
   );
 };
+
+const CreatePostingBox = ({ handleClickImage, post }) => {
+  return (
+    <div className="post-thumbnailbox">
+      <div className="post-thumbnailbox__top">
+        <img
+          className="post-thumbnailbox__img"
+          src={post.thumbnailUrl}
+          // onClick={() => {
+          //   handleClickImage(post.imageUrl);
+          // }}
+        />
+      </div>
+      <div className="post-thumbnailbox__body">
+        <div className="post-thumbnailbox__title">{post.title}</div>
+        <div className="post-thumbnailbox__content">{post.content}</div>
+      </div>
+      <div className="post-thumbnailbox__bottom">
+        <div>
+          <span className="post-thumbnailbox__author-wrap">
+            <img
+              className="post-thumbnailbox__author-img"
+              src={post.userThumbnailUrl}
+            />
+            By{' '}
+            <strong className="post-thumbnailbox__author-name">
+              {post.userName}
+            </strong>
+          </span>
+        </div>
+        <div className="post-thumbnailbox__date">
+          {post.modifiedDate.substr(0, 10)}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 class MissionDetail extends React.Component {
   state = {
+    mission: '',
+    missionPost: '',
     inputPasswordMode: false,
     password: '',
   };
@@ -77,57 +119,89 @@ class MissionDetail extends React.Component {
     e.preventDefault();
   };
 
+  componentDidMount() {
+    axios
+      .get(
+        `http://api.daily-mission.com/api/mission/${this.props.match.params.id}`,
+      )
+      .then(response => {
+        this.setState({
+          mission: response.data,
+        });
+        console.log("('--------------->미션Detail GET성공");
+      })
+      .catch(error => {
+        console.log('failed', error);
+      });
+
+    axios
+      .get(
+        `http://api.daily-mission.com/api/post/all/mission/${this.props.match.params.id}`,
+      )
+      .then(response => {
+        this.setState({
+          missionPost: response.data,
+        });
+        console.log(this.state.missionPost);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   render() {
-    const { mission, postAttednigMission } = this.props;
-    const { password, inputPasswordMode } = this.state;
+    const { postAttednigMission } = this.props;
+    const { missionPost, mission, password, inputPasswordMode } = this.state;
+
+    if (!mission) return <div>로딩중..</div>;
     return (
       <div className="App-detail">
         <div className="detail">
-          <div className="detail__img-wrap">
+          <div className="detail__wrap">
             <img className="detail__img" src={mission.thumbnailUrlDetail} />
-          </div>
-          <div className="detail__content-wrap">
-            <div className="detail__title">
-              {mission.userName}'s {mission.title}
-            </div>
-            <div className="detail__content">{mission.content}</div>
-            <div className="detail__period-info">
-              {/* {mission.startDate} ~ {mission.endDate} */}
-              <CreatePeriodProgress mission={mission} />
-            </div>
-            <button
-              className={`detail__attend-btn${
-                inputPasswordMode ? '--hidden' : ''
-              }`}
-              onClick={this.passwordToggle}
-            >
-              미션 참여하기
-            </button>
-
-            <div
-              className={`detail__password-wrap${
-                inputPasswordMode ? '' : '--hidden'
-              }`}
-            >
-              <input
-                className="detail__attend-pwd"
-                type="password"
-                value={password}
-                onChange={e => this.handleInputChange(e)}
-                placeholder="비밀번호"
-              />
+            <div className="detail__content-wrap">
+              <div className="detail__title">
+                {mission.userName}'s {mission.title}
+              </div>
+              <div className="detail__content">{mission.content}</div>
+              <div className="detail__period-info">
+                {/* {mission.startDate} ~ {mission.endDate} */}
+                <CreatePeriodProgress mission={mission} />
+              </div>
               <button
-                className="detail__attend-btn detail__attend-btn--cancel"
+                className={`detail__attend-btn${
+                  inputPasswordMode ? '--hidden' : ''
+                }`}
                 onClick={this.passwordToggle}
               >
-                취소
+                미션 참여하기
               </button>
-              <button
-                className="detail__attend-btn detail__attend-btn--enter"
-                onClick={postAttednigMission(mission.id, password)}
+
+              <div
+                className={`detail__password-wrap${
+                  inputPasswordMode ? '' : '--hidden'
+                }`}
               >
-                입장
-              </button>
+                <input
+                  className="detail__attend-pwd"
+                  type="password"
+                  value={password}
+                  onChange={e => this.handleInputChange(e)}
+                  placeholder="비밀번호"
+                />
+                <button
+                  className="detail__attend-btn detail__attend-btn--cancel"
+                  onClick={this.passwordToggle}
+                >
+                  취소
+                </button>
+                <button
+                  className="detail__attend-btn detail__attend-btn--enter"
+                  onClick={postAttednigMission(mission.id, password)}
+                >
+                  입장
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -136,8 +210,8 @@ class MissionDetail extends React.Component {
           <a>구성원</a>
         </div> */}
         <div className="detail-info">
-          <span className="detail-info__mission-info-title">미션 정보</span>
           <div className="detail-info__mission-info-body">
+            <span className="detail-info__mission-info-title">미션 정보</span>
             <div className="mission-info">
               <div className="mission-info__hoilyday-title">미션 기간</div>
               <div className="mission-info__hoilyday">
@@ -149,16 +223,19 @@ class MissionDetail extends React.Component {
               <div className="mission-info__hoilyday">토요일 일요일</div>
             </div>
           </div>
-          <span className="detail-info__mission-info-title">구성원</span>
-          <span className="detail-info__mission-info-title-sub">
-            {mission.participants.length}
-          </span>
+          <div className="detail-info__post-title">
+            구성원
+            <span className="detail-info__mission-info-title-sub">
+              {mission.participants.length}
+            </span>
+          </div>
+
           <div className="detail-info__mission-info-body">
             {mission.participants.map(p => (
               <div className="detail-info__user-profile">
                 <img
                   className="detail-info__user-profile-img"
-                  src={p.imageUrl}
+                  src={p.thumbnailUrl}
                 />
                 <span className="detail-info__user-profile-name">
                   <em>{p.userName}</em>
@@ -166,11 +243,17 @@ class MissionDetail extends React.Component {
               </div>
             ))}
           </div>
-          {/* <CreateSubmitDayTable mission={mission} /> */}
+          <div className="detail-info__post-title">포스팅</div>
+          <div className="detail-info__post-wrap">
+            {missionPost
+              ? missionPost.map(post => <CreatePostingBox post={post} />)
+              : 'Loading'}
+            {/* <CreateSubmitDayTable mission={mission} /> */}
+          </div>
         </div>
       </div>
     );
   }
 }
 
-export default MissionDetail;
+export default withRouter(MissionDetail);

@@ -109,6 +109,10 @@ class Post extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('keyup', e => {
+      if (e.keyCode === '8' || e.keyCode === 27)
+        this.setState({ isPopUp: false });
+    });
 
     Axios.get('http://api.daily-mission.com/api/post/all')
       .then(response => {
