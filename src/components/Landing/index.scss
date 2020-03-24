@@ -1,7 +1,33 @@
 .landing {
-  width: 1480px;
+  width: calc(100vw - 400px);
   margin: 0 auto;
   padding: 30px 30px;
+  &__button-wrap {
+    margin: auto;
+  }
+
+  &__button {
+    color: #6d6d6d;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+    top: 50%;
+    outline: none;
+    z-index: 2;
+    transition: box-shadow 0.15s ease;
+
+    &--disabled {
+      color: #aaa;
+      cursor: default;
+    }
+  }
+
   &__popular-text {
     font-size: 1.3rem;
     font-weight: 700;
@@ -9,8 +35,11 @@
   }
 
   &__popular-box {
+    margin: -0.5rem;
     display: flex;
+    //flex-wrap: wrap;
     padding-bottom: 60px;
+    justify-content: center;
   }
 
   &__new-text {
@@ -25,8 +54,7 @@
   border: 1px solid #e1e5f1;
   background-color: #ffffff;
   cursor: pointer;
-  margin-top: 10px;
-  margin-right: 10px;
+  margin: 0.5rem;
   width: 350px;
   height: 460px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);

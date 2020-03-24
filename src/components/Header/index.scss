@@ -78,8 +78,19 @@
 
   &__user-name {
     display: flex;
+    font-size: 1.2rem;
+    height: 30px;
+    font-weight: 900;
+  }
+
+  &__edit-profile {
+    display: flex;
     font-size: 1.1rem;
     height: 30px;
+    line-height: 1.6rem;
+    &:hover {
+      font-weight: 700;
+    }
   }
 
   &__my-page {

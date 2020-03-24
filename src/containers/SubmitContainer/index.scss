@@ -96,8 +96,6 @@ $blue: #3851e7;
   &__user-wrap {
     padding: 10px 0px;
     border-bottom: 2px solid #eee;
-    display: flex;
-    justify-content: space-between;
 
     &--banned {
       text-decoration: line-through;
@@ -113,21 +111,26 @@ $blue: #3851e7;
   }
 
   &__submit-flag {
+    text-align: center;
     margin-left: 37px;
-    font-size: 1.7rem;
+    font-size: 1.3rem;
   }
 }
 
 .day-info {
-  text-align: right;
   &__title {
+    width: 900px;
     color: #aaa;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-right: 5px;
   }
 
   &__day {
-    margin-left: 37px;
+    padding: 0px 30px;
+    //margin-left: 37px;
+    &:first-child {
+      width: 900px;
+    }
   }
 }
 

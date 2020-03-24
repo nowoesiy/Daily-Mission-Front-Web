@@ -122,7 +122,7 @@ class MissionDetail extends React.Component {
   componentDidMount() {
     axios
       .get(
-        `http://api.daily-mission.com/api/mission/${this.props.match.params.id}`,
+        `https://api.daily-mission.com/api/mission/${this.props.match.params.id}`,
       )
       .then(response => {
         this.setState({
@@ -136,7 +136,7 @@ class MissionDetail extends React.Component {
 
     axios
       .get(
-        `http://api.daily-mission.com/api/post/all/mission/${this.props.match.params.id}`,
+        `https://api.daily-mission.com/api/post/all/mission/${this.props.match.params.id}`,
       )
       .then(response => {
         this.setState({
@@ -210,17 +210,25 @@ class MissionDetail extends React.Component {
           <a>구성원</a>
         </div> */}
         <div className="detail-info">
+          <div className="detail-info__mission-info-title">미션 정보</div>
+
           <div className="detail-info__mission-info-body">
-            <span className="detail-info__mission-info-title">미션 정보</span>
             <div className="mission-info">
-              <div className="mission-info__hoilyday-title">미션 기간</div>
-              <div className="mission-info__hoilyday">
-                2020.02.13 ~ 2020.03.15
+              <div className="mission-info__wrap">
+                <div className="mission-info__hoilyday-title">미션 기간</div>
+                <div className="mission-info__hoilyday">
+                  2020.02.13 ~ 2020.03.15
+                </div>
               </div>
-              <div className="mission-info__hoilyday-title">제출 시간</div>
-              <div className="mission-info__hoilyday">익일 03:00시</div>
-              <div className="mission-info__hoilyday-title">휴무일</div>
-              <div className="mission-info__hoilyday">토요일 일요일</div>
+              <div className="mission-info__wrap">
+                <div className="mission-info__hoilyday-title">제출 시간</div>
+                <div className="mission-info__hoilyday">익일 03:00시</div>
+              </div>
+
+              <div className="mission-info__wrap">
+                <div className="mission-info__hoilyday-title">휴무일</div>
+                <div className="mission-info__hoilyday">토요일 일요일</div>
+              </div>
             </div>
           </div>
           <div className="detail-info__post-title">

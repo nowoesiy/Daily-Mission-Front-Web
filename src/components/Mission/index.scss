@@ -1,3 +1,21 @@
+$break-small: 800px;
+$break-large: 1720px;
+@mixin respond-to($media) {
+  @if $media == handhelds {
+    @media only screen and (max-width: $break-small) {
+      @content;
+    }
+  } @else if $media == medium-screens {
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) {
+      @content;
+    }
+  } @else if $media == wide-screens {
+    @media only screen and (min-width: $break-large) {
+      @content;
+    }
+  }
+}
+
 /* .App-Calendar {
   margin: 10px;
 }
@@ -26,9 +44,19 @@
 } */
 
 .mission {
-  width: 1480px;
+  width: calc(100vw - 400px);
   margin: 0 auto;
   padding: 30px 30px;
+
+  // @include respond-to(handhelds) {
+  //   width: calc(100vw - 465px);
+  // }
+  // @include respond-to(medium-screens) {
+  //   width: calc(100vw - 400px);
+  // }
+  // @include respond-to(wide-screens) {
+  //   width: calc(100vw - 480px);
+  // }
 
   &__upper-text {
     font-size: 1.3rem;
@@ -37,8 +65,10 @@
   }
 
   &__list-box {
+    margin: -0.5rem;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
@@ -47,10 +77,8 @@
   border: 1px solid #e1e5f1;
   background-color: #ffffff;
   cursor: pointer;
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 50px;
-  width: 480px;
+  margin: 0.5rem;
+  width: 350px;
   height: 460px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;

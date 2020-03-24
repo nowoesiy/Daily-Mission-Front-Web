@@ -95,11 +95,16 @@ export default function auth(state = initialState, action) {
         ...state,
         currentUser: [
           ...state.currentUser,
-          state.currentUser.missions.find(mission =>
-            mission.id === action.payload
-              ? { ...mission, submit: true }
-              : mission,
-          ),
+          {
+            missions: [
+              ...state.missions,
+              state.currentUser.missions.find(mission =>
+                mission.id === action.payload
+                  ? { ...mission, submit: true }
+                  : mission,
+              ),
+            ],
+          },
         ],
       };
     default:

@@ -100,7 +100,7 @@ class MissionCreatePopup extends React.Component {
     };
 
     axios
-      .post('http://api.daily-mission.com/api/mission', formData, config)
+      .post('https://api.daily-mission.com/api/mission', formData, config)
       .then(() => {
         console.log('--------------------> 미션 생성 성공');
       })
@@ -261,7 +261,7 @@ class MissionCreatePopup extends React.Component {
             </div>
             <div className="new-mission__submit-button-wrap">
               <button
-                type="button"
+                type="sumbit"
                 className="new-mission__submit-button"
                 onClick={() => {
                   this.postMission();

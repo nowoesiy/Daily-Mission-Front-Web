@@ -114,7 +114,7 @@ class Post extends React.Component {
         this.setState({ isPopUp: false });
     });
 
-    Axios.get('http://api.daily-mission.com/api/post/all')
+    Axios.get('https://api.daily-mission.com/api/post/all')
       .then(response => {
         this.setState({
           posts: response.data,

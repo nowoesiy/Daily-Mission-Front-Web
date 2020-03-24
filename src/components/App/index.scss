@@ -19,6 +19,7 @@
   &__login {
     padding: 300px;
     background-color: #f2f4f7;
+    height: calc(100vh - 600px);
   }
 }
 
@@ -29,6 +30,7 @@
   // clear: both;
   //height: calc(100vh - 5vmin);
   //padding: 50px 265px 50px 520px;
+  //min-height: calc(100vh - 90px);
   padding: 70px 0px 0px 280px;
   background-color: #f2f4f7;
 }

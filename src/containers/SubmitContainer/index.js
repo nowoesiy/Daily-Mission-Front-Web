@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import SubmitPopup from '../../components/SubmitPopup';
 import './index.scss';
-import {
-  updateTitleValue,
-  updateContentValue,
-  postBoard,
-  handleDrop,
-} from '../../modules/reducer_submitPost';
+import { postBoard } from '../../modules/reducer_submitPost';
 import { withRouter, Link } from 'react-router-dom';
 import FileDrop from 'react-file-drop';
 import { closeModel } from '../../modules/reducer_submitPost';
@@ -135,53 +130,56 @@ class Submit extends React.Component {
             </div> */}
           </div>
           <div className="day-info">
-            <span className="day-info__title">
-              {weekDates
-                ? weekDates.map(d => {
-                    return (
-                      <>
-                        <span className="day-info__day">
-                          {d.day.substr(0, 3)}
-                        </span>
-                        <sub className="day-info__title--sub">
-                          {/* d.date.substr(5).replace('-', '/')} */}
-                        </sub>
-                      </>
-                    );
-                  })
-                : ''}
-            </span>
-            {histories
-              ? histories.map(user => {
-                  return (
-                    <div
-                      className={
-                        !user.banned
-                          ? 'detail-box__user-wrap'
-                          : 'detail-box__user-wrap detail-box__user-wrap--banned'
-                      }
-                    >
-                      <div className="user-wrap__left">
-                        <img
-                          className="detail-box__user-img"
-                          src={user.thumbnailUrl}
-                          alt={user.id}
-                        />
-                        {user.userName}
-                      </div>
-                      <div>
-                        {weekDates.map(d => {
-                          return user.date.indexOf(d.date) >= 0 ? (
-                            <span className="detail-box__submit-flag">✔</span>
-                          ) : (
-                            <span className="detail-box__submit-flag"></span>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  );
-                })
-              : ''}
+            <table>
+              <thead className="day-info__title">
+                <tr>
+                  <th className="day-info__day:first-child">미션 참여자</th>
+                  {weekDates
+                    ? weekDates.map(d => {
+                        return (
+                          <th className="day-info__day">
+                            {d.day.substr(0, 3)}
+                          </th>
+                          // <sub className="day-info__title--sub">
+                          //   {/* d.date.substr(5).replace('-', '/')} */}
+                          // </sub>
+                        );
+                      })
+                    : ''}
+                </tr>
+              </thead>
+              <tbody>
+                {histories
+                  ? histories.map(user => {
+                      return (
+                        <tr
+                          className={
+                            !user.banned
+                              ? 'detail-box__user-wrap'
+                              : 'detail-box__user-wrap detail-box__user-wrap--banned'
+                          }
+                        >
+                          <td className="detail-box__submit-flag">
+                            <img
+                              className="detail-box__user-img"
+                              src={user.thumbnailUrl}
+                              alt={user.id}
+                            />
+                            {user.userName}
+                          </td>
+                          {weekDates.map(d => {
+                            return user.date.indexOf(d.date) >= 0 ? (
+                              <td className="detail-box__submit-flag">O</td>
+                            ) : (
+                              <td className="detail-box__submit-flag">X</td>
+                            );
+                          })}
+                        </tr>
+                      );
+                    })
+                  : ''}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -212,7 +210,7 @@ class Submit extends React.Component {
     });
     axios
       .get(
-        `http://api.daily-mission.com/api/post/schedule/mission/${this.props.activeMyMissionId}/0`,
+        `https://api.daily-mission.com/api/post/schedule/mission/${this.props.activeMyMissionId}/week/0`,
       )
       .then(response => {
         this.setState({
@@ -240,7 +238,7 @@ class Submit extends React.Component {
       });
       axios
         .get(
-          `http://api.daily-mission.com/api/post/schedule/mission/${this.props.match.params.id}/0`,
+          `https://api.daily-mission.com/api/post/schedule/mission/${this.props.match.params.id}/0`,
         )
         .then(response => {
           this.setState({
@@ -252,16 +250,9 @@ class Submit extends React.Component {
           console.log(error);
         });
     }
-    if (
-      prevState.activeMyMission.submit !== this.state.activeMyMission.submit
-    ) {
-      this.setState({
-        activeMyMission: this.state.activeMyMission,
-      });
-    }
   }
   render() {
-    const { postBoard, DeleteBoard, activeMyMissionId } = this.props;
+    const { postBoard } = this.props;
     const { file } = this.state;
     const { isPostPopup, activeMyMission } = this.state;
     if (!activeMyMission) return <div>로딩중..</div>;
@@ -283,7 +274,6 @@ class Submit extends React.Component {
             id={activeMyMission.id}
             postBoard={postBoard}
             file={file}
-            closeModel={closeModel}
             handlePopUp={this.handlePopUp}
             handleClickFile={this.handleClickFile}
           />
@@ -298,18 +288,10 @@ class Submit extends React.Component {
 export default withRouter(
   connect(
     state => ({
-      title: state.submitpost.titleValue,
-      content: state.submitpost.contentValue,
-      fileName: state.submitpost.fileName,
-      fileImgUrl: state.submitpost.fileImgUrl,
-      file: state.submitpost.file,
+      //currentUser: state.loginAuth.currentUser,
     }),
     {
-      updateTitleValue,
-      updateContentValue,
       postBoard,
-      handleDrop,
-      closeModel,
     },
   )(Submit),
 );

@@ -1,10 +1,33 @@
 .my-edit {
-  padding: 30px;
+  height: calc(100vh - 70px);
 
   &__profile-default {
     display: flex;
     width: 1400px;
     margin: 0 auto;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__confirm-btn {
+    position: absolute;
+    margin-left: 140px;
+    margin-top: 10px;
+    background-color: #aaa;
+    display: block;
+    height: 60px;
+    width: 120px;
+    font-size: 1.1rem;
+    color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    cursor: pointer;
+    outline: none;
+    top: 60%;
+    left: 60%;
   }
 }
 

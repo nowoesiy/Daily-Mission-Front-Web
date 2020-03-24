@@ -53,7 +53,7 @@ class MyEdit extends React.Component {
     };
 
     axios
-      .post('http://api.daily-mission.com/user/me/update', formData, config)
+      .post('https://api.daily-mission.com/user/me/update', formData, config)
       .then(() => {
         console.log('--------------------> 프로필 업데이트 성공');
       })
@@ -72,45 +72,52 @@ class MyEdit extends React.Component {
     const { tempUser, isNameEdit } = this.state;
     return (
       <div className="my-edit">
-        <div className="my-edit__profile-default">
-          <div className="profile-default__left">
-            <input
-              id="profile"
-              type="file"
-              style={{ display: 'none' }}
-              onChange={this.handleChangeImage}
-            />
-            <label for="profile">
-              <img
-                className="profile-default__image"
-                src={tempUser.thumbnailUrl}
-                alt={tempUser.name}
-              />
-            </label>
-          </div>
-          <div className="profile-default__right">
-            {isNameEdit ? (
+        <div className="profile-wrap">
+          <div className="my-edit__profile-default">
+            <div className="profile-default__left">
               <input
-                className="profile-default__name"
-                type="text"
-                value={tempUser.name}
-                onChange={this.handleChangeName}
+                id="profile"
+                type="file"
+                style={{ display: 'none' }}
+                onChange={this.handleChangeImage}
               />
-            ) : (
-              <span className="profile-default__name">{tempUser.name}</span>
-            )}
-            <button
-              onClick={this.handleEditName}
-              className={`${
-                isNameEdit
-                  ? 'profile-default__button profile-default__button--save'
-                  : 'profile-default__button profile-default__button--edit'
-              }`}
-            >
-              {isNameEdit ? '저장' : '수정'}
-            </button>
+              <label for="profile">
+                <img
+                  className="profile-default__image"
+                  src={tempUser.thumbnailUrl}
+                  alt={tempUser.name}
+                />
+              </label>
+            </div>
+            <div className="profile-default__right">
+              {isNameEdit ? (
+                <input
+                  className="profile-default__name"
+                  type="text"
+                  value={tempUser.name}
+                  onChange={this.handleChangeName}
+                />
+              ) : (
+                <span className="profile-default__name">{tempUser.name}</span>
+              )}
+              <button
+                onClick={this.handleEditName}
+                className={`${
+                  isNameEdit
+                    ? 'profile-default__button profile-default__button--save'
+                    : 'profile-default__button profile-default__button--edit'
+                }`}
+              >
+                {isNameEdit ? '저장' : '수정'}
+              </button>
+            </div>
           </div>
-          <button onClick={this.postUpdatedProfile}>Real 수정</button>
+          <button
+            className="my-edit__confirm-btn"
+            onClick={this.postUpdatedProfile}
+          >
+            최종 수정
+          </button>
         </div>
       </div>
     );

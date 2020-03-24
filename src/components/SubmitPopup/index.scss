@@ -12,7 +12,7 @@ $green: #00c860;
   border: 1px solid #eee;
   border-radius: 18px;
   width: 900px;
-  height: 600px;
+  height: 550px;
   padding: 30px;
   background: #ffffff;
 
@@ -73,6 +73,8 @@ $green: #00c860;
   }
 
   &__img-box {
+    display: flex;
+    justify-content: space-between;
     text-align: left;
   }
 
@@ -102,7 +104,9 @@ $green: #00c860;
     border-radius: 8px;
     border: 2px solid #eee;
     cursor: pointer;
-
+    position: absolute;
+    right: 20px;
+    bottom: 40px;
     transition: border-color 0.15s ease 0s, background 0.15s ease 0s,
       color 0.15s ease 0s;
 

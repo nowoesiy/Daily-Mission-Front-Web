@@ -138,6 +138,8 @@
   //background-color: #ffffff;
   padding-top: 20px;
   &__mission-info-title {
+    width: 1100px;
+    margin: 0 auto;
     font-size: 1.5rem;
     font-weight: 700;
   }
@@ -193,16 +195,28 @@
 }
 
 .mission-info {
-  margin-top: 30px;
+  display: flex;
+  width: 1180px;
+  padding-top: 30px;
+  text-align: center;
+  justify-content: center;
+  &__wrap {
+    margin: 0 20px;
+    border: 1px solid #eee;
+    border-radius: 18px;
+    background-color: #ffffff;
+    padding: 10px;
+  }
   &__hoilyday-title {
     font-size: 1.2rem;
     color: #aaa;
     margin-top: 10px;
   }
   &__hoilyday {
-    font-size: 1.1rem;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 5px;
   }
 }
 

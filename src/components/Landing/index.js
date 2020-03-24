@@ -2,7 +2,12 @@ import React from 'react';
 import './index.scss';
 
 import { Link } from 'react-router-dom';
-import { Carousel } from 'react-responsive-carousel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
+
 // const mission = [
 //   {
 //     id: 1,
@@ -87,7 +92,81 @@ import { Carousel } from 'react-responsive-carousel';
 //     numOfattend: 130,
 //   },
 // ];
+
 class Landing extends React.Component {
+  state = {
+    hotMissionIndex: 0,
+    newMissionIndex: 0,
+    numOfList: '',
+  };
+
+  handleSwiperRightClick = () => {
+    if (
+      this.state.hotMissionIndex <
+      this.props.hotMissions.length - this.state.numOfList
+    ) {
+      this.setState({
+        hotMissionIndex: this.state.hotMissionIndex + 1,
+      });
+    }
+  };
+
+  handleSwiperLeftClick = () => {
+    if (this.state.hotMissionIndex > 0) {
+      this.setState({
+        hotMissionIndex: this.state.hotMissionIndex - 1,
+      });
+    }
+  };
+
+  handleSwiperNewRightClick = () => {
+    if (
+      this.state.newMissionIndex <
+      this.props.missions.length - this.state.numOfList
+    ) {
+      this.setState({
+        newMissionIndex: this.state.newMissionIndex + 1,
+      });
+    }
+  };
+
+  handleSwiperNewLeftClick = () => {
+    if (this.state.hotMissionIndex > 0) {
+      this.setState({
+        newMissionIndex: this.state.newMissionIndex - 1,
+      });
+    }
+  };
+
+  handleReactiveList = () => {
+    if (this.box) {
+      const { clientWidth } = this.box;
+
+      this.setState({
+        numOfList: clientWidth / 365,
+      });
+    }
+  };
+
+  componentDidMount() {
+    this.handleReactiveList();
+
+    window.addEventListener('resize', this.handleReactiveList);
+  }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener(
+  //     'resize',
+  //     () => {
+  //       const { clientWidth } = this.box;
+  //       this.setState({
+  //         numOfList: clientWidth / 365,
+  //       });
+  //     },
+  //     true,
+  //   );
+  // }
+
   popularMissionBox = ({ mission, type }) => {
     return mission.map(m => {
       return (
@@ -125,17 +204,63 @@ class Landing extends React.Component {
 
   render() {
     const { missions, hotMissions } = this.props;
-    const missionsReduce = missions.slice(0, 4);
+    const { newMissionIndex, hotMissionIndex, numOfList } = this.state;
+    const missionsReduce = missions.slice(
+      newMissionIndex,
+      numOfList + newMissionIndex,
+    );
+    const hotMissionsReduce = hotMissions.slice(
+      hotMissionIndex,
+      numOfList + hotMissionIndex,
+    );
     return (
       <div className="landing">
         <div className="landing__popular-text">🔥 Hot한 미션</div>
-        <div className="landing__popular-box">
-          <this.popularMissionBox type={'hot'} mission={hotMissions} />
+
+        <div
+          className="landing__popular-box"
+          ref={ref => {
+            this.box = ref;
+          }}
+        >
+          <div className="landing__button-wrap">
+            <button
+              className="landing__button"
+              onClick={this.handleSwiperLeftClick}
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
+          </div>
+          <this.popularMissionBox type={'hot'} mission={hotMissionsReduce} />
+          <div className="landing__button-wrap">
+            <button
+              className="landing__button"
+              onClick={this.handleSwiperRightClick}
+            >
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          </div>
         </div>
 
         <div className="landing__new-text">✌ 신규 미션</div>
         <div className="landing__popular-box">
+          <div className="landing__button-wrap">
+            <button
+              className="landing__button"
+              onClick={this.handleSwiperNewLeftClick}
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </button>
+          </div>
           <this.popularMissionBox type={'new'} mission={missionsReduce} />
+          <div className="landing__button-wrap">
+            <button
+              className="landing__button"
+              onClick={this.handleSwiperNewRightClick}
+            >
+              <FontAwesomeIcon icon={faChevronRight} />
+            </button>
+          </div>
         </div>
       </div>
     );

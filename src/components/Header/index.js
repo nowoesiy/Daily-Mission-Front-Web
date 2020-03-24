@@ -47,11 +47,17 @@ class Header extends React.Component {
               {profileToggle ? (
                 <div className="profile-dropdown">
                   <span className="profile-dropdown__user-name">
-                    {currentUser.name} 님
+                    <strong>{currentUser.name} 님</strong>
                   </span>
+                  <Link to="/my/edit">
+                    <span className="profile-dropdown__edit-profile">
+                      계정 정보 변경
+                    </span>
+                  </Link>
                   <Link to="/my">
                     <span className="profile-dropdown__my-page">👤MY</span>
                   </Link>
+
                   <button
                     onClick={handleLogout}
                     className="profile-dropdown__logout-button"

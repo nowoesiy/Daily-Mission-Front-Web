@@ -7,7 +7,7 @@ import {
 } from '../../constants';
 import logo from '../../static/img/logo.png';
 import googlelogo from '../../static/img/google-logo.png';
-import kakaologo from '../../static/img/kakao--logo.png';
+import githublogo from '../../static/img/github--logo.png';
 import naverlogo from '../../static/img/naver-logo.png';
 
 class Login extends React.Component {
@@ -41,8 +41,8 @@ class Login extends React.Component {
           >
             <img
               className="login-modal__button-image"
-              src={kakaologo}
-              alt="kakao"
+              src={githublogo}
+              alt="github"
             ></img>
             <span> 깃허브로 시작하기</span>
           </button>

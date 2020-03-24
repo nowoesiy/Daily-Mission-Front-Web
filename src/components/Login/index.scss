@@ -6,8 +6,8 @@
   margin: 0 auto;
   border-radius: 12px;
   background-color: #ffffff;
-  box-shadow: 1px 0px 11px 2px rgba(0, 0, 0, 0.11);
-
+  //box-shadow: 1px 0px 11px 2px rgba(0, 0, 0, 0.11);
+  border: 2px solid #afbbda;
   &__title {
     font-size: 1.8rem;
     margin-bottom: 40px;
@@ -28,10 +28,12 @@
     font-weight: 600;
     cursor: pointer;
     vertical-align: middle;
+
     &--kakao {
-      background-color: #ffe812;
+      background-color: #222;
+      color: #ffffff;
       &:hover {
-        background-color: #f2db02;
+        background-color: #000;
       }
     }
     &--google {
@@ -52,7 +54,7 @@
 
   &__button-image {
     vertical-align: text-bottom;
-    width: 23px;
-    height: 23px;
+    width: 30px;
+    height: 30px;
   }
 }
