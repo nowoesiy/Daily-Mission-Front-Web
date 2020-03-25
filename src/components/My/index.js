@@ -288,19 +288,32 @@ const posts = [
 
 const CreatePostingBox = ({ handleClickImage, post }) => {
   return (
-    <div className="mypost-box">
-      <div className="mypost-box__top">
+    <div className="post-thumbnailboxB">
+      <div className="post-thumbnailboxB__top">
         <img
-          className="mypost-box__img"
+          className="post-thumbnailboxB__img"
           src={post.thumbnailUrl}
           // onClick={() => {
           //   handleClickImage(post.imageUrl);
           // }}
         />
       </div>
-      <div className="mypost-box__body">
-        <div className="mypost-box__title">{post.title}</div>
-        <div className="mypost-box__content">{post.content}</div>
+      <div className="post-thumbnailboxB__body">
+        <div className="post-thumbnailboxB__title">{post.title}</div>
+        <div className="post-thumbnailboxB__content">{post.content}</div>
+      </div>
+      <div className="post-thumbnailboxB__bottom">
+        <div>
+          <span className="post-thumbnailboxB__author-wrap">
+            From{' '}
+            <strong className="post-thumbnailboxB__author-name">
+              {post.missionTitle}
+            </strong>
+          </span>
+        </div>
+        <div className="post-thumbnailboxB__date">
+          {post.modifiedDate.substr(0, 10)}
+        </div>
       </div>
     </div>
   );
