@@ -114,6 +114,17 @@ $blue: #3851e7;
     text-align: center;
     margin-left: 37px;
     font-size: 1.3rem;
+    &--name {
+      text-align: left;
+    }
+
+    &--submit {
+      background: lightgreen;
+    }
+
+    &--not-submit {
+      background: #ffcccb;
+    }
   }
 }
 
@@ -128,8 +139,8 @@ $blue: #3851e7;
   &__day {
     padding: 0px 30px;
     //margin-left: 37px;
-    &:first-child {
-      width: 900px;
+    &--first-child {
+      width: 100%;
     }
   }
 }

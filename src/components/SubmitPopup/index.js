@@ -3,7 +3,7 @@ import './index.scss';
 import Popup from 'reactjs-popup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-
+import { missionSubmitTrue } from '../../modules/reduer_loginAuth';
 class SubmitPopup extends React.Component {
   state = {
     title: '',
@@ -17,7 +17,14 @@ class SubmitPopup extends React.Component {
   };
 
   render() {
-    const { id, postBoard, file, handlePopUp, handleClickFile } = this.props;
+    const {
+      id,
+      postBoard,
+      file,
+      handlePopUp,
+      handleClickFile,
+      getMissionDetail,
+    } = this.props;
     const { title, content } = this.state;
     return (
       <div className="overlay">
@@ -80,9 +87,11 @@ class SubmitPopup extends React.Component {
               <button
                 type="submit"
                 className="submit-board__button submit-board__button--submit"
-                onClick={() => {
+                onClick={e => {
                   handlePopUp();
                   postBoard(id, title, content, file);
+                  getMissionDetail();
+                  e.preventDefault();
                 }}
               >
                 <FontAwesomeIcon icon={faCheck} size="1x" /> 미션제출

@@ -4,6 +4,7 @@ import Popup from 'reactjs-popup';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
+import { postMission } from '../../modules/reducer_mission';
 
 class MissionCreatePopup extends React.Component {
   state = {
@@ -59,13 +60,13 @@ class MissionCreatePopup extends React.Component {
     this.setState({ ...this.state, [e.target.name]: e.target.checked });
   };
 
-  postMission = () => {
+  render() {
     const {
       title,
       content,
-      file,
       startDate,
       endDate,
+      file,
       sun,
       mon,
       tue,
@@ -90,40 +91,6 @@ class MissionCreatePopup extends React.Component {
     formData.set('startDate', startDate.toISOString().substring(0, 10));
     formData.set('endDate', endDate.toISOString().substr(0, 10));
 
-    console.log(formData);
-
-    const config = {
-      headers: {
-        'Content-type': 'multipart/form-data',
-        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-    };
-
-    axios
-      .post('https://api.daily-mission.com/api/mission', formData, config)
-      .then(() => {
-        console.log('--------------------> 미션 생성 성공');
-      })
-      .catch(error => {
-        console.log('failed', error);
-      });
-  };
-
-  render() {
-    const {
-      title,
-      content,
-      startDate,
-      endDate,
-      file,
-      sun,
-      mon,
-      tue,
-      wed,
-      thu,
-      fri,
-      sat,
-    } = this.state;
     return (
       <Popup
         modal
@@ -264,7 +231,7 @@ class MissionCreatePopup extends React.Component {
                 type="sumbit"
                 className="new-mission__submit-button"
                 onClick={() => {
-                  this.postMission();
+                  this.props.postMission(formData);
                   close();
                 }}
               >

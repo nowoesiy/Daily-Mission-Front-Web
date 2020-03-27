@@ -9,8 +9,10 @@
     margin: 0 auto;
     display: flex;
     padding: 40px 0px;
-    width: 1080px;
-    justify-content: space-around;
+    width: 1480px;
+    min-width: 1080px;
+    justify-content: center;
+    text-align: left;
   }
 
   &__img {
@@ -21,10 +23,18 @@
   }
 
   &__content-wrap {
-    padding: 60px 30px;
-    color: #ffffff;
-    background-color: #323542;
   }
+}
+
+.content-wrap {
+  min-height: 305px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 30px;
+  padding: 50px 30px;
+  color: #ffffff;
+  background-color: #323542;
 
   &__title {
     font-size: 2rem;
@@ -33,7 +43,7 @@
 
   &__content {
     font-size: 1.1rem;
-    margin-top: 30px;
+    margin-top: 1rem;
     line-height: 25px;
   }
 
@@ -42,8 +52,32 @@
     margin-top: 50px;
   }
 
+  &__submit-day {
+    margin-top: 1rem;
+    font-size: 1rem;
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__day {
+    background-color: #1aa260;
+    display: inline-block;
+    height: 1.5rem;
+    width: 1.5rem;
+    text-align: center;
+    line-height: 1.5rem;
+    border-radius: 50%;
+
+    &--not-submit {
+      margin: 0 -0.2rem;
+      background: none;
+      color: #888;
+    }
+  }
+
   &__not-start-mission {
-    margin-top: 50px;
+    margin-top: 2rem;
     font-size: 1.4rem;
     font-weight: 700;
   }
@@ -60,10 +94,18 @@
     color: #aaa;
   }
 
+  &__button-wrap {
+    text-align: right;
+    margin-top: 50px;
+  }
+
+  &__attend-label {
+    font-size: 1.3rem;
+  }
+
   &__attend-btn {
     transition: background-color 0.1s ease 0s;
     font-size: 1.2rem;
-    margin-top: 50px;
     height: 50px;
     width: 180px;
     background: #1aa260;
@@ -91,31 +133,62 @@
     }
 
     &--enter {
-      width: 60px;
-      height: 40px;
+      font-size: 1.1rem;
+      margin: 0;
+      width: 80px;
+      height: 37px;
       background-color: green;
       margin-left: 5px;
     }
   }
+}
+.password-wrap {
+  padding: 2rem;
+  background: #f0f0f0;
+  color: #000000;
+  position: absolute;
+  border-radius: 9px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &__label {
+    font-size: 0.9rem;
+  }
+
+  &__attend {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
 
   &__attend-pwd {
+    border: 1px solid #aaa;
     font-size: 1.1rem;
-    height: 33px;
-    width: 180px;
-    border-radius: 10px;
-
+    height: 35px;
+    width: 65%;
+    border-radius: 6px;
+    padding: 0 1rem;
     &:focus {
       outline: none;
     }
-
-    &--hidden {
-      display: none;
-    }
   }
 
-  &__password-wrap {
-    &--hidden {
-      display: none;
+  &__attend-btn {
+    transition: background-color 0.1s ease 0s;
+    font-size: 1.1rem;
+    height: 37px;
+    width: 80px;
+    margin-left: 0.5rem;
+    background: #1aa260;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    &:hover {
+      background: #0f8a4e;
     }
   }
 }
@@ -176,6 +249,10 @@
     font-size: 1.1rem;
     line-height: 1.1rem;
     margin-left: 5px;
+
+    &--banned {
+      text-decoration: line-through;
+    }
   }
 
   &__mission-info-title-sub {

@@ -1,16 +1,11 @@
 import axios from 'axios';
-import { missionSubmitTrue } from './reduer_loginAuth';
+import { LoadToGetCurrentUser } from './reduer_loginAuth';
 const POST_BOARD_SUCCESS = 'POST_BOARD_SUCCESS';
-const POST_BOARD_FAIL = 'POST_BOARD_FAIL';
 
 // 액션 타입 함수
 
 const postBoardSuccess = () => ({
   type: POST_BOARD_SUCCESS,
-});
-
-const postBoardFail = () => ({
-  type: POST_BOARD_FAIL,
 });
 
 export const postBoard = (id, titleValue, contentValue, file) => {
@@ -33,12 +28,11 @@ export const postBoard = (id, titleValue, contentValue, file) => {
       .post('https://api.daily-mission.com/api/post', formData, config)
       .then(() => {
         dispatch(postBoardSuccess());
-        dispatch(missionSubmitTrue(id));
+        dispatch(LoadToGetCurrentUser());
         console.log('--------------------> 미션 글 Post 성공');
       })
       .catch(error => {
-        dispatch(postBoardFail(error));
-        console.log('failed', error.message);
+        console.log('failed', error);
       });
   };
 };
@@ -62,12 +56,6 @@ export default function SubmitPost(state = initialState, action) {
     case POST_BOARD_SUCCESS:
       return {
         ...state,
-      };
-
-    case POST_BOARD_FAIL:
-      return {
-        ...state,
-        errorMsg: action.response.message,
       };
     default:
       return state;

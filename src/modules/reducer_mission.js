@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { LoadToGetCurrentUser } from './reduer_loginAuth';
 const POST_ATTENDING_MISSION = 'POST_ATTENDING_MISSION';
 const ON_CLICK_MISSION_LIST = 'ON_CLICK_MISSION_LIST';
 const ON_CLICK_MY_MISSION_LIST = 'ON_CLICK_MY_MISSION_LIST';
@@ -63,6 +63,29 @@ export const getHomeMissionList = () => {
 //   };
 // };
 
+export const postMission = formData => {
+  const config = {
+    headers: {
+      'Content-type': 'multipart/form-data',
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  };
+  console.log(formData);
+  return dispatch => {
+    axios
+      .post('https://api.daily-mission.com/api/mission', formData, config)
+      .then(() => {
+        console.log('--------------------> 미션 생성 성공');
+        dispatch(LoadToGetCurrentUser());
+        dispatch(getHomeMissionList());
+        dispatch(getMissionList());
+      })
+      .catch(error => {
+        console.log('failed', error);
+      });
+  };
+};
+
 export const postAttednigMission = (_id, _password) => {
   return dispatch => {
     axios
@@ -120,7 +143,6 @@ const getHotMissionSuccess = response => ({
 // });
 
 const initialState = {
-  //activeMission: '',
   missions: [],
   homeMissions: [],
   hotMissions: [],

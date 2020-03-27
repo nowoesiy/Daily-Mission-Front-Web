@@ -131,7 +131,7 @@ class Landing extends React.Component {
   };
 
   handleSwiperNewLeftClick = () => {
-    if (this.state.hotMissionIndex > 0) {
+    if (this.state.newMissionIndex > 0) {
       this.setState({
         newMissionIndex: this.state.newMissionIndex - 1,
       });

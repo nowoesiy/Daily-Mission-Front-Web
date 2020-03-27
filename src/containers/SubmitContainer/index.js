@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import moment from 'moment';
 import SubmitPopup from '../../components/SubmitPopup';
 import './index.scss';
 import { postBoard } from '../../modules/reducer_submitPost';
@@ -11,9 +12,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUpload,
   faSmileWink,
+  faTimes,
   faCheck,
 } from '@fortawesome/free-solid-svg-icons';
-
 // const dayInfo = [
 //   { date: '2020-03-01', day: '일' },
 //   { date: '2020-03-02', day: '월' },
@@ -51,13 +52,20 @@ import {
 // ];
 
 class Submit extends React.Component {
-  state = {
-    isPostPopup: false,
-    dates: [],
-    histories: [],
-    activeMyMission: '',
-    file: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      leftTime: undefined,
+      isPostPopup: false,
+      dates: [],
+      histories: [],
+      file: '',
+      activeMyMission: this.props.currentUser.missions.filter(
+        mission => mission.id == this.props.match.params.id,
+      )[0],
+      activeMissionId: this.props.match.params.id,
+    };
+  }
 
   handleDrop = file => {
     this.setState({
@@ -87,7 +95,7 @@ class Submit extends React.Component {
             <h2 className="box__title">제출 보드</h2>
           </div>
           <div className="box__body">
-            <div className="box__limit-time">⏰ 03:00:33 남음</div>
+            <div className="box__limit-time">⏰ {this.state.leftTime} 남음</div>
             <div className="drop-upload-box">
               {!submit ? (
                 <FileDrop onDrop={this.handleDrop}>
@@ -130,10 +138,10 @@ class Submit extends React.Component {
             </div> */}
           </div>
           <div className="day-info">
-            <table>
+            <table style={{ width: '100%' }}>
               <thead className="day-info__title">
                 <tr>
-                  <th className="day-info__day:first-child">미션 참여자</th>
+                  <th className="day-info__day--first-child"></th>
                   {weekDates
                     ? weekDates.map(d => {
                         return (
@@ -159,7 +167,7 @@ class Submit extends React.Component {
                               : 'detail-box__user-wrap detail-box__user-wrap--banned'
                           }
                         >
-                          <td className="detail-box__submit-flag">
+                          <td className="detail-box__submit-flag--name">
                             <img
                               className="detail-box__user-img"
                               src={user.thumbnailUrl}
@@ -169,9 +177,15 @@ class Submit extends React.Component {
                           </td>
                           {weekDates.map(d => {
                             return user.date.indexOf(d.date) >= 0 ? (
-                              <td className="detail-box__submit-flag">O</td>
+                              <td className="detail-box__submit-flag detail-box__submit-flag--submit">
+                                <FontAwesomeIcon icon={faCheck} color="green" />
+                              </td>
+                            ) : d.mandatory ? (
+                              <td className="detail-box__submit-flag detail-box__submit-flag--not-submit">
+                                <FontAwesomeIcon icon={faTimes} color="red" />
+                              </td>
                             ) : (
-                              <td className="detail-box__submit-flag">X</td>
+                              <td className="detail-box__submit-flag">휴무</td>
                             );
                           })}
                         </tr>
@@ -198,19 +212,10 @@ class Submit extends React.Component {
     );
   };
 
-  componentDidMount() {
-    const { currentUser } = this.props;
-
-    const activeMyMission = currentUser.missions.filter(
-      mission => mission.id === this.props.activeMyMissionId,
-    )[0];
-
-    this.setState({
-      activeMyMission,
-    });
+  getMissionDetail = () => {
     axios
       .get(
-        `https://api.daily-mission.com/api/post/schedule/mission/${this.props.activeMyMissionId}/week/0`,
+        `https://api.daily-mission.com/api/post/schedule/mission/${this.state.activeMissionId}/week/0`,
       )
       .then(response => {
         this.setState({
@@ -221,36 +226,41 @@ class Submit extends React.Component {
       .catch(error => {
         console.log(error);
       });
+  };
+
+  componentDidMount() {
+    this.getMissionDetail();
+
+    this.interval = setInterval(() => {
+      const now = moment();
+      const then = moment('28-03-2020 18:00:00', 'DD-MM-YYYY HH:mm:ss');
+      const countdown = moment(then - now);
+      const hours = countdown.format('H');
+      const minutes = countdown.format('mm');
+      const seconds = countdown.format('ss');
+      const leftTime =
+        String(hours) +
+        '시간 ' +
+        String(minutes) +
+        '분 ' +
+        String(seconds) +
+        '초';
+      this.setState({ leftTime });
+    }, 1000);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { activeMyMissionId, currentUser } = this.props;
-
-    if (activeMyMissionId !== prevProps.activeMyMissionId) {
-      const { currentUser } = this.props;
-
-      const activeMyMission = currentUser.missions.filter(
-        mission => mission.id === activeMyMissionId,
-      )[0];
-
-      this.setState({
-        activeMyMission,
-      });
-      axios
-        .get(
-          `https://api.daily-mission.com/api/post/schedule/mission/${this.props.match.params.id}/0`,
-        )
-        .then(response => {
-          this.setState({
-            histories: response.data.histories,
-            dates: response.data.dates,
-          });
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log('nextProps', nextProps, '\nprevState', prevState);
+    if (nextProps.match.params.id !== prevState.activeMissionId)
+      return {
+        activeMissionId: nextProps.match.params.id,
+        activeMyMission: nextProps.currentUser.missions.filter(
+          mission => mission.id == nextProps.match.params.id,
+        )[0],
+      };
+    else return null;
   }
+
   render() {
     const { postBoard } = this.props;
     const { file } = this.state;
@@ -276,6 +286,7 @@ class Submit extends React.Component {
             file={file}
             handlePopUp={this.handlePopUp}
             handleClickFile={this.handleClickFile}
+            getMissionDetail={this.getMissionDetail}
           />
         ) : (
           ''
@@ -283,6 +294,42 @@ class Submit extends React.Component {
       </>
     );
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   const { activeMissionId } = this.state;
+  //   const { currentUser } = this.props;
+  //   if (activeMissionId != prevState.activeMissionId) {
+  //     this.setState({
+  //       activeMyMission: currentUser.missions.filter(
+  //         mission => mission.id == activeMissionId,
+  //       )[0],
+  //     });
+
+  //     axios
+  //       .get(
+  //         `https://api.daily-mission.com/api/post/schedule/mission/${this.props.match.params.id}/0`,
+  //       )
+  //       .then(response => {
+  //         this.setState({
+  //           histories: response.data.histories,
+  //           dates: response.data.dates,
+  //         });
+  //       })
+  //       .catch(error => {
+  //         console.log(error);
+  //       });
+  //   }
+
+  //   // if (currentUser.missions !== prevProps.currentUser.missions) {
+  //   //   const activeMyMission = currentUser.missions.filter(
+  //   //     mission => mission.id === activeMyMissionId,
+  //   //   )[0];
+
+  //   //   this.setState({
+  //   //     activeMyMission,
+  //   //   });
+  //   // }
+  // }
 }
 
 export default withRouter(

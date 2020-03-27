@@ -1,14 +1,11 @@
 import { getCurrentUser } from '../util/login-util';
 import { ACCESS_TOKEN } from '../constants';
-import { Redirect } from 'react-router-dom';
 
 const LOAD_USER_START = 'LOAD_USER_START';
 const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 const LOAD_USER_FAIL = 'LOAD_USER_FAIL';
 const LOGOUT_USER = 'LOGOUT_USER';
 const MISSION_SUBMIT_TRUE = 'MISSION_SUBMIT_TRUE';
-
-export const handleLogin = () => {};
 
 export const handleLogout = () => {
   return dispatch => {
@@ -38,7 +35,7 @@ export const LoadToGetCurrentUser = () => {
 
 export const missionSubmitTrue = id => ({
   type: MISSION_SUBMIT_TRUE,
-  payload: id,
+  id,
 });
 
 const loadingBegin = () => ({
@@ -64,7 +61,7 @@ const initialState = {
   loading: false,
 };
 
-export default function auth(state = initialState, action) {
+export default function loginAuth(state = initialState, action) {
   switch (action.type) {
     case LOAD_USER_START:
       return {
@@ -99,7 +96,7 @@ export default function auth(state = initialState, action) {
             missions: [
               ...state.missions,
               state.currentUser.missions.find(mission =>
-                mission.id === action.payload
+                mission.id === action.id
                   ? { ...mission, submit: true }
                   : mission,
               ),

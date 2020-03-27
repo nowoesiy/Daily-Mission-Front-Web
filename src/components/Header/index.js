@@ -4,7 +4,6 @@ import Login from '../Login';
 import logo from '../../static/img/logo.png';
 import MissionCreatePopup from '../MissionCreatePopup';
 import { Link } from 'react-router-dom';
-
 class Header extends React.Component {
   state = {
     profileToggle: false,
@@ -16,7 +15,7 @@ class Header extends React.Component {
     });
   };
   render() {
-    const { currentUser, handleLogout } = this.props;
+    const { currentUser, handleLogout, postMission } = this.props;
     const { profileToggle } = this.state;
     return (
       <div className="header">
@@ -36,7 +35,7 @@ class Header extends React.Component {
           ) : (
             <div className="login">
               <div classNae="login__button-wrap">
-                <MissionCreatePopup />
+                <MissionCreatePopup postMission={postMission} />
               </div>
               <img
                 className="login__profile-img"
