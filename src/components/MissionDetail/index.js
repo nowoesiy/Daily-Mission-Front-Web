@@ -80,8 +80,11 @@ const MissionAttendPopup = ({
             />
 
             <button
-              className="password-wrap__attend-btn password-wrap__attend-btn--enter"
+              className={`password-wrap__attend-btn ${
+                password ? '' : 'password-wrap__attend-btn--error'
+              }`}
               onClick={postAttednigMission(mission.id, password)}
+              disabled={!password}
             >
               확인
             </button>
@@ -132,17 +135,20 @@ const CreatePeriodProgress = ({ mission }) => {
   const leftDay = leftTime / (1000 * 3600 * 24);
   const diffTime = endDate.getTime() - startDate.getTime();
   const diffDay = diffTime / (1000 * 3600 * 24);
-  console.log(diffDay);
   return startToNow > 0 ? (
-    <>
-      <Line percent={startToNowDay} strokeWidth="4" strokeColor="#D3D3D3" />
-      <span className="content-wrap__leftDays">
-        {diffDay}일 중 {Math.floor(leftDay)}일 남음
-      </span>
-      <span className="content-wrap__leftDate">
-        {mission.endDate} 미션 종료
-      </span>
-    </>
+    leftDay < 0 ? (
+      <span className="content-wrap__attend-label">종료된 미션입니다.</span>
+    ) : (
+      <>
+        <Line percent={startToNowDay} strokeWidth="4" strokeColor="#D3D3D3" />
+        <span className="content-wrap__leftDays">
+          {diffDay}일 중 {Math.floor(leftDay)}일 남음
+        </span>
+        <span className="content-wrap__leftDate">
+          {mission.endDate} 미션 종료
+        </span>
+      </>
+    )
   ) : (
     <div className="content-wrap__not-start-mission">
       {mission.startDate} ~ {mission.endDate}
@@ -161,11 +167,14 @@ const CreateMissionAttendButton = ({ mission, handleOnClickPopUp }) => {
   const leftDay = leftTime / (1000 * 3600 * 24);
   const diffTime = endDate.getTime() - startDate.getTime();
   const diffDay = diffTime / (1000 * 3600 * 24);
-  console.log(diffDay);
   return startToNow > 0 ? (
-    <span className="content-wrap__attend-label">
-      이미 시작한 미션입니다 😥
-    </span>
+    leftDay < 0 ? (
+      <span className="content-wrap__attend-label">종료된 미션입니다.</span>
+    ) : (
+      <span className="content-wrap__attend-label">
+        이미 시작한 미션입니다 😥
+      </span>
+    )
   ) : (
     <button className="content-wrap__attend-btn" onClick={handleOnClickPopUp}>
       미션 참여하기
@@ -179,7 +188,7 @@ const CreatePostingBox = ({ handleClickImage, post }) => {
       <div className="post-thumbnailbox__top">
         <img
           className="post-thumbnailbox__img"
-          src={post.thumbnailUrl}
+          src={post.thumbnailUrlMission}
           // onClick={() => {
           //   handleClickImage(post.imageUrl);
           // }}
@@ -247,7 +256,6 @@ class MissionDetail extends React.Component {
         this.setState({
           mission: response.data,
         });
-        console.log("('--------------->미션Detail GET성공");
       })
       .catch(error => {
         console.log('failed', error);
@@ -261,7 +269,6 @@ class MissionDetail extends React.Component {
         this.setState({
           missionPost: response.data,
         });
-        console.log(this.state.missionPost);
       })
       .catch(error => {
         console.log(error);
@@ -272,7 +279,7 @@ class MissionDetail extends React.Component {
     const { postAttednigMission, currentUser } = this.props;
     const { missionPost, mission, password, inputPasswordMode } = this.state;
 
-    if (!mission) return <div>로딩중..</div>;
+    if (!mission) return <div></div>;
     return (
       <div className="App-detail">
         <div className="detail">

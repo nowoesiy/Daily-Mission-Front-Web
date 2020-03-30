@@ -15,7 +15,7 @@ class Header extends React.Component {
     });
   };
   render() {
-    const { currentUser, handleLogout, postMission } = this.props;
+    const { currentUser, handleLogout, postMission, attendCode } = this.props;
     const { profileToggle } = this.state;
     return (
       <div className="header">
@@ -35,7 +35,10 @@ class Header extends React.Component {
           ) : (
             <div className="login">
               <div classNae="login__button-wrap">
-                <MissionCreatePopup postMission={postMission} />
+                <MissionCreatePopup
+                  postMission={postMission}
+                  attendCode={attendCode}
+                />
               </div>
               <img
                 className="login__profile-img"

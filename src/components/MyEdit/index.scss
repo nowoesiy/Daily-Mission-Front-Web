@@ -77,6 +77,12 @@
     width: 100%;
   }
 
+  &__name-label {
+    min-height: 1rem;
+    margin-top: -0.5rem;
+    font-size: 0.9rem;
+  }
+
   &__email {
     font-size: 1.4rem;
     margin-top: 0.5rem;
@@ -109,11 +115,19 @@
     &--edit {
       background-color: black;
       border: 1px solid black;
+      &:hover {
+        background-color: #888;
+        border: 1px solid #888;
+      }
     }
 
-    &:hover {
-      background-color: #888;
-      border: 1px solid #888;
+    &--error {
+      background-color: #d4d4d4;
+      border: 1px solid #d4d4d4;
+      cursor: default;
+      &:hover {
+        background-color: #d4d4d4;
+      }
     }
   }
 }

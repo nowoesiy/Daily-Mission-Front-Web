@@ -1,11 +1,14 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { LoadToGetCurrentUser } from './reduer_loginAuth';
+import Alert from '../components/Alert';
 const POST_ATTENDING_MISSION = 'POST_ATTENDING_MISSION';
 const ON_CLICK_MISSION_LIST = 'ON_CLICK_MISSION_LIST';
 const ON_CLICK_MY_MISSION_LIST = 'ON_CLICK_MY_MISSION_LIST';
 const GET_MISSION_SUCCESS = 'GET_MISSION_SUCCESS';
 const GET_HOME_MISSION_SUCCESS = 'GET_HOME_MISSION_SUCCESS';
 const GET_HOT_MISSION_SUCCESS = 'GET_HOT_MISSION_SUCCESS';
+const POST_MISSION_SUCCESS = 'POST_MISSION_SUCCESS';
 
 export const getMissionList = () => {
   return dispatch => {
@@ -13,7 +16,6 @@ export const getMissionList = () => {
       .get('https://api.daily-mission.com/api/mission/all')
       .then(response => {
         dispatch(getMissionSuccess(response.data));
-        console.log("('--------------->미션목록GET성공");
       })
       .catch(error => {
         console.log('failed', error);
@@ -27,7 +29,6 @@ export const getHotMissionList = () => {
       .get('https://api.daily-mission.com/api/mission/hot')
       .then(response => {
         dispatch(getHotMissionSuccess(response.data));
-        console.log("('--------------->Hot미션목록GET성공");
       })
       .catch(error => {
         console.log('failed', error);
@@ -41,7 +42,6 @@ export const getHomeMissionList = () => {
       .get('https://api.daily-mission.com/api/mission/new')
       .then(response => {
         dispatch(getHomeMissionSuccess(response.data));
-        console.log("('--------------->Home미션목록GET성공");
       })
       .catch(error => {
         console.log('failed', error);
@@ -70,15 +70,19 @@ export const postMission = formData => {
       Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
   };
-  console.log(formData);
   return dispatch => {
     axios
       .post('https://api.daily-mission.com/api/mission', formData, config)
-      .then(() => {
-        console.log('--------------------> 미션 생성 성공');
+      .then(response => {
+        dispatch(postMissionSuccess(response));
         dispatch(LoadToGetCurrentUser());
         dispatch(getHomeMissionList());
         dispatch(getMissionList());
+        alert('해당 미션의 참여코드는' + response.data.credential + '입니다');
+        toast.success(response.data.credential, {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        dispatch(Alert(response.data.credential));
       })
       .catch(error => {
         console.log('failed', error);
@@ -104,9 +108,7 @@ export const postAttednigMission = (_id, _password) => {
           },
         },
       )
-      .then(() => {
-        console.log('--------------->미션참여 성공');
-      })
+      .then(() => {})
       .catch(error => {
         console.log('failed', error);
       });
@@ -121,6 +123,11 @@ export const onClickMissionList = id => ({
 export const onClickMyMissionList = id => ({
   type: ON_CLICK_MY_MISSION_LIST,
   id,
+});
+
+const postMissionSuccess = response => ({
+  type: POST_MISSION_SUCCESS,
+  payload: response.data.credential,
 });
 
 const getMissionSuccess = response => ({
@@ -148,6 +155,7 @@ const initialState = {
   hotMissions: [],
   activeMissionId: '',
   activeMyMissionId: 50,
+  attendCode: '',
 };
 
 export default function MissionReducer(state = initialState, action) {
@@ -162,7 +170,11 @@ export default function MissionReducer(state = initialState, action) {
         ...state,
         activeMyMissionId: action.id,
       };
-
+    case POST_MISSION_SUCCESS:
+      return {
+        ...state,
+        attendCode: action.payload,
+      };
     case GET_MISSION_SUCCESS:
       return {
         ...state,

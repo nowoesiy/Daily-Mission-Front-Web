@@ -155,6 +155,9 @@
 
   &__label {
     font-size: 0.9rem;
+    &--sub {
+      font-size: 0.8rem;
+    }
   }
 
   &__attend {
@@ -189,6 +192,14 @@
     outline: none;
     &:hover {
       background: #0f8a4e;
+    }
+
+    &--error {
+      background: #d4d4d4;
+      cursor: default;
+      &:hover {
+        background: #d4d4d4;
+      }
     }
   }
 }

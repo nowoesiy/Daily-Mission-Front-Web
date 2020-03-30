@@ -1,0 +1,25 @@
+.alert {
+  &__wrap {
+    border-radius: 8px;
+    background: #f2f4f9;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 500px;
+  }
+
+  &__top {
+    height: 350px;
+    width: 800px;
+  }
+
+  &__text {
+    font-size: 1.3rem;
+  }
+
+  &__button {
+    width: 400px;
+  }
+}

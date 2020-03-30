@@ -8,14 +8,7 @@ const postBoardSuccess = () => ({
   type: POST_BOARD_SUCCESS,
 });
 
-export const postBoard = (id, titleValue, contentValue, file) => {
-  const formData = new FormData();
-
-  formData.set('missionId', id);
-  formData.set('title', titleValue);
-  formData.set('content', contentValue);
-  formData.append('file', file);
-
+export const postBoard = formData => {
   const config = {
     headers: {
       'Content-type': 'multipart/form-data',
@@ -29,18 +22,11 @@ export const postBoard = (id, titleValue, contentValue, file) => {
       .then(() => {
         dispatch(postBoardSuccess());
         dispatch(LoadToGetCurrentUser());
-        console.log('--------------------> 미션 글 Post 성공');
       })
       .catch(error => {
         console.log('failed', error);
       });
   };
-};
-
-export const DeleteBoard = id => {
-  axios.delete(`https://api.daily-mission.com/api/posts/${id}`, {
-    crossdomain: true,
-  });
 };
 
 //액션 생성함수

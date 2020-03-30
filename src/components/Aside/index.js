@@ -67,16 +67,18 @@ class Aside extends React.Component {
           {currentUser ? (
             <ul className={`my-nav${isMyNavVisible ? '' : '--hidden'}`}>
               {currentUser.missions.map(mission => {
-                return (
-                  <Link to={`/my/${mission.id}`} exact>
-                    <li
-                      className="my-nav__list"
-                      onClick={() => onClickMyMissionList(mission.id)}
-                    >
-                      {mission.title}
-                    </li>
-                  </Link>
-                );
+                if (mission.banned == false) {
+                  return (
+                    <Link to={`/my/${mission.id}`} exact>
+                      <li
+                        className="my-nav__list"
+                        onClick={() => onClickMyMissionList(mission.id)}
+                      >
+                        {mission.title}
+                      </li>
+                    </Link>
+                  );
+                }
               })}
             </ul>
           ) : (

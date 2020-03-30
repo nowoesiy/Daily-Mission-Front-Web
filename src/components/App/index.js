@@ -49,8 +49,8 @@ import MyEdit from '../MyEdit';
 //       title: '1일 1아침 밥 먹기',
 //       thumbnailUrl:
 //         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/1%EC%9D%BC%201%EC%95%84%EC%B9%A8%20%EB%B0%A5%20%EB%A8%B9%EA%B8%B0/202003122108_maxresdefault_400_600.jpg',
-//       banned: false,
-//       submit: true,
+//       banned: true,
+//       submit: false,
 //       ended: false,
 //     },
 //     {
@@ -139,6 +139,7 @@ class App extends React.Component {
           ></Route>
         </Switch>
         <Header
+          attendCode={this.props.attendCode}
           postMission={this.props.postMission}
           authenticated={authenticated}
           currentUser={currentUser}
@@ -201,13 +202,7 @@ class App extends React.Component {
                 </Route>
                 <Route
                   path="/my/:id"
-                  render={() =>
-                    currentUser ? (
-                      <SubmitContainer currentUser={currentUser} />
-                    ) : (
-                      <Redirect to={'/'} />
-                    )
-                  }
+                  render={() => <SubmitContainer />}
                   exact
                 />
               </Switch>
@@ -225,8 +220,6 @@ class App extends React.Component {
   // componentDidUpdate(prevProps, prevState) {
   //   const { homeMissions } = this.props;
   //   if (homeMissions != prevProps.homeMissions) {
-  //     console.log(homeMissions);
-  //     console.log(prevProps.homeMissions);
   //     this.props.getHomeMissionList();
   //   }
   // }
@@ -243,6 +236,7 @@ export default withRouter(
       activemyMission: state.MissionReducer.activemyMission,
       homeMissions: state.MissionReducer.homeMissions,
       hotMissions: state.MissionReducer.hotMissions,
+      attendCode: state.MissionReducer.attendCode,
     }),
     {
       handleLogout,

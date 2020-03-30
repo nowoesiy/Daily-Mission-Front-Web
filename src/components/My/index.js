@@ -293,7 +293,7 @@ const CreatePostingBox = ({ handleClickImage, post }) => {
       <div className="post-thumbnailboxB__top">
         <img
           className="post-thumbnailboxB__img"
-          src={post.thumbnailUrl}
+          src={post.thumbnailUrlMy}
           // onClick={() => {
           //   handleClickImage(post.imageUrl);
           // }}
@@ -330,7 +330,10 @@ class My extends React.Component {
   CreateMissionList = ({ mission }) => {
     const { onClickMyMissionList } = this.props;
     return (
-      <Link to={`my/${mission.id}`}>
+      <Link
+        to={`my/${mission.id}`}
+        className={`${mission.banned ? 'list-box--disabled' : ''}`}
+      >
         <div
           className="list-box"
           onClick={() => onClickMyMissionList(mission.id)}
@@ -359,8 +362,12 @@ class My extends React.Component {
           >
             {mission.title}
           </div>
-          <div className="list-box__progress">현재 10명 제출</div>
-          {mission.submit ? (
+          {/* <div className="list-box__progress">현재 10명 제출</div> */}
+          {mission.banned ? (
+            <div className="list-box__footer list-box__footer--banned">
+              강퇴당한 미션입니다
+            </div>
+          ) : mission.submit ? (
             <div className="list-box__footer list-box__footer--submit">
               제출 완료 😊
             </div>

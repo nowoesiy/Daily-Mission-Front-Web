@@ -55,11 +55,11 @@ class Submit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      leftTime: undefined,
       isPostPopup: false,
       dates: [],
       histories: [],
       file: '',
+      fileName: '',
       activeMyMission: this.props.currentUser.missions.filter(
         mission => mission.id == this.props.match.params.id,
       )[0],
@@ -84,6 +84,7 @@ class Submit extends React.Component {
   handleClickFile = e => {
     this.setState({
       file: e.target.files[0],
+      fileName: e.target.files[0].name,
     });
   };
 
@@ -95,7 +96,7 @@ class Submit extends React.Component {
             <h2 className="box__title">제출 보드</h2>
           </div>
           <div className="box__body">
-            <div className="box__limit-time">⏰ {this.state.leftTime} 남음</div>
+            {/* <div className="box__limit-time">⏰ {this.state.leftTime} 남음</div> */}
             <div className="drop-upload-box">
               {!submit ? (
                 <FileDrop onDrop={this.handleDrop}>
@@ -229,28 +230,39 @@ class Submit extends React.Component {
   };
 
   componentDidMount() {
-    this.getMissionDetail();
+    axios
+      .get(
+        `https://api.daily-mission.com/api/post/schedule/mission/${this.state.activeMissionId}/week/0`,
+      )
+      .then(response => {
+        this.setState({
+          histories: response.data.histories,
+          weekDates: response.data.weekDates,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
 
-    this.interval = setInterval(() => {
-      const now = moment();
-      const then = moment('28-03-2020 18:00:00', 'DD-MM-YYYY HH:mm:ss');
-      const countdown = moment(then - now);
-      const hours = countdown.format('H');
-      const minutes = countdown.format('mm');
-      const seconds = countdown.format('ss');
-      const leftTime =
-        String(hours) +
-        '시간 ' +
-        String(minutes) +
-        '분 ' +
-        String(seconds) +
-        '초';
-      this.setState({ leftTime });
-    }, 1000);
+    // this.interval = setInterval(() => {
+    //   const now = moment();
+    //   const then = moment('28-03-2020 18:00:00', 'DD-MM-YYYY HH:mm:ss');
+    //   const countdown = moment(then - now);
+    //   const hours = countdown.format('H');
+    //   const minutes = countdown.format('mm');
+    //   const seconds = countdown.format('ss');
+    //   const leftTime =
+    //     String(hours) +
+    //     '시간 ' +
+    //     String(minutes) +
+    //     '분 ' +
+    //     String(seconds) +
+    //     '초';
+    //   this.setState({ leftTime });
+    // }, 1000);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log('nextProps', nextProps, '\nprevState', prevState);
     if (nextProps.match.params.id !== prevState.activeMissionId)
       return {
         activeMissionId: nextProps.match.params.id,
@@ -263,9 +275,9 @@ class Submit extends React.Component {
 
   render() {
     const { postBoard } = this.props;
-    const { file } = this.state;
+    const { file, fileName } = this.state;
     const { isPostPopup, activeMyMission } = this.state;
-    if (!activeMyMission) return <div>로딩중..</div>;
+    if (!activeMyMission) return <div></div>;
     return (
       <>
         <div className="submit">
@@ -284,9 +296,9 @@ class Submit extends React.Component {
             id={activeMyMission.id}
             postBoard={postBoard}
             file={file}
+            fileName={fileName}
             handlePopUp={this.handlePopUp}
             handleClickFile={this.handleClickFile}
-            getMissionDetail={this.getMissionDetail}
           />
         ) : (
           ''
@@ -295,47 +307,46 @@ class Submit extends React.Component {
     );
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { activeMissionId } = this.state;
-  //   const { currentUser } = this.props;
-  //   if (activeMissionId != prevState.activeMissionId) {
-  //     this.setState({
-  //       activeMyMission: currentUser.missions.filter(
-  //         mission => mission.id == activeMissionId,
-  //       )[0],
-  //     });
+  componentDidUpdate(prevProps, prevState) {
+    const { activeMissionId } = this.state;
+    const { currentUser } = this.props;
+    if (activeMissionId != prevState.activeMissionId) {
+      this.setState({
+        activeMyMission: currentUser.missions.filter(
+          mission => mission.id == activeMissionId,
+        )[0],
+      });
+      axios
+        .get(
+          `https://api.daily-mission.com/api/post/schedule/mission/${this.props.match.params.id}/week/0`,
+        )
+        .then(response => {
+          this.setState({
+            histories: response.data.histories,
+            dates: response.data.dates,
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
 
-  //     axios
-  //       .get(
-  //         `https://api.daily-mission.com/api/post/schedule/mission/${this.props.match.params.id}/0`,
-  //       )
-  //       .then(response => {
-  //         this.setState({
-  //           histories: response.data.histories,
-  //           dates: response.data.dates,
-  //         });
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //   }
+    if (currentUser.missions !== prevProps.currentUser.missions) {
+      const activeMyMission = currentUser.missions.filter(
+        mission => mission.id === activeMissionId,
+      )[0];
 
-  //   // if (currentUser.missions !== prevProps.currentUser.missions) {
-  //   //   const activeMyMission = currentUser.missions.filter(
-  //   //     mission => mission.id === activeMyMissionId,
-  //   //   )[0];
-
-  //   //   this.setState({
-  //   //     activeMyMission,
-  //   //   });
-  //   // }
-  // }
+      this.setState({
+        activeMyMission,
+      });
+    }
+  }
 }
 
 export default withRouter(
   connect(
     state => ({
-      //currentUser: state.loginAuth.currentUser,
+      currentUser: state.loginAuth.currentUser,
     }),
     {
       postBoard,

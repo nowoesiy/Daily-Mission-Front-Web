@@ -12,19 +12,16 @@ export const handleLogout = () => {
     localStorage.removeItem(ACCESS_TOKEN);
     dispatch(logoutUser());
     document.location.href = '/';
-    console.log('Logout Success');
   };
 };
 
 export const LoadToGetCurrentUser = () => {
   return dispatch => {
     dispatch(loadingBegin());
-    console.log('Loading User Start');
 
     getCurrentUser()
       .then(response => {
         dispatch(loadingSucess(response));
-        console.log('Loading User Success');
       })
       .catch(error => {
         dispatch(loadingFail(error));

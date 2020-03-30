@@ -32,6 +32,11 @@
   font-size: 1.2rem;
   text-align: left;
 
+  &__descrition {
+    font-size: 0.9rem;
+    margin-left: 15px;
+  }
+
   &__title {
     margin-bottom: 10px;
   }
@@ -56,6 +61,8 @@
     }
 
     &--start-date {
+      font-size: 1.6rem;
+      font-weight: 900;
       width: 80%;
     }
 
@@ -80,6 +87,7 @@
   }
 
   &__submit-day-check {
+    width: 70%;
     display: flex;
     justify-content: space-evenly;
     margin-top: 15px;
@@ -124,7 +132,6 @@
     font-size: 1rem;
     color: #ffffff;
     border-radius: 8px;
-    margin-right: 20px;
     cursor: pointer;
     color: #294e80;
     border: 2px solid #294e80;
@@ -142,5 +149,22 @@
       background-color: #294e80;
       color: #ffffff;
     }
+
+    &--error {
+      color: #ffffff;
+      background-color: #d4d4d4;
+      border: 1px solid #d4d4d4;
+      cursor: default;
+      &:hover {
+        color: #ffffff;
+        background-color: #d4d4d4;
+        border: 1px solid #d4d4d4;
+      }
+    }
   }
+}
+
+input[type='date']::-webkit-inner-spin-button {
+  display: none;
+  -webkit-appearance: none;
 }

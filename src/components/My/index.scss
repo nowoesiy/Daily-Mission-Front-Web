@@ -25,6 +25,9 @@
   transition: all 0.2s ease-in-out;
   overflow: hidden;
 
+  &--disabled {
+    pointer-events: none;
+  }
   &__title {
     line-height: 40px;
     padding: 10px;
@@ -45,6 +48,13 @@
     &--submit {
       color: #ffffff;
       background-color: #67b267;
+      line-height: 1.5rem;
+    }
+
+    &--banned {
+      color: #ffffff;
+      background: #b36457;
+      line-height: 1.5rem;
     }
   }
   &__img_wrap {
@@ -167,6 +177,9 @@
   }
 
   &__title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     margin-top: 7px;
     font-size: 1rem;
     font-weight: 900;
@@ -210,4 +223,16 @@
     font-size: 0.9rem;
     color: #aaa;
   }
+}
+
+.tag {
+  float: left;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1000;
+  background-color: #92ad40;
+  padding: 5px;
+  color: #ffffff;
+  font-weight: bold;
 }

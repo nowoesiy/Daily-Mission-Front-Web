@@ -46,11 +46,6 @@ class MyEdit extends React.Component {
     if (imagefile != null) {
       formData.set('file', imagefile);
     }
-    console.log(tempUser.id);
-    console.log(tempUser.name);
-    console.log(imagefile);
-
-    console.log(formData);
 
     const config = {
       headers: {
@@ -62,7 +57,6 @@ class MyEdit extends React.Component {
     axios
       .post('https://api.daily-mission.com/user/me/update', formData, config)
       .then(() => {
-        console.log('--------------------> 프로필 업데이트 성공');
         this.setState({
           isNameEdit: false,
         });
@@ -94,7 +88,7 @@ class MyEdit extends React.Component {
             <label for="profile">
               <img
                 className="profile-default__image"
-                src={tempUser.thumbnailUrl}
+                src={tempUser.thumbnailUrlUserInfo}
                 alt={tempUser.name}
               />
             </label>
@@ -104,12 +98,20 @@ class MyEdit extends React.Component {
           </div>
           <div className="profile-default__right">
             {isNameEdit ? (
-              <input
-                className="profile-default__name-input"
-                type="text"
-                value={tempUser.name}
-                onChange={this.handleChangeName}
-              />
+              <>
+                <input
+                  className="profile-default__name-input"
+                  type="text"
+                  value={tempUser.name}
+                  onChange={this.handleChangeName}
+                  maxlength="20"
+                />
+                <label className="profile-default__name-label">
+                  {tempUser.name.length > 20 || tempUser.name.length < 1
+                    ? '닉네임을 1~20자로 설정해 주세요'
+                    : ''}
+                </label>
+              </>
             ) : (
               <>
                 <div className="profile-default__name">{tempUser.name}</div>
@@ -122,9 +124,14 @@ class MyEdit extends React.Component {
               }
               className={`${
                 isNameEdit
-                  ? 'profile-default__button profile-default__button--save'
+                  ? `profile-default__button profile-default__button--${
+                      tempUser.name.length > 20 || tempUser.name.length < 1
+                        ? 'error'
+                        : 'save'
+                    }`
                   : 'profile-default__button profile-default__button--edit'
               }`}
+              disabled={!tempUser.name}
             >
               {isNameEdit ? '저장' : '수정'}
             </button>
