@@ -83,7 +83,22 @@ $break-large: 1720px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
   &__top {
+    position: relative;
     overflow: hidden;
+  }
+
+  &__ended-label {
+    width: 350px;
+    height: 100px;
+    font-size: 2rem;
+    text-align: center;
+    line-height: 6.5rem;
+    color: #eee;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   &__body {
     margin: 10px;
@@ -98,6 +113,13 @@ $break-large: 1720px;
     &:hover {
       transform: scale(1.2);
       filter: brightness(65%);
+    }
+
+    &--ended {
+      &:hover {
+        transform: none;
+      }
+      filter: brightness(45%);
     }
   }
 

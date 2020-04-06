@@ -27,7 +27,7 @@ class MyEdit extends React.Component {
         imagefile: e.target.files[0],
         tempUser: {
           ...this.state.tempUser,
-          thumbnailUrl: URL.createObjectURL(e.target.files[0]),
+          thumbnailUrlUserInfo: URL.createObjectURL(e.target.files[0]),
         },
       },
       () => {
@@ -41,7 +41,7 @@ class MyEdit extends React.Component {
 
     const formData = new FormData();
 
-    formData.set('id', tempUser.id);
+    //formData.set('id', tempUser.id);
     formData.set('userName', tempUser.name);
     if (imagefile != null) {
       formData.set('file', imagefile);
@@ -60,6 +60,7 @@ class MyEdit extends React.Component {
         this.setState({
           isNameEdit: false,
         });
+        this.props.LoadToGetCurrentUser();
       })
       .catch(error => {
         console.log('failed', error);
@@ -70,11 +71,12 @@ class MyEdit extends React.Component {
     this.setState({
       tempUser: this.props.currentUser,
     });
+    //pgetDeprive로 바꾸기(4/1)
   }
 
   render() {
     const { tempUser, isNameEdit } = this.state;
-    if (!tempUser) return <div>로딩중</div>;
+    if (!tempUser) return <div></div>;
     return (
       <div className="my-edit">
         <div className="my-edit__profile-default">
@@ -137,12 +139,6 @@ class MyEdit extends React.Component {
             </button>
           </div>
         </div>
-        {/* <button
-            className="my-edit__confirm-btn"
-            onClick={this.postUpdatedProfile}
-          >
-            최종 수정
-          </button> */}
       </div>
     );
   }

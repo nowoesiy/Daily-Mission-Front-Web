@@ -36,6 +36,7 @@ class SubmitPopup extends React.Component {
     const ext = fileName
       .slice(((fileName.lastIndexOf('.') - 1) >>> 0) + 2)
       .toLowerCase();
+
     return (
       <div className="overlay">
         <div className="submit-board">
@@ -102,11 +103,11 @@ class SubmitPopup extends React.Component {
                 </div>
               )}
               <button
-                type="button"
+                type="submit"
                 onClick={e => {
-                  e.preventDefault();
                   handlePopUp();
                   postBoard(formData);
+                  e.preventDefault();
                 }}
                 className={`submit-board__button submit-board__button--${
                   !title ||

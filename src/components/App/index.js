@@ -6,6 +6,7 @@ import {
   handleLogout,
   LoadToGetCurrentUser,
 } from '../../modules/reduer_loginAuth';
+import { toast, ToastContainer } from 'react-toastify';
 import {
   getMissionList,
   getHomeMissionList,
@@ -25,90 +26,91 @@ import Post from '../Post';
 import Landing from '../Landing';
 import SubmitContainer from '../../containers/SubmitContainer';
 import MissionDetail from '../MissionDetail';
+import MissionDetailB from '../MissionDetailB';
 import My from '../My';
 import MyEdit from '../MyEdit';
 
-// const currentUser = {
-//   id: 2,
-//   name: 'seowon lee',
-//   email: 'tjdnjs3664@gmail.com',
-//   thumbnailUrl:
-//     'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
-//   missions: [
-//     {
-//       id: 50,
-//       title: '1일 1유니온 가기',
-//       thumbnailUrl:
-//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/1%EC%9D%BC%201%EC%9C%A0%EB%8B%88%EC%98%A8/202003111750_union_400_600.jpg',
-//       banned: false,
-//       submit: true,
-//       ended: false,
-//     },
-//     {
-//       id: 53,
-//       title: '1일 1아침 밥 먹기',
-//       thumbnailUrl:
-//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/1%EC%9D%BC%201%EC%95%84%EC%B9%A8%20%EB%B0%A5%20%EB%A8%B9%EA%B8%B0/202003122108_maxresdefault_400_600.jpg',
-//       banned: true,
-//       submit: false,
-//       ended: false,
-//     },
-//     {
-//       id: 54,
-//       title: '매일 매일 운동하기',
-//       thumbnailUrl:
-//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-//       banned: false,
-//       submit: false,
-//       ended: false,
-//     },
-//     {
-//       id: 55,
-//       title: '매일 매일 운동하기',
-//       thumbnailUrl:
-//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-//       banned: false,
-//       submit: false,
-//       ended: false,
-//     },
-//     {
-//       id: 56,
-//       title: '매일 매일 운동하기',
-//       thumbnailUrl:
-//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-//       banned: false,
-//       submit: false,
-//       ended: false,
-//     },
-//     {
-//       id: 57,
-//       title: '매일 매일 운동하기',
-//       thumbnailUrl:
-//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-//       banned: false,
-//       submit: false,
-//       ended: false,
-//     },
-//     {
-//       id: 58,
-//       title: '매일 매일 운동하기',
-//       thumbnailUrl:
-//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-//       banned: false,
-//       submit: false,
-//       ended: false,
-//     },
-//     {
-//       id: 59,
-//       title: '매일 매일 운동하기',
-//       thumbnailUrl:
-//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-//       banned: false,
-//       submit: false,
-//       ended: false,
-//     },
-//   ],
-// };
+const currentUser = {
+  id: 2,
+  name: 'seowon lee',
+  email: 'tjdnjs3664@gmail.com',
+  thumbnailUrl:
+    'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
+  missions: [
+    {
+      id: 50,
+      title: '1일 1유니온 가기',
+      thumbnailUrl:
+        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/1%EC%9D%BC%201%EC%9C%A0%EB%8B%88%EC%98%A8/202003111750_union_400_600.jpg',
+      banned: false,
+      submit: true,
+      ended: false,
+    },
+    {
+      id: 53,
+      title: '1일 1아침 밥 먹기',
+      thumbnailUrl:
+        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/1%EC%9D%BC%201%EC%95%84%EC%B9%A8%20%EB%B0%A5%20%EB%A8%B9%EA%B8%B0/202003122108_maxresdefault_400_600.jpg',
+      banned: true,
+      submit: false,
+      ended: false,
+    },
+    {
+      id: 54,
+      title: '매일 매일 운동하기',
+      thumbnailUrl:
+        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+      banned: false,
+      submit: false,
+      ended: false,
+    },
+    {
+      id: 55,
+      title: '매일 매일 운동하기',
+      thumbnailUrl:
+        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+      banned: false,
+      submit: false,
+      ended: false,
+    },
+    {
+      id: 56,
+      title: '매일 매일 운동하기',
+      thumbnailUrl:
+        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+      banned: false,
+      submit: false,
+      ended: false,
+    },
+    {
+      id: 57,
+      title: '매일 매일 운동하기',
+      thumbnailUrl:
+        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+      banned: false,
+      submit: false,
+      ended: false,
+    },
+    {
+      id: 58,
+      title: '매일 매일 운동하기',
+      thumbnailUrl:
+        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+      banned: false,
+      submit: false,
+      ended: false,
+    },
+    {
+      id: 59,
+      title: '매일 매일 운동하기',
+      thumbnailUrl:
+        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+      banned: false,
+      submit: false,
+      ended: false,
+    },
+  ],
+};
 
 class App extends React.Component {
   componentDidMount() {
@@ -121,15 +123,19 @@ class App extends React.Component {
   render() {
     const {
       authenticated,
-      currentUser,
+      //currentUser,
       handleLogout,
       missions,
       homeMissions,
       hotMissions,
       onClickMyMissionList,
       activeMyMissionId,
+      attendCode,
     } = this.props;
-
+    if (attendCode)
+      toast.success(attendCode, {
+        position: toast.POSITION.TOP_CENTER,
+      });
     return (
       <div className="App">
         <Switch>
@@ -155,12 +161,16 @@ class App extends React.Component {
               <Switch>
                 <Route
                   path="/mission/detail/:id"
-                  render={() => (
-                    <MissionDetail
-                      postAttednigMission={postAttednigMission}
-                      currentUser={currentUser}
-                    />
-                  )}
+                  render={() =>
+                    currentUser ? (
+                      <MissionDetail
+                        postAttednigMission={this.props.postAttednigMission}
+                        currentUser={currentUser}
+                      />
+                    ) : (
+                      <MissionDetailB />
+                    )
+                  }
                 />
                 <Route
                   path="/"
@@ -183,30 +193,38 @@ class App extends React.Component {
                   path={`/post/detail/${postId}`}
                   component={PostDetail}
                 ></Route> */}
-                <Route path="/my" exact>
-                  {currentUser ? (
-                    <My
-                      onClickMyMissionList={onClickMyMissionList}
-                      currentUser={currentUser}
-                    />
-                  ) : (
-                    <Redirect to={'/'} />
-                  )}
-                </Route>
+                <Route
+                  path="/my"
+                  render={() =>
+                    currentUser && (
+                      <My
+                        onClickMyMissionList={onClickMyMissionList}
+                        currentUser={currentUser}
+                      />
+                    )
+                  }
+                  exact
+                ></Route>
                 <Route path="/my/edit" exact>
                   {currentUser ? (
-                    <MyEdit currentUser={currentUser} />
+                    <MyEdit
+                      currentUser={currentUser}
+                      LoadToGetCurrentUser={this.props.LoadToGetCurrentUser}
+                    />
                   ) : (
                     <Redirect to={'/'} />
                   )}
                 </Route>
                 <Route
                   path="/my/:id"
-                  render={() => <SubmitContainer />}
+                  render={() =>
+                    currentUser && <SubmitContainer currentUser={currentUser} />
+                  }
                   exact
                 />
               </Switch>
             </div>
+            <ToastContainer />
           </>
         ) : (
           <div className="App__login">
@@ -229,7 +247,7 @@ export default withRouter(
   connect(
     state => ({
       authenticated: state.loginAuth.authenticated,
-      currentUser: state.loginAuth.currentUser,
+      //currentUser: state.loginAuth.currentUser,
       loading: state.loginAuth.loading,
       missions: state.MissionReducer.missions,
       activeMyMissionId: state.MissionReducer.activeMyMissionId,

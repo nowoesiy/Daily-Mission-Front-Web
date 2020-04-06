@@ -42,6 +42,7 @@
 
 .login {
   display: flex;
+  position: relative;
   color: #1f1f1f;
   margin-top: 15px;
   &__profile-img {
@@ -62,11 +63,12 @@
 }
 
 .profile-dropdown {
-  min-width: 120px;
+  min-width: 130px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   background-color: #ffffff;
   position: absolute;
-  top: 75px;
+  top: 45px;
+  right: 20px;
   padding: 12px 20px;
   text-align: center;
   border-radius: 16px;

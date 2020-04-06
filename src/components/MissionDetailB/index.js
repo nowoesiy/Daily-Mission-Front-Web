@@ -144,7 +144,7 @@ const CreateMissionAttendButton = ({ mission, handleOnClickPopUp }) => {
       ''
     ) : (
       <span className="content-wrap__attend-label">
-        이미 시작한 미션입니다 😥
+        이미 시작한 미션입니다 ?
       </span>
     )
   ) : (
@@ -191,7 +191,7 @@ const CreatePostingBox = ({ handleClickImage, post }) => {
   );
 };
 
-class MissionDetail extends React.Component {
+class MissionDetailB extends React.Component {
   state = {
     mission: '',
     missionPost: '',
@@ -256,7 +256,6 @@ class MissionDetail extends React.Component {
   }
 
   render() {
-    const { postAttednigMission, currentUser } = this.props;
     const { missionPost, mission, password, inputPasswordMode } = this.state;
 
     if (!mission) return <div></div>;
@@ -329,30 +328,14 @@ class MissionDetail extends React.Component {
                   </div>
                 </div>
                 <div className="content-wrap__button-wrap">
-                  {currentUser ? (
-                    mission.participants.filter(
-                      participant => participant.id == currentUser.id,
-                    )[0] ? (
-                      <span className="content-wrap__attend-label">
-                        참여 중인 미션 🏃‍♂️🏃‍♀️
-                      </span>
-                    ) : (
-                      <CreateMissionAttendButton
-                        mission={mission}
-                        handleOnClickPopUp={this.handleOnClickPopUp}
-                      />
-                    )
-                  ) : (
-                    <span className="content-wrap__attend-label">
-                      로그인 후 참여해 주세요!
-                    </span>
-                  )}
+                  <span className="content-wrap__attend-label">
+                    로그인 후 참여해 주세요!
+                  </span>
                 </div>
                 {this.state.isAttendPopup && (
                   <MissionAttendPopup
                     mission={mission}
                     password={password}
-                    postAttednigMission={postAttednigMission}
                     handleOnClickPopUp={this.handleOnClickPopUp}
                     handleInputChange={this.handleInputChange}
                   />
@@ -450,15 +433,6 @@ class MissionDetail extends React.Component {
       </div>
     );
   }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { currentUser } = this.props;
-
-    if (currentUser.missions !== prevProps.currentUser.missions) {
-      this.getMissionInfo();
-      this.getMissionPosting();
-    }
-  }
 }
 
-export default withRouter(MissionDetail);
+export default withRouter(MissionDetailB);

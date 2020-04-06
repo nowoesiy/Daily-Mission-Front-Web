@@ -67,22 +67,24 @@ export const postMission = formData => {
   const config = {
     headers: {
       'Content-type': 'multipart/form-data',
-      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNTg1ODE3NzY0LCJleHAiOjE1ODY2ODE3NjR9.I3OhWBTVjNFBktuObGQ_-OSjK9WWyqxnq7EAFO9kfBcrYEzVn5jDH2C4n4KSFMKDaSKilIfZKA81SammIH4pXw`,
+      //Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
     },
   };
   return dispatch => {
     axios
       .post('https://api.daily-mission.com/api/mission', formData, config)
       .then(response => {
+        window.alert(
+          '해당 미션의 참여코드는' + response.data.credential + '입니다',
+        );
+
+        Alert(response.data.credential);
+        dispatch(Alert(response.data.credential));
         dispatch(postMissionSuccess(response));
         dispatch(LoadToGetCurrentUser());
         dispatch(getHomeMissionList());
         dispatch(getMissionList());
-        alert('해당 미션의 참여코드는' + response.data.credential + '입니다');
-        toast.success(response.data.credential, {
-          position: toast.POSITION.TOP_CENTER,
-        });
-        dispatch(Alert(response.data.credential));
       })
       .catch(error => {
         console.log('failed', error);
@@ -108,7 +110,9 @@ export const postAttednigMission = (_id, _password) => {
           },
         },
       )
-      .then(() => {})
+      .then(() => {
+        dispatch(LoadToGetCurrentUser());
+      })
       .catch(error => {
         console.log('failed', error);
       });

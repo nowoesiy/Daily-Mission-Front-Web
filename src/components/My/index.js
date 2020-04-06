@@ -364,9 +364,15 @@ class My extends React.Component {
           </div>
           {/* <div className="list-box__progress">현재 10명 제출</div> */}
           {mission.banned ? (
-            <div className="list-box__footer list-box__footer--banned">
-              강퇴당한 미션입니다
-            </div>
+            mission.ended ? (
+              <div className="list-box__footer list-box__footer--ended">
+                종료된 미션입니다 ❌
+              </div>
+            ) : (
+              <div className="list-box__footer list-box__footer--banned">
+                강퇴당한 미션입니다
+              </div>
+            )
           ) : mission.submit ? (
             <div className="list-box__footer list-box__footer--submit">
               제출 완료 😊
@@ -452,7 +458,7 @@ class My extends React.Component {
         <div className="my">
           <div className="my__title">
             <h1 className="my__title-who">
-              {currentUser.missions ? (
+              {currentUser.missions.length ? (
                 <Link to={'/my/edit'}>{currentUser.name}님의 미션😎</Link>
               ) : (
                 '미션이 없네요😢'
@@ -493,10 +499,13 @@ class My extends React.Component {
           <div className="my-post">
             <div className="my-post__title">내가 쓴 글</div>
             <div className="my-post__post-box">
-              {this.state.myPosts &&
-                this.state.myPosts.map(post => (
-                  <CreatePostingBox post={post} />
-                ))}
+              {this.state.myPosts.length ? (
+                this.state.myPosts.map(post => <CreatePostingBox post={post} />)
+              ) : (
+                <div className="my-post__post-label">
+                  포스팅 된 미션 글이 없습니다 😐
+                </div>
+              )}
             </div>
           </div>
         </div>

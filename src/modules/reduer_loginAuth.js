@@ -25,7 +25,6 @@ export const LoadToGetCurrentUser = () => {
       })
       .catch(error => {
         dispatch(loadingFail(error));
-        console.log('Loading User Fail');
       });
   };
 };

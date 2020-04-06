@@ -23,7 +23,7 @@ const mission = [
     title: '1일 1알고리즘',
     content:
       '매일매일 하루에 최소 한문제씩 알고리즘을 풀고 인증하는 미션입니다.',
-    thumbnailUrl:
+    thumbnailUrlAll:
       'https://www.nexdatacenter.com/wp-content/uploads/2016/01/The-Next-Energy-Challenge-of-Computing-image-1024x747.jpg',
     startDate: '2020-01-01',
     endDate: '2020-03-28',
@@ -50,7 +50,7 @@ const mission = [
     },
     title: '아침 밥 먹기',
     content: '매일 매일 아침 밥을 먹는 미션입니다.',
-    thumbnailUrl:
+    thumbnailUrlAll:
       'https://pds.joins.com/news/component/healthmedia/201708/04/133c7e02835ca.jpg',
     startDate: '2020-01-01',
     endDate: '2020-03-28',
@@ -77,7 +77,7 @@ const mission = [
     },
     title: '매일 매일 운동하기',
     content: '1일 1 헬스나 운동하실 분들 들어오세요~ ',
-    thumbnailUrl:
+    thumbnailUrlAll:
       'https://newsimg.hankookilbo.com/2018/03/07/201803070494276763_1.jpg',
     startDate: '2020-01-01',
     endDate: '2020-03-28',
@@ -104,11 +104,11 @@ const mission = [
     },
     title: '비타민 챙겨먹기',
     content: '비타민 먹고 인증하는 미션입니다:)',
-    thumbnailUrl:
+    thumbnailUrlAll:
       'https://photo.jtbc.joins.com/news/2018/02/19/20180219172700343.jpg',
     startDate: '2020-01-01',
     endDate: '2020-03-28',
-    ended: true,
+    ended: false,
     master: '비타민냠냠',
     numOfattend: 200,
   },
@@ -131,7 +131,7 @@ const mission = [
     },
     title: '1일 1쉐프의 그릴',
     content: '쉐프의 그릴 ㄲ',
-    thumbnailUrl:
+    thumbnailUrlAll:
       'https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile21.uf.tistory.com%2Fimage%2F9901FB445D4A9CA431BF50',
     startDate: '2020-01-01',
     endDate: '2020-03-28',
@@ -148,7 +148,19 @@ class Mission extends React.Component {
         <Link to={'mission/detail/' + m.id}>
           <div className="all-mission-box">
             <div className="all-mission-box__top">
-              <img className="all-mission-box__img" src={m.thumbnailUrlAll} />
+              <img
+                className={`all-mission-box__img all-mission-box__img--${
+                  m.ended ? 'ended' : ''
+                }`}
+                src={m.thumbnailUrlAll}
+              />
+              {m.ended ? (
+                <div className="all-mission-box__ended-label">
+                  종료된 미션 입니다
+                </div>
+              ) : (
+                ''
+              )}
             </div>
             <div className="all-mission-box__body">
               <span>

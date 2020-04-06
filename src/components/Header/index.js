@@ -14,6 +14,18 @@ class Header extends React.Component {
       profileToggle: !this.state.profileToggle,
     });
   };
+
+  handleProfileOutSideClick = e => {
+    if (this.box && !this.box.contains(e.target)) {
+      this.setState({
+        profileToggle: false,
+      });
+    }
+  };
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleProfileOutSideClick);
+  }
+
   render() {
     const { currentUser, handleLogout, postMission, attendCode } = this.props;
     const { profileToggle } = this.state;
@@ -47,7 +59,12 @@ class Header extends React.Component {
                 onClick={this.handleProfileClick}
               ></img>
               {profileToggle ? (
-                <div className="profile-dropdown">
+                <div
+                  className="profile-dropdown"
+                  ref={ref => {
+                    this.box = ref;
+                  }}
+                >
                   <span className="profile-dropdown__user-name">
                     <strong>{currentUser.name} 님</strong>
                   </span>

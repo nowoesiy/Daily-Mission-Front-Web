@@ -5,6 +5,7 @@ import moment from 'moment';
 import SubmitPopup from '../../components/SubmitPopup';
 import './index.scss';
 import { postBoard } from '../../modules/reducer_submitPost';
+import { LoadToGetCurrentUser } from '../../modules/reduer_loginAuth';
 import { withRouter, Link } from 'react-router-dom';
 import FileDrop from 'react-file-drop';
 import { closeModel } from '../../modules/reducer_submitPost';
@@ -60,8 +61,8 @@ class Submit extends React.Component {
       histories: [],
       file: '',
       fileName: '',
-      activeMyMission: this.props.currentUser.missions.filter(
-        mission => mission.id == this.props.match.params.id,
+      activeMyMission: props.currentUser.missions.filter(
+        mission => mission.id == props.match.params.id,
       )[0],
       activeMissionId: this.props.match.params.id,
     };
@@ -229,39 +230,6 @@ class Submit extends React.Component {
       });
   };
 
-  componentDidMount() {
-    axios
-      .get(
-        `https://api.daily-mission.com/api/post/schedule/mission/${this.state.activeMissionId}/week/0`,
-      )
-      .then(response => {
-        this.setState({
-          histories: response.data.histories,
-          weekDates: response.data.weekDates,
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    // this.interval = setInterval(() => {
-    //   const now = moment();
-    //   const then = moment('28-03-2020 18:00:00', 'DD-MM-YYYY HH:mm:ss');
-    //   const countdown = moment(then - now);
-    //   const hours = countdown.format('H');
-    //   const minutes = countdown.format('mm');
-    //   const seconds = countdown.format('ss');
-    //   const leftTime =
-    //     String(hours) +
-    //     '시간 ' +
-    //     String(minutes) +
-    //     '분 ' +
-    //     String(seconds) +
-    //     '초';
-    //   this.setState({ leftTime });
-    // }, 1000);
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.match.params.id !== prevState.activeMissionId)
       return {
@@ -271,6 +239,15 @@ class Submit extends React.Component {
         )[0],
       };
     else return null;
+  }
+
+  componentDidMount() {
+    const { activeMyMission } = this.state;
+    if (activeMyMission && activeMyMission.banned) {
+      this.props.history.push('/my');
+    }
+
+    this.getMissionDetail();
   }
 
   render() {
@@ -287,10 +264,11 @@ class Submit extends React.Component {
           <div className="submit__contents">
             <this.CreateSubmitBox submit={activeMyMission.submit} />
           </div>
+          <div className="submit-detail">
+            <this.CreateSubmitDetailBox activeMyMission={activeMyMission} />
+          </div>
         </div>
-        <div className="submit-detail">
-          <this.CreateSubmitDetailBox activeMyMission={activeMyMission} />
-        </div>
+
         {isPostPopup ? (
           <SubmitPopup
             id={activeMyMission.id}
@@ -316,29 +294,20 @@ class Submit extends React.Component {
           mission => mission.id == activeMissionId,
         )[0],
       });
-      axios
-        .get(
-          `https://api.daily-mission.com/api/post/schedule/mission/${this.props.match.params.id}/week/0`,
-        )
-        .then(response => {
-          this.setState({
-            histories: response.data.histories,
-            dates: response.data.dates,
-          });
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
 
+      this.getMissionDetail();
+    }
     if (currentUser.missions !== prevProps.currentUser.missions) {
+      //console.log('In currnetUser Update');
       const activeMyMission = currentUser.missions.filter(
-        mission => mission.id === activeMissionId,
+        mission => mission.id == activeMissionId,
       )[0];
 
       this.setState({
         activeMyMission,
       });
+
+      this.getMissionDetail();
     }
   }
 }
@@ -346,10 +315,11 @@ class Submit extends React.Component {
 export default withRouter(
   connect(
     state => ({
-      currentUser: state.loginAuth.currentUser,
+      //currentUser: state.loginAuth.currentUser,
     }),
     {
       postBoard,
+      LoadToGetCurrentUser,
     },
   )(Submit),
 );

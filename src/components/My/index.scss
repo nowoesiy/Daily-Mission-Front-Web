@@ -25,14 +25,33 @@
   transition: all 0.2s ease-in-out;
   overflow: hidden;
 
+  &--none {
+    box-shadow: none;
+    border: 2px solid #44c670;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
+
   &--disabled {
     pointer-events: none;
   }
+
+  &__add-wrap {
+    text-align: center;
+    width: 280px;
+    height: 230px;
+    border-bottom: 1px solid #44c670;
+  }
+
   &__title {
+    height: 5rem;
     line-height: 40px;
     padding: 10px;
     font-size: 1.2rem;
     font-weight: 900;
+    border-bottom: 1px solid #eee;
   }
 
   &__progress {
@@ -53,11 +72,25 @@
 
     &--banned {
       color: #ffffff;
+      background: #e5d401;
+      line-height: 1.5rem;
+    }
+
+    &--ended {
+      color: #ffffff;
       background: #b36457;
       line-height: 1.5rem;
     }
+
+    &--search {
+      color: #ffffff;
+      background-color: #67b267;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
   }
   &__img_wrap {
+    color: #ffffff;
     border-radius: 9px 9px 0 0;
     width: 280px;
     height: 133px;
@@ -100,10 +133,17 @@
   }
 
   &__post-box {
+    min-height: calc(100vh - 578px);
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     margin: -1rem;
+  }
+
+  &__post-label {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: auto 0;
   }
 }
 
