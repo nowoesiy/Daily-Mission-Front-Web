@@ -7,7 +7,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
-
+import ButtonComponent from '../ButtonComponent';
 // const mission = [
 //   {
 //     id: 1,
@@ -168,7 +168,7 @@ class Landing extends React.Component {
   // }
 
   popularMissionBox = ({ mission, type }) => {
-    return mission.map(m => {
+    return mission.map((m) => {
       return (
         <Link to={'mission/detail/' + m.id}>
           <div className="mission-box">
@@ -209,6 +209,9 @@ class Landing extends React.Component {
       newMissionIndex,
       numOfList + newMissionIndex,
     );
+    console.log(
+      this.state.hotMissionIndex === hotMissions.length - this.state.numOfList,
+    );
     const hotMissionsReduce = hotMissions.slice(
       hotMissionIndex,
       numOfList + hotMissionIndex,
@@ -219,47 +222,61 @@ class Landing extends React.Component {
 
         <div
           className="landing__popular-box"
-          ref={ref => {
+          ref={(ref) => {
             this.box = ref;
           }}
         >
           <div className="landing__button-wrap">
-            <button
-              className="landing__button"
-              onClick={this.handleSwiperLeftClick}
-            >
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </button>
+            {hotMissions.length > this.state.numOfList && (
+              <ButtonComponent
+                icon={faChevronLeft}
+                func={this.handleSwiperLeftClick}
+                disabled={this.state.hotMissionIndex === 0 ? true : false}
+              />
+            )}
           </div>
           <this.popularMissionBox type={'hot'} mission={hotMissionsReduce} />
           <div className="landing__button-wrap">
-            <button
-              className="landing__button"
-              onClick={this.handleSwiperRightClick}
-            >
-              <FontAwesomeIcon icon={faChevronRight} />
-            </button>
+            {hotMissions.length > this.state.numOfList && (
+              <ButtonComponent
+                icon={faChevronRight}
+                func={this.handleSwiperRightClick}
+                disabled={
+                  this.state.hotMissionIndex >=
+                  hotMissions.length - this.state.numOfList
+                    ? true
+                    : false
+                }
+              />
+            )}
           </div>
         </div>
 
         <div className="landing__new-text">✌ 신규 미션</div>
         <div className="landing__popular-box">
           <div className="landing__button-wrap">
-            <button
-              className="landing__button"
-              onClick={this.handleSwiperNewLeftClick}
-            >
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </button>
+            {missions.length > this.state.numOfList && (
+              <ButtonComponent
+                icon={faChevronLeft}
+                func={this.handleSwiperNewLeftClick}
+                disabled={this.state.newMissionIndex === 0 ? true : false}
+              />
+            )}
           </div>
           <this.popularMissionBox type={'new'} mission={missionsReduce} />
           <div className="landing__button-wrap">
-            <button
-              className="landing__button"
-              onClick={this.handleSwiperNewRightClick}
-            >
-              <FontAwesomeIcon icon={faChevronRight} />
-            </button>
+            {missions.length > this.state.numOfList && (
+              <ButtonComponent
+                icon={faChevronRight}
+                func={this.handleSwiperNewRightClick}
+                disabled={
+                  this.state.newMissionIndex ===
+                  missions.length - this.state.numOfList
+                    ? true
+                    : false
+                }
+              />
+            )}
           </div>
         </div>
       </div>

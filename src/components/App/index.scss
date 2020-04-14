@@ -34,3 +34,9 @@
   padding: 70px 0px 0px 280px;
   background-color: #f2f4f7;
 }
+
+@media only screen and (max-width: 968px) {
+  .container {
+    padding: 70px 0px 0px 0px;
+  }
+}

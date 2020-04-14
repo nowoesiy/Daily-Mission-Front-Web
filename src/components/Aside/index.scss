@@ -12,6 +12,12 @@
   border-right: 1px solid #eee;
 }
 
+@media only screen and (max-width: 968px) {
+  .App-aside {
+    display: none;
+  }
+}
+
 .nav {
   color: #000000;
   font-size: 1.2rem;

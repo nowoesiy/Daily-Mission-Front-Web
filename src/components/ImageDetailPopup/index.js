@@ -7,7 +7,7 @@ const ImageDetailPopup = ({ activePostImg, handleClickImage }) => {
         <a
           className="image-detail__cancel-button"
           onClick={() => {
-            handleClickImage('');
+            handleClickImage();
           }}
           href
         >
@@ -17,7 +17,7 @@ const ImageDetailPopup = ({ activePostImg, handleClickImage }) => {
           src={activePostImg}
           className="image-detail__img"
           onClick={() => {
-            handleClickImage('');
+            handleClickImage();
           }}
         />
       </div>

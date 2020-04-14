@@ -1,15 +1,20 @@
 import React from 'react';
 import './index.scss';
 
-const Alert = text => {
+const Alert = ({ title, text, func }) => {
   return (
     <div className="alert__wrap">
       <div className="alert__top">
+        <div className="alert__title">{title}</div>
+      </div>
+      <div className="alert__middle">
         <div className="alert__text">{text}</div>
       </div>
       <div className="alert__bottom">
-        <button className="alert__button--cancel">Ãë¼Ò</button>
-        <button className="alert__button--confirm">È®ÀÎ</button>
+        {/* <button className="alert__button alert__button--cancel">ì·¨ì†Œ</button> */}
+        <button className="alert__button alert__button--confirm" onClick={func}>
+          í™•ì¸
+        </button>
       </div>
     </div>
   );

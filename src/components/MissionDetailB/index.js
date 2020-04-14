@@ -4,7 +4,7 @@ import Popup from 'reactjs-popup';
 import { Line } from 'rc-progress';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-
+import ImageDetailPopup from '../ImageDetailPopup';
 // const mission = {
 //   id: 53,
 //   week: {
@@ -68,7 +68,7 @@ const MissionAttendPopup = ({
               className="password-wrap__attend-pwd"
               type="password"
               value={password}
-              onChange={e => handleInputChange(e)}
+              onChange={(e) => handleInputChange(e)}
               placeholder="참여 코드"
             />
 
@@ -161,9 +161,10 @@ const CreatePostingBox = ({ handleClickImage, post }) => {
         <img
           className="post-thumbnailbox__img"
           src={post.thumbnailUrlMission}
-          // onClick={() => {
-          //   handleClickImage(post.imageUrl);
-          // }}
+          onClick={() => {
+            handleClickImage(post.thumbnailUrlMission);
+          }}
+          alt={post.id}
         />
       </div>
       <div className="post-thumbnailbox__body">
@@ -198,6 +199,15 @@ class MissionDetailB extends React.Component {
     isAttendPopup: false,
     inputPasswordMode: false,
     password: '',
+    isPopUp: false,
+    activePostImg: '',
+  };
+
+  handleClickImage = (url) => {
+    this.setState({
+      isPopUp: !this.state.isPopUp,
+      activePostImg: url,
+    });
   };
 
   handleOnClickPopUp = () => {
@@ -207,14 +217,14 @@ class MissionDetailB extends React.Component {
     });
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     this.setState({
       password: e.target.value,
     });
   };
 
-  passwordToggle = e => {
-    this.setState(prevState => ({
+  passwordToggle = (e) => {
+    this.setState((prevState) => ({
       inputPasswordMode: !prevState.inputPasswordMode,
     }));
     e.preventDefault();
@@ -225,12 +235,12 @@ class MissionDetailB extends React.Component {
       .get(
         `https://api.daily-mission.com/api/mission/${this.props.match.params.id}`,
       )
-      .then(response => {
+      .then((response) => {
         this.setState({
           mission: response.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('failed', error);
       });
   };
@@ -240,12 +250,12 @@ class MissionDetailB extends React.Component {
       .get(
         `https://api.daily-mission.com/api/post/all/mission/${this.props.match.params.id}`,
       )
-      .then(response => {
+      .then((response) => {
         this.setState({
           missionPost: response.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -256,11 +266,23 @@ class MissionDetailB extends React.Component {
   }
 
   render() {
-    const { missionPost, mission, password, inputPasswordMode } = this.state;
+    const {
+      missionPost,
+      mission,
+      password,
+      isPopUp,
+      activePostImg,
+    } = this.state;
 
     if (!mission) return <div></div>;
     return (
       <div className="App-detail">
+        {isPopUp && (
+          <ImageDetailPopup
+            handleClickImage={this.handleClickImage}
+            activePostImg={activePostImg}
+          />
+        )}
         <div className="detail">
           <div className="detail__wrap">
             <img className="detail__img" src={mission.thumbnailUrlDetail} />
@@ -402,7 +424,7 @@ class MissionDetailB extends React.Component {
           </div>
 
           <div className="detail-info__mission-info-body">
-            {mission.participants.map(p => (
+            {mission.participants.map((p) => (
               <div className="detail-info__user-profile">
                 <img
                   className="detail-info__user-profile-img"
@@ -421,7 +443,12 @@ class MissionDetailB extends React.Component {
           <div className="detail-info__post-title">포스팅</div>
           <div className="detail-info__post-wrap">
             {missionPost.length ? (
-              missionPost.map(post => <CreatePostingBox post={post} />)
+              missionPost.map((post) => (
+                <CreatePostingBox
+                  post={post}
+                  handleClickImage={this.handleClickImage}
+                />
+              ))
             ) : (
               <div className="detail-info__post-label">
                 미션 포스트가 없습니다 😐

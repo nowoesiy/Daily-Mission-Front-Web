@@ -1,0 +1,33 @@
+.card-nav {
+  &__button {
+    color: #6d6d6d;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    top: 50%;
+    outline: none;
+    z-index: 2;
+    transition: box-shadow 0.15s ease;
+    background-color: #f2f2f3;
+    font-size: 1.3rem;
+    &:hover {
+      box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      border: 1px solid #eee;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &--disabled {
+      color: #bebebe;
+      cursor: default;
+      &:hover {
+        background-color: #f2f2f3;
+        box-shadow: none;
+        border: none;
+      }
+    }
+  }
+}

@@ -4,7 +4,7 @@ import Popup from 'reactjs-popup';
 import { Line } from 'rc-progress';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-
+import ImageDetailPopup from '../ImageDetailPopup';
 // const mission = {
 //   id: 53,
 //   week: {
@@ -49,6 +49,8 @@ const MissionAttendPopup = ({
   postAttednigMission,
   handleInputChange,
   handleOnClickPopUp,
+  closetAttendModal,
+  isPasswordRight,
 }) => {
   return (
     <div className="overlay">
@@ -56,19 +58,28 @@ const MissionAttendPopup = ({
         <div className="password-wrap">
           <a
             className="submit-board__cancel-button"
-            onClick={handleOnClickPopUp}
+            onClick={() => {
+              handleOnClickPopUp();
+              closetAttendModal();
+            }}
           >
             ×
           </a>
-          <div className="password-wrap__label">
-            해당 미션에 참여하기 위해서는 참여코드가 필요합니다.
+          <div
+            className={`password-wrap__label ${
+              isPasswordRight === false ? 'password-wrap__label--alert' : ''
+            }`}
+          >
+            {isPasswordRight === undefined
+              ? '해당 미션에 참여하기 위해서는 참여코드가 필요합니다.'
+              : '참여코드가 일치 하지 않습니다'}
           </div>
           <div className="password-wrap__attend">
             <input
               className="password-wrap__attend-pwd"
               type="password"
               value={password}
-              onChange={e => handleInputChange(e)}
+              onChange={(e) => handleInputChange(e)}
               placeholder="참여 코드"
             />
 
@@ -78,7 +89,7 @@ const MissionAttendPopup = ({
               }`}
               onClick={() => {
                 postAttednigMission(mission.id, password);
-                handleOnClickPopUp();
+                if (isPasswordRight === true) closetAttendModal();
               }}
               disabled={!password}
             >
@@ -161,9 +172,10 @@ const CreatePostingBox = ({ handleClickImage, post }) => {
         <img
           className="post-thumbnailbox__img"
           src={post.thumbnailUrlMission}
-          // onClick={() => {
-          //   handleClickImage(post.imageUrl);
-          // }}
+          onClick={() => {
+            handleClickImage(post.thumbnailUrlMission);
+          }}
+          alt={post.id}
         />
       </div>
       <div className="post-thumbnailbox__body">
@@ -198,6 +210,15 @@ class MissionDetail extends React.Component {
     isAttendPopup: false,
     inputPasswordMode: false,
     password: '',
+    isPopUp: false,
+    activePostImg: '',
+  };
+
+  handleClickImage = (url) => {
+    this.setState({
+      isPopUp: !this.state.isPopUp,
+      activePostImg: url,
+    });
   };
 
   handleOnClickPopUp = () => {
@@ -207,14 +228,14 @@ class MissionDetail extends React.Component {
     });
   };
 
-  handleInputChange = e => {
+  handleInputChange = (e) => {
     this.setState({
       password: e.target.value,
     });
   };
 
-  passwordToggle = e => {
-    this.setState(prevState => ({
+  passwordToggle = (e) => {
+    this.setState((prevState) => ({
       inputPasswordMode: !prevState.inputPasswordMode,
     }));
     e.preventDefault();
@@ -225,12 +246,12 @@ class MissionDetail extends React.Component {
       .get(
         `https://api.daily-mission.com/api/mission/${this.props.match.params.id}`,
       )
-      .then(response => {
+      .then((response) => {
         this.setState({
           mission: response.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('failed', error);
       });
   };
@@ -240,12 +261,12 @@ class MissionDetail extends React.Component {
       .get(
         `https://api.daily-mission.com/api/post/all/mission/${this.props.match.params.id}`,
       )
-      .then(response => {
+      .then((response) => {
         this.setState({
           missionPost: response.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -256,12 +277,30 @@ class MissionDetail extends React.Component {
   }
 
   render() {
-    const { postAttednigMission, currentUser } = this.props;
-    const { missionPost, mission, password, inputPasswordMode } = this.state;
+    const {
+      postAttednigMission,
+      currentUser,
+      message,
+      closetAttendModal,
+      isPasswordRight,
+    } = this.props;
+    const {
+      missionPost,
+      mission,
+      password,
+      isPopUp,
+      activePostImg,
+    } = this.state;
 
     if (!mission) return <div></div>;
     return (
       <div className="App-detail">
+        {isPopUp && (
+          <ImageDetailPopup
+            handleClickImage={this.handleClickImage}
+            activePostImg={activePostImg}
+          />
+        )}
         <div className="detail">
           <div className="detail__wrap">
             <img className="detail__img" src={mission.thumbnailUrlDetail} />
@@ -331,7 +370,7 @@ class MissionDetail extends React.Component {
                 <div className="content-wrap__button-wrap">
                   {currentUser ? (
                     mission.participants.filter(
-                      participant => participant.id == currentUser.id,
+                      (participant) => participant.id == currentUser.id,
                     )[0] ? (
                       <span className="content-wrap__attend-label">
                         참여 중인 미션 🏃‍♂️🏃‍♀️
@@ -348,11 +387,14 @@ class MissionDetail extends React.Component {
                     </span>
                   )}
                 </div>
-                {this.state.isAttendPopup && (
+                {!isPasswordRight && this.state.isAttendPopup && (
                   <MissionAttendPopup
                     mission={mission}
                     password={password}
+                    message={message}
                     postAttednigMission={postAttednigMission}
+                    closetAttendModal={closetAttendModal}
+                    isPasswordRight={isPasswordRight}
                     handleOnClickPopUp={this.handleOnClickPopUp}
                     handleInputChange={this.handleInputChange}
                   />
@@ -419,7 +461,7 @@ class MissionDetail extends React.Component {
           </div>
 
           <div className="detail-info__mission-info-body">
-            {mission.participants.map(p => (
+            {mission.participants.map((p) => (
               <div className="detail-info__user-profile">
                 <img
                   className="detail-info__user-profile-img"
@@ -438,7 +480,12 @@ class MissionDetail extends React.Component {
           <div className="detail-info__post-title">포스팅</div>
           <div className="detail-info__post-wrap">
             {missionPost.length ? (
-              missionPost.map(post => <CreatePostingBox post={post} />)
+              missionPost.map((post) => (
+                <CreatePostingBox
+                  post={post}
+                  handleClickImage={this.handleClickImage}
+                />
+              ))
             ) : (
               <div className="detail-info__post-label">
                 미션 포스트가 없습니다 😐

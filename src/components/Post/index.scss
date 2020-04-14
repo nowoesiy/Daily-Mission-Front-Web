@@ -9,7 +9,7 @@
   }
 
   &__list-wrap {
-    //display: flex;
+    display: flex;
     flex-wrap: wrap;
   }
 }
@@ -19,8 +19,10 @@
   border: 1px solid #e1e5f1;
   background-color: #ffffff;
   padding: 10px;
-  width: 880px;
+  //width: 880px;
+  width: 100%;
   height: auto;
+  margin: 0 auto;
   margin-bottom: 30px;
   &__top {
     overflow: hidden;
@@ -42,6 +44,7 @@
   }
 
   &__content {
+    overflow: hidden;
     line-height: 1.8rem;
     white-space: pre-line;
     margin: 50px 0px;
@@ -77,7 +80,92 @@
   }
 
   &__date {
+    line-height: 33px;
     font-size: 1rem;
     color: #aaa;
+  }
+}
+@media only screen and (max-width: 1980px) {
+  .post {
+    width: 900px;
+  }
+
+  .post-box {
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .post {
+    width: 90%;
+  }
+  .post-box {
+    &__img {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .post {
+    width: calc(100% - 1rem);
+    padding: 10px 0px;
+  }
+  .post-box {
+    width: 90%;
+    &__img {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .post {
+  }
+
+  .post-box {
+    padding: 5px;
+
+    &__title {
+      font-size: 1.1rem;
+    }
+    &__content {
+      font-size: 0.9rem;
+      line-height: 1.5rem;
+    }
+
+    &__img {
+      width: 100%;
+      height: 200px;
+    }
+
+    &__author-wrap {
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    &__bottom {
+      font-size: 0.7rem;
+      margin: 3px;
+    }
+
+    &__author-name {
+      font-size: 0.7rem;
+    }
+
+    &__author-img {
+      width: 23px;
+      height: 23px;
+      margin-right: 2px;
+    }
+    &__from {
+      color: #aaa;
+      font-size: 0.7rem;
+    }
+
+    &__date {
+      font-size: 0.8rem;
+      color: #aaa;
+    }
   }
 }

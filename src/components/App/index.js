@@ -14,6 +14,8 @@ import {
   postAttednigMission,
   onClickMyMissionList,
   postMission,
+  closetAttendCodeMessage,
+  closetAttendModal,
 } from '../../modules/reducer_mission';
 import OAuth2RedirectHandler from '../../oauth2/OAuth2RedirectHandler';
 import Header from '../Header';
@@ -29,88 +31,89 @@ import MissionDetail from '../MissionDetail';
 import MissionDetailB from '../MissionDetailB';
 import My from '../My';
 import MyEdit from '../MyEdit';
+import EditorComponent from '../EditorComponent';
 
-const currentUser = {
-  id: 2,
-  name: 'seowon lee',
-  email: 'tjdnjs3664@gmail.com',
-  thumbnailUrl:
-    'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
-  missions: [
-    {
-      id: 50,
-      title: '1일 1유니온 가기',
-      thumbnailUrl:
-        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/1%EC%9D%BC%201%EC%9C%A0%EB%8B%88%EC%98%A8/202003111750_union_400_600.jpg',
-      banned: false,
-      submit: true,
-      ended: false,
-    },
-    {
-      id: 53,
-      title: '1일 1아침 밥 먹기',
-      thumbnailUrl:
-        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/1%EC%9D%BC%201%EC%95%84%EC%B9%A8%20%EB%B0%A5%20%EB%A8%B9%EA%B8%B0/202003122108_maxresdefault_400_600.jpg',
-      banned: true,
-      submit: false,
-      ended: false,
-    },
-    {
-      id: 54,
-      title: '매일 매일 운동하기',
-      thumbnailUrl:
-        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-      banned: false,
-      submit: false,
-      ended: false,
-    },
-    {
-      id: 55,
-      title: '매일 매일 운동하기',
-      thumbnailUrl:
-        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-      banned: false,
-      submit: false,
-      ended: false,
-    },
-    {
-      id: 56,
-      title: '매일 매일 운동하기',
-      thumbnailUrl:
-        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-      banned: false,
-      submit: false,
-      ended: false,
-    },
-    {
-      id: 57,
-      title: '매일 매일 운동하기',
-      thumbnailUrl:
-        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-      banned: false,
-      submit: false,
-      ended: false,
-    },
-    {
-      id: 58,
-      title: '매일 매일 운동하기',
-      thumbnailUrl:
-        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-      banned: false,
-      submit: false,
-      ended: false,
-    },
-    {
-      id: 59,
-      title: '매일 매일 운동하기',
-      thumbnailUrl:
-        'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
-      banned: false,
-      submit: false,
-      ended: false,
-    },
-  ],
-};
+// const currentUser = {
+//   id: 3,
+//   name: 'seowon lee',
+//   email: 'tjdnjs3664@gmail.com',
+//   thumbnailUrl:
+//     'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
+//   missions: [
+//     {
+//       id: 50,
+//       title: '1일 1유니온 가기',
+//       thumbnailUrl:
+//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/1%EC%9D%BC%201%EC%9C%A0%EB%8B%88%EC%98%A8/202003111750_union_400_600.jpg',
+//       banned: false,
+//       submit: true,
+//       ended: false,
+//     },
+//     {
+//       id: 53,
+//       title: '1일 1아침 밥 먹기',
+//       thumbnailUrl:
+//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/1%EC%9D%BC%201%EC%95%84%EC%B9%A8%20%EB%B0%A5%20%EB%A8%B9%EA%B8%B0/202003122108_maxresdefault_400_600.jpg',
+//       banned: true,
+//       submit: false,
+//       ended: false,
+//     },
+//     {
+//       id: 54,
+//       title: '매일 매일 운동하기',
+//       thumbnailUrl:
+//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+//       banned: false,
+//       submit: false,
+//       ended: false,
+//     },
+//     {
+//       id: 55,
+//       title: '매일 매일 운동하기',
+//       thumbnailUrl:
+//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+//       banned: false,
+//       submit: false,
+//       ended: false,
+//     },
+//     {
+//       id: 56,
+//       title: '매일 매일 운동하기',
+//       thumbnailUrl:
+//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+//       banned: false,
+//       submit: false,
+//       ended: false,
+//     },
+//     {
+//       id: 57,
+//       title: '매일 매일 운동하기',
+//       thumbnailUrl:
+//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+//       banned: false,
+//       submit: false,
+//       ended: false,
+//     },
+//     {
+//       id: 58,
+//       title: '매일 매일 운동하기',
+//       thumbnailUrl:
+//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+//       banned: false,
+//       submit: false,
+//       ended: false,
+//     },
+//     {
+//       id: 59,
+//       title: '매일 매일 운동하기',
+//       thumbnailUrl:
+//         'https://image.daily-mission.com.s3.ap-northeast-2.amazonaws.com/%EB%A7%A4%EC%9D%BC%20%EC%9A%B4%EB%8F%99%ED%95%98%EA%B8%B0/202003122147_IE002261056_STD_400_600.jpg',
+//       banned: false,
+//       submit: false,
+//       ended: false,
+//     },
+//   ],
+// };
 
 class App extends React.Component {
   componentDidMount() {
@@ -123,7 +126,7 @@ class App extends React.Component {
   render() {
     const {
       authenticated,
-      //currentUser,
+      currentUser,
       handleLogout,
       missions,
       homeMissions,
@@ -131,11 +134,10 @@ class App extends React.Component {
       onClickMyMissionList,
       activeMyMissionId,
       attendCode,
+      isPasswordRight,
+      closetAttendModal,
     } = this.props;
-    if (attendCode)
-      toast.success(attendCode, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+
     return (
       <div className="App">
         <Switch>
@@ -150,6 +152,7 @@ class App extends React.Component {
           authenticated={authenticated}
           currentUser={currentUser}
           handleLogout={handleLogout}
+          closetAttendCodeMessage={this.props.closetAttendCodeMessage}
         />
         {this.props.location.pathname !== '/login' ? (
           <>
@@ -166,6 +169,8 @@ class App extends React.Component {
                       <MissionDetail
                         postAttednigMission={this.props.postAttednigMission}
                         currentUser={currentUser}
+                        isPasswordRight={isPasswordRight}
+                        closetAttendModal={closetAttendModal}
                       />
                     ) : (
                       <MissionDetailB />
@@ -222,6 +227,7 @@ class App extends React.Component {
                   }
                   exact
                 />
+                <Route path="/editor" render={() => <EditorComponent />} />
               </Switch>
             </div>
             <ToastContainer />
@@ -245,9 +251,9 @@ class App extends React.Component {
 
 export default withRouter(
   connect(
-    state => ({
+    (state) => ({
       authenticated: state.loginAuth.authenticated,
-      //currentUser: state.loginAuth.currentUser,
+      currentUser: state.loginAuth.currentUser,
       loading: state.loginAuth.loading,
       missions: state.MissionReducer.missions,
       activeMyMissionId: state.MissionReducer.activeMyMissionId,
@@ -255,6 +261,7 @@ export default withRouter(
       homeMissions: state.MissionReducer.homeMissions,
       hotMissions: state.MissionReducer.hotMissions,
       attendCode: state.MissionReducer.attendCode,
+      isPasswordRight: state.MissionReducer.isPasswordRight,
     }),
     {
       handleLogout,
@@ -265,6 +272,8 @@ export default withRouter(
       postAttednigMission,
       onClickMyMissionList,
       postMission,
+      closetAttendCodeMessage,
+      closetAttendModal,
     },
   )(App),
 );
