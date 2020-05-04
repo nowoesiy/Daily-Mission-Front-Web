@@ -13,12 +13,16 @@
  * 미션 참여자 및 강퇴자 확인
 
 # 기술 스택
+ * JavaScript
  * React
+ * React Router v4
  * Redux
+ * Redux-thunk
  * Sass
  
  # 이외 사용 기술
  * 스크롤 페이징
+ * axios
  * JWT
  
  # UI/UX
