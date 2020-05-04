@@ -4,7 +4,7 @@
 ![mission](https://user-images.githubusercontent.com/39932233/80935943-f6854380-8e09-11ea-85b9-b41e78390b92.jpg)
 
 
-# 주요기능
+### 주요기능
  * 미션생성
  * 미션글 업로드
  * 미션 별 인증글 확인
@@ -12,7 +12,7 @@
  * 전체 인증글 확인
  * 미션 참여자 및 강퇴자 확인
 
-# 기술 스택
+### 기술 스택
  * JavaScript
  * React
  * React Router v4
@@ -20,9 +20,9 @@
  * Redux-thunk
  * Sass
  
- # 이외 사용 기술
+### 이외 사용 기술
  * 스크롤 페이징
  * axios
  * JWT
  
- # UI/UX
+### UI/UX
