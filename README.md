@@ -4,7 +4,7 @@
 ![mission](https://user-images.githubusercontent.com/39932233/80935943-f6854380-8e09-11ea-85b9-b41e78390b92.jpg)
 
 
-## 주요기능
+## 주요 기능
  * 미션생성
  * 미션글 업로드
  * 미션 별 인증글 확인
