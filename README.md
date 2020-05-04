@@ -1,7 +1,9 @@
 # ![logo 74f7f9d7](https://user-images.githubusercontent.com/39932233/80936920-056df500-8e0e-11ea-8a57-2cf418edd852.png)
 > 1일 1미션 인증 및 공유 웹 어플리케이션
 
-[Daily-Mission](https://daily-mission.com)은 커뮤니티 기반의 미션 공유 플랫폼 입니다. 원하는 미션에 참여하여 매일 미션을 완료하고, 참여자들과 완료된 미션을 공유해 볼 수 있습니다.
+[Daily-Mission](https://daily-mission.com)은 커뮤니티 기반의 미션 공유 플랫폼 입니다. 
+
+원하는 미션에 참여하여 매일 미션을 완료하고, 참여자들과 완료된 미션을 공유해 볼 수 있습니다.
 
 ![mission](https://user-images.githubusercontent.com/39932233/80935943-f6854380-8e09-11ea-85b9-b41e78390b92.jpg)
 
