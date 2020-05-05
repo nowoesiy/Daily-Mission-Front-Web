@@ -35,3 +35,60 @@
  * JWT
  
 ## UI/UX
+
+## 1. 로그인
+> 구글/깃허브/네이버로 로그인을 할 수 있습니다.
+
+<img src="https://image.daily-mission.com/README/login.png"></img>
+
+## 2. 사용자 정보 변경
+> 로그인 후 사용자 이름 / 이미지를 변경할 수 있습니다.
+
+<img src="https://image.daily-mission.com/README/change.png"></img>
+
+## 3. 홈
+> 참여자가 많은 미션과 신규 생성된 미션을 조회 할 수 있습니다.
+
+<img src="https://image.daily-mission.com/README/home.png"></img>
+
+## 4. 전체 미션
+> 종료된 미션을 포함해 전체 미션을 조회 할 수 있습니다.
+
+<img src="https://image.daily-mission.com/README/all.png"></img>
+
+
+## 5. 미션 디테일
+> 미션 디테일 정보를 확인할 수 있습니다. 또한, 현재 참여중인 사용자와 해당 미션에 제출된 포스트 목록을 조회 할 수 있습니다.
+
+<img src="https://image.daily-mission.com/README/detail.png"></img>
+
+## 6. 미션 참여
+
+> 미션 생성후 전달받은 참여코드를 입력해 미션에 참여할 수 있습니다.
+
+<img src="https://image.daily-mission.com/README/attend.png"></img>
+
+## 7. 포스팅 목록
+
+> 전체 인증 포스트 목록을 조회할 수 있습니다.
+
+<img src="https://image.daily-mission.com/README/post.png"></img>
+
+## 8. 내 미션 목록
+> 내가 참여중인 미션 목록과 제출한 포스트 목록을 조회할 수 있습니다. 강퇴당한 미션에는 입장할 수 없습니다.
+
+<img src="https://image.daily-mission.com/README/my.png"></img>
+
+## 9. 인증 포스트 History
+> 참여중인 미션의 Weekly 포스트 History를 조회할 수 있습니다.
+
+<img src="https://image.daily-mission.com/README/submit.png"></img>
+
+제출 완료 후에는 아래와 같이 화면이 변경됩니다.
+
+<img src="https://image.daily-mission.com/README/submit_success.png"></img>
+
+## 10. 포스트 제출
+> 제목/내용/사진을 입력해 인증 포스트를 작성합니다.
+
+<img src="https://image.daily-mission.com/README/post_submit.png"></img>
