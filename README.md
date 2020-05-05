@@ -36,7 +36,7 @@
  
 # UI/UX
 > 본 프로젝트의 인터페이스 입니다.
-## 1. 로그인
+### 1. 로그인
 > 구글/깃허브/네이버로 로그인을 할 수 있습니다.
 
 <img src="https://image.daily-mission.com/README/login.png"></img>
