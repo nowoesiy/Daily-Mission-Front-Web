@@ -1,10 +1,10 @@
 import React from 'react';
 import './index.scss';
-import Login from '../Login';
 import Alert from '../Alert';
 import logo from '../../static/img/logo.png';
 import MissionCreatePopup from '../MissionCreatePopup';
 import { Link } from 'react-router-dom';
+
 class Header extends React.Component {
   state = {
     profileToggle: false,
