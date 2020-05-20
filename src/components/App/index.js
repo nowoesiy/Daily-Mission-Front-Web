@@ -22,7 +22,7 @@ import Header from '../Header';
 import Aside from '../Aside';
 import Login from '../Login';
 import Mission from '../Mission';
-import Post from '../Post';
+import Post from '../../containers/PostContainer';
 import Landing from '../Landing';
 import SubmitContainer from '../../containers/SubmitContainer';
 import MissionDetail from '../MissionDetail';

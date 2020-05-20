@@ -16,41 +16,6 @@ import {
   faTimes,
   faCheck,
 } from '@fortawesome/free-solid-svg-icons';
-// const dayInfo = [
-//   { date: '2020-03-01', day: '일' },
-//   { date: '2020-03-02', day: '월' },
-//   { date: '2020-03-03', day: '화' },
-//   { date: '2020-03-04', day: '수' },
-//   { date: '2020-03-05', day: '목' },
-//   { date: '2020-03-06', day: '금' },
-//   { date: '2020-03-07', day: '토' },
-// ];
-// const usersOfTeam = [
-//   {
-//     userId: 2,
-//     userName: 'seowon lee',
-//     banned: false,
-//     imgUrl:
-//       'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
-//     submitDay: ['2020-03-07', '2020-03-06', '2020-03-01'],
-//   },
-//   {
-//     userId: 3,
-//     userName: 'Mino DR.',
-//     banned: false,
-//     imgUrl:
-//       'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
-//     submitDay: ['2020-03-05', '2020-03-09', '2020-03-10'],
-//   },
-//   {
-//     userId: 5,
-//     userName: '이민호',
-//     banned: false,
-//     imgUrl:
-//       'https://lh4.googleusercontent.com/--aw6MInQfos/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rcYyNl8G2GI-QZ5ISqoAujKNmRVuA/photo.jpg',
-//     submitDay: ['2020-03-07', '2020-03-06', '2020-03-05'],
-//   },
-// ];
 
 class Submit extends React.Component {
   constructor(props) {
@@ -62,13 +27,13 @@ class Submit extends React.Component {
       file: '',
       fileName: '',
       activeMyMission: props.currentUser.missions.filter(
-        mission => mission.id == props.match.params.id,
+        (mission) => mission.id == props.match.params.id,
       )[0],
       activeMissionId: this.props.match.params.id,
     };
   }
 
-  handleDrop = file => {
+  handleDrop = (file) => {
     this.setState({
       file: file[0],
       isPostPopup: true,
@@ -82,7 +47,7 @@ class Submit extends React.Component {
     });
   };
 
-  handleClickFile = e => {
+  handleClickFile = (e) => {
     this.setState({
       file: e.target.files[0],
       fileName: e.target.files[0].name,
@@ -145,7 +110,7 @@ class Submit extends React.Component {
                 <tr>
                   <th className="day-info__day--first-child"></th>
                   {weekDates
-                    ? weekDates.map(d => {
+                    ? weekDates.map((d) => {
                         return (
                           <th className="day-info__day">
                             {d.day.substr(0, 3)}
@@ -160,7 +125,7 @@ class Submit extends React.Component {
               </thead>
               <tbody>
                 {histories
-                  ? histories.map(user => {
+                  ? histories.map((user) => {
                       return (
                         <tr
                           className={
@@ -177,7 +142,7 @@ class Submit extends React.Component {
                             />
                             {user.userName}
                           </td>
-                          {weekDates.map(d => {
+                          {weekDates.map((d) => {
                             return user.date.indexOf(d.date) >= 0 ? (
                               <td className="detail-box__submit-flag detail-box__submit-flag--submit">
                                 <FontAwesomeIcon icon={faCheck} color="green" />
@@ -219,13 +184,13 @@ class Submit extends React.Component {
       .get(
         `https://api.daily-mission.com/api/post/schedule/mission/${this.state.activeMissionId}/week/0`,
       )
-      .then(response => {
+      .then((response) => {
         this.setState({
           histories: response.data.histories,
           weekDates: response.data.weekDates,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -235,7 +200,7 @@ class Submit extends React.Component {
       return {
         activeMissionId: nextProps.match.params.id,
         activeMyMission: nextProps.currentUser.missions.filter(
-          mission => mission.id == nextProps.match.params.id,
+          (mission) => mission.id == nextProps.match.params.id,
         )[0],
       };
     else return null;
@@ -291,7 +256,7 @@ class Submit extends React.Component {
     if (activeMissionId != prevState.activeMissionId) {
       this.setState({
         activeMyMission: currentUser.missions.filter(
-          mission => mission.id == activeMissionId,
+          (mission) => mission.id == activeMissionId,
         )[0],
       });
 
@@ -300,7 +265,7 @@ class Submit extends React.Component {
     if (currentUser.missions !== prevProps.currentUser.missions) {
       //console.log('In currnetUser Update');
       const activeMyMission = currentUser.missions.filter(
-        mission => mission.id == activeMissionId,
+        (mission) => mission.id == activeMissionId,
       )[0];
 
       this.setState({
@@ -314,7 +279,7 @@ class Submit extends React.Component {
 
 export default withRouter(
   connect(
-    state => ({
+    (state) => ({
       //currentUser: state.loginAuth.currentUser,
     }),
     {
