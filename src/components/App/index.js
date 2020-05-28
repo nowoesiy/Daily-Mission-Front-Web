@@ -29,7 +29,8 @@ import MissionDetail from '../MissionDetail';
 import MissionDetailB from '../MissionDetailB';
 import My from '../My';
 import MyEdit from '../MyEdit';
-import EditorComponent from '../EditorComponent';
+import MissionListContainer from '../../containers/MissionListContainer';
+import LandingContainer from '../../containers/LandingContainer';
 
 class App extends React.Component {
   componentDidMount() {
@@ -44,9 +45,6 @@ class App extends React.Component {
       authenticated,
       currentUser,
       handleLogout,
-      missions,
-      homeMissions,
-      hotMissions,
       onClickMyMissionList,
       activeMyMissionId,
       attendCode,
@@ -93,20 +91,11 @@ class App extends React.Component {
                     )
                   }
                 />
-                <Route
-                  path="/"
-                  exact
-                  render={() => (
-                    <Landing
-                      hotMissions={hotMissions}
-                      missions={homeMissions}
-                    />
-                  )}
-                />
+                <Route path="/" exact render={() => <LandingContainer />} />
                 <Route
                   path="/mission"
                   exact
-                  render={() => <Mission missions={missions} />}
+                  render={() => <MissionListContainer />}
                 />
                 <Route path="/post" exact component={Post}></Route>
                 <Route
@@ -138,7 +127,6 @@ class App extends React.Component {
                   }
                   exact
                 />
-                <Route path="/editor" render={() => <EditorComponent />} />
               </Switch>
             </div>
             <ToastContainer />
@@ -159,11 +147,8 @@ export default withRouter(
       authenticated: state.loginAuth.authenticated,
       currentUser: state.loginAuth.currentUser,
       loading: state.loginAuth.loading,
-      missions: state.MissionReducer.missions,
       activeMyMissionId: state.MissionReducer.activeMyMissionId,
       activemyMission: state.MissionReducer.activemyMission,
-      homeMissions: state.MissionReducer.homeMissions,
-      hotMissions: state.MissionReducer.hotMissions,
       attendCode: state.MissionReducer.attendCode,
       isPasswordRight: state.MissionReducer.isPasswordRight,
     }),

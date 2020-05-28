@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.scss';
-import Popup from 'reactjs-popup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { missionSubmitTrue } from '../../modules/reduer_loginAuth';
@@ -10,7 +9,7 @@ class SubmitPopup extends React.Component {
     content: '',
   };
 
-  handleUpdateValue = e => {
+  handleUpdateValue = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -104,7 +103,7 @@ class SubmitPopup extends React.Component {
               )}
               <button
                 type="submit"
-                onClick={e => {
+                onClick={(e) => {
                   handlePopUp();
                   postBoard(formData);
                   e.preventDefault();

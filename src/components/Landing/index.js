@@ -2,96 +2,11 @@ import React from 'react';
 import './index.scss';
 
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import ButtonComponent from '../ButtonComponent';
-// const mission = [
-//   {
-//     id: 1,
-//     missionRule: {
-//       createdDate: '2020-02-18T10:28:16.777',
-//       modifiedDate: '2020-02-18T10:28:16.777',
-//       id: 1,
-//       week: {
-//         sun: true,
-//         mon: true,
-//         tue: true,
-//         wed: true,
-//         thu: true,
-//         fri: false,
-//         sat: false,
-//       },
-//       deleted: false,
-//     },
-//     title: '1일 1알고리즘',
-//     content:
-//       '매일매일 하루에 최소 한문제씩 알고리즘을 풀고 인증하는 미션입니다.',
-//     thumbnailUrl:
-//       'https://bcuassets.blob.core.windows.net/img/computing-research-degrees-banner-image-131934047124660430.jpg',
-//     startDate: '2020-01-01',
-//     endDate: '2020-03-28',
-//     ended: true,
-//     master: '수박',
-//     numOfattend: 101,
-//   },
-//   {
-//     id: 2,
-//     missionRule: {
-//       createdDate: '2020-02-18T10:28:16.777',
-//       modifiedDate: '2020-02-18T10:28:16.777',
-//       id: 2,
-//       week: {
-//         sun: true,
-//         mon: true,
-//         tue: true,
-//         wed: true,
-//         thu: true,
-//         fri: false,
-//         sat: false,
-//       },
-//       deleted: false,
-//     },
-//     title: '아침 밥 먹기',
-//     content: '매일 매일 아침 밥을 먹는 미션입니다.',
-//     thumbnailUrl:
-//       'https://pds.joins.com/news/component/healthmedia/201708/04/133c7e02835ca.jpg',
-//     startDate: '2020-01-01',
-//     endDate: '2020-03-28',
-//     ended: true,
-//     master: '아침이',
-//     numOfattend: 10,
-//   },
-//   {
-//     id: 3,
-//     missionRule: {
-//       createdDate: '2020-02-18T10:28:16.777',
-//       modifiedDate: '2020-02-18T10:28:16.777',
-//       id: 3,
-//       week: {
-//         sun: true,
-//         mon: true,
-//         tue: true,
-//         wed: true,
-//         thu: true,
-//         fri: false,
-//         sat: false,
-//       },
-//       deleted: false,
-//     },
-//     title: '매일 매일 운동하기',
-//     content: '1일 1 헬스나 운동하실 분들 들어오세요~ ',
-//     thumbnailUrl:
-//       'https://newsimg.hankookilbo.com/2018/03/07/201803070494276763_1.jpg',
-//     startDate: '2020-01-01',
-//     endDate: '2020-03-28',
-//     ended: true,
-//     master: '운동맨',
-//     numOfattend: 130,
-//   },
-// ];
 
 class Landing extends React.Component {
   state = {
@@ -154,19 +69,6 @@ class Landing extends React.Component {
     window.addEventListener('resize', this.handleReactiveList);
   }
 
-  // componentWillUnmount() {
-  //   window.removeEventListener(
-  //     'resize',
-  //     () => {
-  //       const { clientWidth } = this.box;
-  //       this.setState({
-  //         numOfList: clientWidth / 365,
-  //       });
-  //     },
-  //     true,
-  //   );
-  // }
-
   popularMissionBox = ({ mission, type }) => {
     return mission.map((m) => {
       return (
@@ -175,7 +77,8 @@ class Landing extends React.Component {
             <div className="mission-box__top">
               <img
                 className="mission-box__img"
-                src={type == 'hot' ? m.thumbnailUrlHot : m.thumbnailUrlNew}
+                src={type === 'hot' ? m.thumbnailUrlHot : m.thumbnailUrlNew}
+                alt={m.title}
               />
             </div>
             <div className="mission-box__body">
@@ -186,6 +89,7 @@ class Landing extends React.Component {
                     <img
                       className="mission-box__admin-image"
                       src={m.userThumbnailUrl}
+                      alt={m.userName}
                     />
                   </span>
                   <span>{m.userName}</span>
@@ -209,9 +113,7 @@ class Landing extends React.Component {
       newMissionIndex,
       numOfList + newMissionIndex,
     );
-    console.log(
-      this.state.hotMissionIndex === hotMissions.length - this.state.numOfList,
-    );
+
     const hotMissionsReduce = hotMissions.slice(
       hotMissionIndex,
       numOfList + hotMissionIndex,
