@@ -8,8 +8,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ButtonComponent from '../ButtonComponent';
 
-const CreateMissionBox = ({ mission, type }) => {
-  return mission.map((m) => {
+const CreateMissionBox = ({ missions, type }) => {
+  return missions.map((m) => {
     return (
       <Link to={'mission/detail/' + m.id}>
         <div className="mission-box">
@@ -47,63 +47,35 @@ const CreateMissionBox = ({ mission, type }) => {
 
 const Landing = ({
   missions,
-  hotMissions,
   handleSwiperLeftClick,
   handleSwiperRightClick,
-  handleSwiperNewLeftClick,
-  handleSwiperNewRightClick,
-  hotMissionIndex,
-  newMissionIndex,
-  numOfList,
+  MissionIndex,
   checkNavigator,
   checkDisable,
   setBox,
+  title,
+  type,
 }) => {
   return (
     <div className="landing">
-      <div className="landing__popular-text">🔥 Hot한 미션</div>
-      <div className="landing__popular-box" ref={setBox}>
+      <div className="landing__text">{title}</div>
+      <div className="landing__box" ref={setBox}>
         <div className="landing__button-wrap">
           {checkNavigator && (
             <ButtonComponent
               icon={faChevronLeft}
               func={handleSwiperLeftClick}
-              disabled={hotMissionIndex === 0 ? true : false}
+              disabled={MissionIndex === 0 ? true : false}
             />
           )}
         </div>
-        <CreateMissionBox type={'hot'} mission={hotMissions} />
+        <CreateMissionBox type={type} missions={missions} />
         <div className="landing__button-wrap">
           {checkNavigator && (
             <ButtonComponent
               icon={faChevronRight}
               func={handleSwiperRightClick}
               disabled={checkDisable ? true : false}
-            />
-          )}
-        </div>
-      </div>
-
-      <div className="landing__new-text">✌ 신규 미션</div>
-      <div className="landing__popular-box">
-        <div className="landing__button-wrap">
-          {checkNavigator && (
-            <ButtonComponent
-              icon={faChevronLeft}
-              func={handleSwiperNewLeftClick}
-              disabled={newMissionIndex === 0 ? true : false}
-            />
-          )}
-        </div>
-        <CreateMissionBox type={'new'} mission={missions} />
-        <div className="landing__button-wrap">
-          {checkNavigator && (
-            <ButtonComponent
-              icon={faChevronRight}
-              func={handleSwiperNewRightClick}
-              disabled={
-                newMissionIndex === missions.length - numOfList ? true : false
-              }
             />
           )}
         </div>

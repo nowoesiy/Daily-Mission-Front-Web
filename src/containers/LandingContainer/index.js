@@ -52,7 +52,7 @@ class LandingContainer extends React.Component {
   };
 
   handleReactiveList = () => {
-    if (this.box) {
+    if (this.box.current) {
       const { clientWidth } = this.box.current;
       this.setState({
         numOfList: clientWidth / 365,
@@ -73,28 +73,43 @@ class LandingContainer extends React.Component {
       numOfList + hotMissionIndex,
     );
 
-    const checkNavigator = this.props.hotMissions.length > numOfList;
-    const checkDisable =
+    const checkHotNavigator = this.props.hotMissions.length > numOfList;
+    const checkHotDisable =
       hotMissionIndex >= this.props.hotMissions.length - numOfList;
+
     const newMissionsReduce = this.props.newMissions.slice(
       newMissionIndex,
       numOfList + newMissionIndex,
     );
+
+    const checkNewNavigator = this.props.newMissions.length > numOfList;
+    const checkNewDisable =
+      newMissionIndex >= this.props.newMissions.length - numOfList;
+
     return (
-      <Landing
-        hotMissions={hotMissionsReduce}
-        missions={newMissionsReduce}
-        handleSwiperLeftClick={this.handleSwiperLeftClick}
-        handleSwiperRightClick={this.handleSwiperRightClick}
-        handleSwiperNewLeftClick={this.handleSwiperNewLeftClick}
-        handleSwiperNewRightClick={this.handleSwiperNewRightClick}
-        hotMissionIndex={hotMissionIndex}
-        newMissionIndex={newMissionIndex}
-        numOfList={numOfList}
-        checkNavigator={checkNavigator}
-        checkDisable={checkDisable}
-        setBox={this.box}
-      />
+      <>
+        <Landing
+          missions={hotMissionsReduce}
+          handleSwiperLeftClick={this.handleSwiperLeftClick}
+          handleSwiperRightClick={this.handleSwiperRightClick}
+          MissionIndex={hotMissionIndex}
+          checkNavigator={checkHotNavigator}
+          checkDisable={checkHotDisable}
+          setBox={this.box}
+          title={'🔥 Hot한 미션'}
+          type={'hot'}
+        />
+        <Landing
+          missions={newMissionsReduce}
+          handleSwiperLeftClick={this.handleSwiperNewLeftClick}
+          handleSwiperRightClick={this.handleSwiperNewRightClick}
+          MissionIndex={newMissionIndex}
+          checkNavigator={checkNewNavigator}
+          checkDisable={checkNewDisable}
+          title={'✌ 신규 미션'}
+          type={'new'}
+        />
+      </>
     );
   }
 }
