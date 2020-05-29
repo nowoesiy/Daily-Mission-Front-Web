@@ -5,7 +5,6 @@ export function lazyLoad() {
     const io = new IntersectionObserver((entires, observer) => {
       entires.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log('in?');
           let image = entry.target;
           image.src = image.dataset.src;
           image.classList.remove('lazy');

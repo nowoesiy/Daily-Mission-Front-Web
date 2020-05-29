@@ -1,47 +1,9 @@
 import React from 'react';
 import './index.scss';
-import Popup from 'reactjs-popup';
 import { Line } from 'rc-progress';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import ImageDetailPopup from '../ImageDetailPopup';
-// const mission = {
-//   id: 53,
-//   week: {
-//     sun: false,
-//     mon: true,
-//     tue: true,
-//     wed: true,
-//     thu: true,
-//     fri: true,
-//     sat: false,
-//   },
-//   userId: 2,
-//   userName: '수바기',
-//   title: '1일 1유니온',
-//   content: '평일 아침 9시에 유니온에 도착하는 미션입니다.',
-//   thumbnailUrlDetail:
-//     'https://image.daily-mission.com/1%EC%9D%BC%201%EC%9C%A0%EB%8B%88%EC%98%A8/202003111750_union_400_600.jpg',
-//   participants: [
-//     {
-//       id: 5,
-//       userName: '무법자',
-//       thumbnailUrl:
-//         'https://image.daily-mission.com/naver/5/202003262113_profile_40_40.PNG',
-//       banned: false,
-//     },
-//     {
-//       id: 4,
-//       userName: 'NEVER',
-//       thumbnailUrl:
-//         'https://image.daily-mission.com/google/4/202003170955_naver-logo_40_40.png',
-//       banned: true,
-//     },
-//   ],
-//   startDate: '2020-03-30',
-//   endDate: '2020-07-02',
-//   ended: false,
-// };
 
 const MissionAttendPopup = ({
   mission,
@@ -56,7 +18,7 @@ const MissionAttendPopup = ({
     <div className="overlay">
       <div className="detail__password-wrap">
         <div className="password-wrap">
-          <a
+          <span
             className="submit-board__cancel-button"
             onClick={() => {
               handleOnClickPopUp();
@@ -64,7 +26,7 @@ const MissionAttendPopup = ({
             }}
           >
             ×
-          </a>
+          </span>
           <div
             className={`password-wrap__label ${
               isPasswordRight === false ? 'password-wrap__label--alert' : ''

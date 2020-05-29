@@ -49,7 +49,9 @@ const PostBox = (props) => {
       <div className="post__upper-text">📃 포스팅</div>
       <div className="post__list-wrap">
         {posts
-          ? posts.map((post) => <CreatePostingBox post={post} />)
+          ? posts.map((post) => (
+              <CreatePostingBox key={post.postId} post={post} />
+            ))
           : 'Loading'}
       </div>
       {isPopUp && (

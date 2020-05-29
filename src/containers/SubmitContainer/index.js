@@ -10,12 +10,7 @@ import { withRouter, Link } from 'react-router-dom';
 import FileDrop from 'react-file-drop';
 import { closeModel } from '../../modules/reducer_submitPost';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faUpload,
-  faSmileWink,
-  faTimes,
-  faCheck,
-} from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 class Submit extends React.Component {
   constructor(props) {

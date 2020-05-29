@@ -2,56 +2,10 @@ import React from 'react';
 import './index.scss';
 import Popup from 'reactjs-popup';
 import DatePicker from 'react-datepicker';
-import axios from 'axios';
 import { Field, reduxForm } from 'redux-form';
 import 'react-datepicker/dist/react-datepicker.css';
-import { postMission } from '../../modules/reducer_mission';
 import moment from 'moment';
 import { postBoard } from '../../modules/reducer_submitPost';
-const validate = values => {
-  const errors = {};
-
-  if (!values.title) {
-    errors.title = '미션 이름을 입력해 주세요';
-  } else if (values.title.length > 15 || values.title.length < 5) {
-    errors.title = '5~20자 사이로 맞춰주세요';
-  }
-
-  if (!values.content) {
-    errors.content = '미션 설명을 입력해 주세요';
-  } else if (values.content.length > 50 || values.content.length < 10) {
-    errors.content = '10~50자 사이로 맞춰주세요';
-  }
-  if (
-    values.sun &&
-    values.mon &&
-    values.tue &&
-    values.wed &&
-    values.thu &&
-    values.fri &&
-    values.sat
-  ) {
-  } else {
-    errors.submitDays = '제출 요일을 하루 이상 선택해 주세요';
-  }
-
-  if (values.file == null) {
-    errors.file = '미션 관련 이미지를 업로드 해주세요';
-  }
-  // const ext = values.file.name.lastIndexOf('.');
-  // if (
-  //   ext != 'jpg' &&
-  //   ext != 'jpeg' &&
-  //   ext != 'gif' &&
-  //   ext != 'png' &&
-  //   ext != 'bmp'
-  // ) {
-  //   errors.file =
-  //     '저장 할 수 있는 이미지의 확장자는 jpg/jpeg/gif/png/bmp 입니다';
-  // }
-
-  return errors;
-};
 
 const renderField = ({ label, type, input, meta: { touched, error } }) => (
   <div>
@@ -82,7 +36,7 @@ const renderDatePicker = ({ input, label, name, meta: error }) => (
       className={`new-mission__input new-mission__input--${name}`}
       dateFormat="yyyy/MM/dd"
       selected={input.value ? moment(input.value, 'MM/DD/YYYY') : null}
-      onChange={date => input.onChange(moment(date).format('MM/DD/YYYY'))}
+      onChange={(date) => input.onChange(moment(date).format('MM/DD/YYYY'))}
     />
   </div>
 );
@@ -103,7 +57,7 @@ class MissionCreatePopup extends React.Component {
     sat: false,
   };
 
-  onChangeInput = e => {
+  onChangeInput = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -121,14 +75,14 @@ class MissionCreatePopup extends React.Component {
   //   });
   // };
 
-  handleChangeFile = e => {
+  handleChangeFile = (e) => {
     this.setState({
       file: e.target.files[0],
       fileName: e.target.files[0].name,
     });
   };
 
-  handleChangeSubmitDay = e => {
+  handleChangeSubmitDay = (e) => {
     this.setState({ ...this.state, [e.target.name]: e.target.checked });
   };
 
@@ -183,7 +137,7 @@ class MissionCreatePopup extends React.Component {
         closeOnDocumentClick
         trigger={<button className="create-mission-btn">미션 만들기</button>}
       >
-        {close => (
+        {(close) => (
           <div className="new-mission">
             <a
               className="submit-board__cancel-button"
