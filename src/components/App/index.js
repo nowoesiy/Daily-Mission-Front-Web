@@ -2,28 +2,21 @@ import React from 'react';
 import './index.scss';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-  handleLogout,
-  LoadToGetCurrentUser,
-} from '../../modules/reduer_loginAuth';
-import { toast, ToastContainer } from 'react-toastify';
+import { LoadToGetCurrentUser } from '../../modules/reduer_loginAuth';
+import { ToastContainer } from 'react-toastify';
 import {
   getMissionList,
   getHomeMissionList,
   getHotMissionList,
   postAttednigMission,
   onClickMyMissionList,
-  postMission,
-  closetAttendCodeMessage,
   closetAttendModal,
 } from '../../modules/reducer_mission';
 import OAuth2RedirectHandler from '../../oauth2/OAuth2RedirectHandler';
-import Header from '../Header';
-import Aside from '../Aside';
+import HeaderContainer from '../../containers/HeaderContainer';
+import AsideContainer from '../../containers/AsideContainer';
 import Login from '../Login';
-import Mission from '../Mission';
 import Post from '../../containers/PostContainer';
-import Landing from '../Landing';
 import SubmitContainer from '../../containers/SubmitContainer';
 import MissionDetail from '../MissionDetail';
 import MissionDetailB from '../MissionDetailB';
@@ -42,12 +35,9 @@ class App extends React.Component {
 
   render() {
     const {
-      authenticated,
       currentUser,
-      handleLogout,
       onClickMyMissionList,
       activeMyMissionId,
-      attendCode,
       isPasswordRight,
       closetAttendModal,
     } = this.props;
@@ -60,20 +50,10 @@ class App extends React.Component {
             component={OAuth2RedirectHandler}
           ></Route>
         </Switch>
-        <Header
-          attendCode={attendCode}
-          postMission={this.props.postMission}
-          authenticated={authenticated}
-          currentUser={currentUser}
-          handleLogout={handleLogout}
-          closetAttendCodeMessage={this.props.closetAttendCodeMessage}
-        />
+        <HeaderContainer />
         {this.props.location.pathname !== '/login' ? (
           <>
-            <Aside
-              currentUser={currentUser}
-              onClickMyMissionList={onClickMyMissionList}
-            />
+            <AsideContainer />
             <div className="container">
               <Switch>
                 <Route
@@ -91,13 +71,9 @@ class App extends React.Component {
                     )
                   }
                 />
-                <Route path="/" exact render={() => <LandingContainer />} />
-                <Route
-                  path="/mission"
-                  exact
-                  render={() => <MissionListContainer />}
-                />
-                <Route path="/post" exact component={Post}></Route>
+                <Route path="/" exact component={LandingContainer} />
+                <Route path="/mission" exact component={MissionListContainer} />
+                <Route path="/post" exact component={Post} />
                 <Route
                   path="/my"
                   render={() =>
@@ -149,19 +125,15 @@ export default withRouter(
       loading: state.loginAuth.loading,
       activeMyMissionId: state.MissionReducer.activeMyMissionId,
       activemyMission: state.MissionReducer.activemyMission,
-      attendCode: state.MissionReducer.attendCode,
       isPasswordRight: state.MissionReducer.isPasswordRight,
     }),
     {
-      handleLogout,
       LoadToGetCurrentUser,
       getMissionList,
       getHomeMissionList,
       getHotMissionList,
       postAttednigMission,
       onClickMyMissionList,
-      postMission,
-      closetAttendCodeMessage,
       closetAttendModal,
     },
   )(App),
