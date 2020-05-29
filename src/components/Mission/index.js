@@ -60,6 +60,7 @@ const Mission = ({ missions }) => {
           <CreateMissionBox mission={m} key={m.id} />
         ))}
       </div>
+      <div className="scroll-detector"></div>
     </div>
   );
 };

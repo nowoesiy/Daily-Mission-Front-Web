@@ -2,12 +2,25 @@ import React from 'react';
 import { lazyLoad } from '../../util/lazyLoad.js';
 import Mission from '../../components/Mission';
 import { connect } from 'react-redux';
+import { fetchScroll } from '../../util/fetchScroll.js';
 
 class MissionListContainer extends React.Component {
+  state = {
+    numOfMission: 12,
+  };
+
+  addMissions = () => {
+    this.setState({
+      numOfMission: this.state.numOfMission + 12,
+    });
+    lazyLoad();
+  };
+
   componentDidMount() {
     if (this.props.missionLists.length > 0) {
       lazyLoad();
     }
+    fetchScroll(this.addMissions);
   }
 
   componentDidUpdate(prevProps) {
@@ -17,7 +30,8 @@ class MissionListContainer extends React.Component {
   }
 
   render() {
-    const { missionLists } = this.props;
+    const { numOfMission } = this.state;
+    const missionLists = this.props.missionLists.slice(0, numOfMission);
     return <Mission missions={missionLists} />;
   }
 }
