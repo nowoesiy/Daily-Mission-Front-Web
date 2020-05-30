@@ -35,7 +35,7 @@ class HeaderContainer extends React.Component {
   }
 
   render() {
-    const { attendCode, closetAttendCodeMessage } = this.props;
+    const { attendCode, closetAttendCodeMessage, currentUser } = this.props;
     return (
       <>
         {attendCode && (
@@ -46,8 +46,7 @@ class HeaderContainer extends React.Component {
           />
         )}
         <Header
-          {...this.props}
-          {...this.state}
+          currentUser={currentUser}
           handleProfileClick={this.handleProfileClick}
           boxRef={this.box}
         />

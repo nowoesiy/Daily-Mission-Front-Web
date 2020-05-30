@@ -3,7 +3,6 @@ import './index.scss';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { LoadToGetCurrentUser } from '../../modules/reduer_loginAuth';
-import { ToastContainer } from 'react-toastify';
 import {
   getMissionList,
   getHomeMissionList,
@@ -105,7 +104,6 @@ class App extends React.Component {
                 />
               </Switch>
             </div>
-            <ToastContainer />
           </>
         ) : (
           <div className="App__login">

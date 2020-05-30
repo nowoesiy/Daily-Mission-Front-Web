@@ -13,7 +13,7 @@ class Post extends React.Component {
     isPopUp: false,
   };
 
-  fetchPosts = () => {
+  addPosts = () => {
     this.setState({
       numOfPosts: this.state.numOfPosts + 3,
     });
@@ -40,7 +40,7 @@ class Post extends React.Component {
       }
     });
     this.props.fetchPosts();
-    fetchScroll(this.fetchPosts);
+    fetchScroll(this.addPosts);
   }
 
   render() {

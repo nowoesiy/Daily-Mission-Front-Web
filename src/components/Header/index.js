@@ -87,6 +87,7 @@ const Header = ({
       <div className="header__login">
         {currentUser ? (
           <CreateUserSection
+            currentUser={currentUser}
             postMission={postMission}
             attendCode={attendCode}
             profileToggle={profileToggle}
