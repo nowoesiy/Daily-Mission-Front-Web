@@ -76,6 +76,7 @@ const Header = ({
   profileToggle,
   handleProfileClick,
   boxRef,
+  handleLogout,
 }) => {
   return (
     <header className="header">
@@ -93,6 +94,7 @@ const Header = ({
             profileToggle={profileToggle}
             handleProfileClick={handleProfileClick}
             boxRef={boxRef}
+            handleLogout={handleLogout}
           />
         ) : (
           <CreateloginSection />
