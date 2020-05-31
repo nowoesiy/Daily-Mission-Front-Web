@@ -16,7 +16,6 @@ const CreateProfileDropDown = ({ handleLogout, currentUser, boxRef }) => {
       <Link to="/my">
         <span className="profile-dropdown__my-page">👤MY</span>
       </Link>
-
       <button
         onClick={handleLogout}
         className="profile-dropdown__logout-button"

@@ -3,6 +3,7 @@ import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { missionSubmitTrue } from '../../modules/reduer_loginAuth';
+
 class SubmitPopup extends React.Component {
   state = {
     title: '',

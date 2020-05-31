@@ -1,45 +1,9 @@
 import React from 'react';
 import './index.scss';
 import Popup from 'reactjs-popup';
-import DatePicker from 'react-datepicker';
-import { Field, reduxForm } from 'redux-form';
-import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import { postBoard } from '../../modules/reducer_submitPost';
 
-const renderField = ({ label, type, input, meta: { touched, error } }) => (
-  <div>
-    <label>{label}</label>
-    <label
-      className="title__description"
-      style={{ fontSize: '1rem', marginLeft: '15px' }}
-    >
-      {touched && error && <>{error}</>}
-    </label>
-    <input
-      {...input}
-      className="new-mission__input"
-      type={type}
-      autoComplete="off"
-      //onChange={this.onChangeInput}
-    />
-  </div>
-);
-
-const renderDatePicker = ({ input, label, name, meta: error }) => (
-  <div>
-    <label>{label}</label>
-    {error && <>{error}</>}
-    <DatePicker
-      {...input}
-      name={name}
-      className={`new-mission__input new-mission__input--${name}`}
-      dateFormat="yyyy/MM/dd"
-      selected={input.value ? moment(input.value, 'MM/DD/YYYY') : null}
-      onChange={(date) => input.onChange(moment(date).format('MM/DD/YYYY'))}
-    />
-  </div>
-);
 class MissionCreatePopup extends React.Component {
   state = {
     title: '',
@@ -62,18 +26,6 @@ class MissionCreatePopup extends React.Component {
       [e.target.name]: e.target.value,
     });
   };
-
-  // onChangeStartDate = date => {
-  //   this.setState({
-  //     startDate: date,
-  //   });
-  // };
-
-  // onChangeEndDate = date => {
-  //   this.setState({
-  //     endDate: date,
-  //   });
-  // };
 
   handleChangeFile = (e) => {
     this.setState({
@@ -129,7 +81,7 @@ class MissionCreatePopup extends React.Component {
       title.length <= 5 ||
       (!sun && !mon && !tue && !wed && !thu && !fri && !sat) ||
       !file ||
-      (ext != 'jpg' && ext != 'jpeg' && ext != 'gif' && ext != 'png');
+      (ext !== 'jpg' && ext !== 'jpeg' && ext !== 'gif' && ext !== 'png');
 
     return (
       <Popup
@@ -289,11 +241,11 @@ class MissionCreatePopup extends React.Component {
                   <label className="new-mission__descrition">
                     {!file
                       ? '미션 관련 이미지를 업로드 해주세요'
-                      : ext != 'jpg' &&
-                        ext != 'jpeg' &&
-                        ext != 'gif' &&
-                        ext != 'png' &&
-                        ext != 'bmp'
+                      : ext !== 'jpg' &&
+                        ext !== 'jpeg' &&
+                        ext !== 'gif' &&
+                        ext !== 'png' &&
+                        ext !== 'bmp'
                       ? '저장 할 수 있는 이미지의 확장자는 jpg/jpeg/gif/png/bmp 입니다'
                       : ''}
                   </label>

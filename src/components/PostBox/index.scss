@@ -5,7 +5,7 @@
   &__upper-text {
     font-size: 1.3rem;
     font-weight: 700;
-    padding-bottom: 30px;
+    margin: 15px 0;
   }
 
   &__list-wrap {
@@ -45,7 +45,7 @@
 
   &__content {
     overflow: hidden;
-    line-height: 1.8rem;
+    line-height: 1.5rem;
     white-space: pre-line;
     margin: 50px 0px;
     font-size: 1.1rem;

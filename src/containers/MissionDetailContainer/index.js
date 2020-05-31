@@ -5,6 +5,8 @@ import {
   postAttednigMission,
   closetAttendModal,
 } from '../../modules/reducer_mission';
+import { fetchScroll } from '../../util/fetchScroll.js';
+import { lazyLoad } from '../../util/lazyLoad';
 import MissionDetail from '../../components/MissionDetail';
 import PostBoxSmall from '../../components/PostBoxSmall';
 import ParticipantBox from '../../components/ParticipantBox';
@@ -13,6 +15,7 @@ class MissionDetailContainer extends React.Component {
   state = {
     mission: '',
     missionPost: '',
+    numOfPosts: 12,
     isAttendPopup: false,
     inputPasswordMode: false,
     password: '',
@@ -77,18 +80,28 @@ class MissionDetailContainer extends React.Component {
       });
   };
 
+  addPosts = () => {
+    this.setState({
+      numOfPosts: this.state.numOfPosts + 12,
+    });
+    lazyLoad();
+  };
+
   componentDidMount() {
     this.getMissionInfo();
     this.getMissionPosting();
+    fetchScroll(this.addPosts);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.currentUser) {
+    fetchScroll(this.addPosts);
+    lazyLoad();
+
+    if (prevProps.currentUser !== null) {
       const { currentUser } = this.props;
 
       if (
-        currentUser.mission &&
-        currentUser.missions !== prevProps.currentUser.missions
+        currentUser.missions.length !== prevProps.currentUser.missions.length
       ) {
         this.getMissionInfo();
         this.getMissionPosting();
@@ -104,13 +117,15 @@ class MissionDetailContainer extends React.Component {
     } = this.props;
 
     const {
-      missionPost,
       mission,
       password,
       isPopUp,
       activePostImg,
       isAttendPopup,
+      numOfPosts,
     } = this.state;
+
+    const missionPost = this.state.missionPost.slice(0, numOfPosts);
     return (
       <>
         <MissionDetail

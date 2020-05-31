@@ -3,16 +3,16 @@
 .mission {
   width: calc(100vw - 400px);
   margin: 0 auto;
-  padding: 30px 30px;
+  padding: 15px 30px;
 
   &__upper-text {
     font-size: 1.3rem;
     font-weight: 700;
-    padding-bottom: 15px;
   }
 
   &__list-box {
-    margin: -0.5rem;
+    width: auto;
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
   }
@@ -70,7 +70,7 @@
   }
 
   &__title {
-    margin-top: 7px;
+    margin: 0;
     font-size: 1.1rem;
     font-weight: 700;
   }
@@ -95,7 +95,7 @@
   }
 
   &__content {
-    margin-top: 7px;
+    margin: 5px 0;
     font-size: 0.9rem;
     height: 43px;
     line-height: 23px;

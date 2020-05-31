@@ -1,6 +1,7 @@
 import React from 'react';
 import { lazyLoad } from '../../util/lazyLoad.js';
 import Mission from '../../components/Mission';
+import { getMissionList } from '../../modules/reducer_mission';
 import { connect } from 'react-redux';
 import { fetchScroll } from '../../util/fetchScroll.js';
 
@@ -17,6 +18,7 @@ class MissionListContainer extends React.Component {
   };
 
   componentDidMount() {
+    this.props.getMissionList();
     if (this.props.missionLists.length > 0) {
       lazyLoad();
     }
@@ -40,5 +42,5 @@ export default connect(
   (state) => ({
     missionLists: state.MissionReducer.missions,
   }),
-  {},
+  { getMissionList },
 )(MissionListContainer);

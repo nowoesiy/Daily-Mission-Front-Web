@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const CreateMissionBox = ({ mission }) => {
   return (
     <Link to={'mission/detail/' + mission.id}>
-      <div className="all-mission-box">
+      <article className="all-mission-box">
         <div className="all-mission-box__top">
           <img
             className={`lazy all-mission-box__img ${
@@ -23,45 +23,43 @@ const CreateMissionBox = ({ mission }) => {
           )}
         </div>
         <div className="all-mission-box__body">
-          <span>
-            <div className="all-mission-box__title">{mission.title}</div>
-            <div className="all-mission-box__admin">
-              <span>
-                <img
-                  className="all-mission-box__admin-image"
-                  src={mission.userThumbnailUrl}
-                  alt={mission.userNAme}
-                />
-              </span>
-              <span>{mission.userName}</span>
-            </div>
-          </span>
-          <div className="all-mission-box__content">{mission.content}</div>
+          <h2 className="all-mission-box__title">{mission.title}</h2>
+          <div className="all-mission-box__admin">
+            <span>
+              <img
+                className="all-mission-box__admin-image"
+                src={mission.userThumbnailUrl}
+                alt={mission.userNAme}
+              />
+            </span>
+            <span>{mission.userName}</span>
+          </div>
+          <p className="all-mission-box__content">{mission.content}</p>
           <div className="all-mission-box__people">
             {mission.userCount}명 미션 참여중
           </div>
         </div>
-      </div>
+      </article>
     </Link>
   );
 };
 
 const Mission = ({ missions }) => {
   return (
-    <div className="mission">
-      <div className="mission__upper-text">
+    <section className="mission">
+      <h1 className="mission__upper-text">
         <span role="img" aria-label="rocket">
           🚀
         </span>{' '}
         전체 미션
-      </div>
+      </h1>
       <div className="mission__list-box">
         {missions.map((m) => (
           <CreateMissionBox mission={m} key={m.id} />
         ))}
       </div>
       <div className="scroll-detector"></div>
-    </div>
+    </section>
   );
 };
 

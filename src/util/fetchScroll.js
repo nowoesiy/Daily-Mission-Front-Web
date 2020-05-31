@@ -8,6 +8,8 @@ export function fetchScroll(func) {
       });
     });
 
-    io.observe(document.querySelector('.scroll-detector'));
+    if (document.querySelector('.scroll-detector')) {
+      io.observe(document.querySelector('.scroll-detector'));
+    }
   }
 }

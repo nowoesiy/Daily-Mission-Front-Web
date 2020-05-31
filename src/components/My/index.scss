@@ -4,11 +4,16 @@
   height: 380px;
   min-height: 400px;
   border: 1px solid #e6e6e6;
+
+  &__button-wrap {
+    margin: auto;
+  }
   &__title {
     font-size: 0.8rem;
   }
   &__contents {
     display: flex;
+    justify-content: center;
     margin: 0 -1rem;
   }
 }
@@ -211,6 +216,7 @@
     width: 340px;
     height: 150px;
     border: none;
+    cursor: pointer;
   }
   &__body {
     padding: 10px;

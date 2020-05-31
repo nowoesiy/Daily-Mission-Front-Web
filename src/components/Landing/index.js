@@ -12,7 +12,7 @@ const CreateMissionBox = ({ missions, type }) => {
   return missions.map((m) => {
     return (
       <Link to={'mission/detail/' + m.id}>
-        <div className="mission-box">
+        <article className="mission-box">
           <div className="mission-box__top">
             <img
               className="mission-box__img"
@@ -21,25 +21,23 @@ const CreateMissionBox = ({ missions, type }) => {
             />
           </div>
           <div className="mission-box__body">
-            <span>
-              <div className="mission-box__title">{m.title}</div>
-              <div className="mission-box__admin">
-                <span>
-                  <img
-                    className="mission-box__admin-image"
-                    src={m.userThumbnailUrl}
-                    alt={m.userName}
-                  />
-                </span>
-                <span>{m.userName}</span>
-              </div>
-            </span>
-            <div className="mission-box__content">{m.content}</div>
+            <h2 className="mission-box__title">{m.title}</h2>
+            <div className="mission-box__admin">
+              <span>
+                <img
+                  className="mission-box__admin-image"
+                  src={m.userThumbnailUrl}
+                  alt={m.userName}
+                />
+              </span>
+              <span>{m.userName}</span>
+            </div>
+            <p className="mission-box__content">{m.content}</p>
             <div className="mission-box__people">
               {m.userCount}명 미션 참여중
             </div>
           </div>
-        </div>
+        </article>
       </Link>
     );
   });
@@ -57,8 +55,8 @@ const Landing = ({
   type,
 }) => {
   return (
-    <div className="landing">
-      <div className="landing__text">{title}</div>
+    <section className="landing">
+      <h1 className="landing__text">{title}</h1>
       <div className="landing__box" ref={setBox}>
         <div className="landing__button-wrap">
           {checkNavigator && (
@@ -80,7 +78,7 @@ const Landing = ({
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

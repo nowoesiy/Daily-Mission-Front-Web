@@ -5,10 +5,7 @@ import { connect } from 'react-redux';
 import { LoadToGetCurrentUser } from '../../modules/reduer_loginAuth';
 import {
   getMissionList,
-  getHomeMissionList,
-  getHotMissionList,
   postAttednigMission,
-  onClickMyMissionList,
   closetAttendModal,
 } from '../../modules/reducer_mission';
 import OAuth2RedirectHandler from '../../oauth2/OAuth2RedirectHandler';
@@ -17,36 +14,31 @@ import AsideContainer from '../../containers/AsideContainer';
 import Login from '../Login';
 import Post from '../../containers/PostContainer';
 import SubmitContainer from '../../containers/SubmitContainer';
-import My from '../My';
-import MyEdit from '../MyEdit';
 import MissionListContainer from '../../containers/MissionListContainer';
 import LandingContainer from '../../containers/LandingContainer';
 import MissionDetailContainer from '../../containers/MissionDetailContainer';
+import EditContainer from '../../containers/EditContainer';
+import MyContainer from '../../containers/MyContainer';
 
 class App extends React.Component {
   componentDidMount() {
     this.props.LoadToGetCurrentUser();
-    this.props.getMissionList();
-    this.props.getHotMissionList();
-    this.props.getHomeMissionList();
   }
 
   render() {
-    const { currentUser, onClickMyMissionList } = this.props;
+    const { currentUser } = this.props;
 
     return (
       <div className="App">
-        <Switch>
-          <Route
-            path="/oauth2/redirect"
-            component={OAuth2RedirectHandler}
-          ></Route>
-        </Switch>
+        <Route
+          path="/oauth2/redirect"
+          component={OAuth2RedirectHandler}
+        ></Route>
         <HeaderContainer />
         {this.props.location.pathname !== '/login' ? (
           <>
             <AsideContainer />
-            <div className="container">
+            <main className="container">
               <Switch>
                 <Route
                   path="/mission/detail/:id"
@@ -55,41 +47,27 @@ class App extends React.Component {
                 <Route path="/" exact component={LandingContainer} />
                 <Route path="/mission" exact component={MissionListContainer} />
                 <Route path="/post" exact component={Post} />
-                <Route
-                  path="/my"
-                  render={() =>
-                    currentUser && (
-                      <My
-                        onClickMyMissionList={onClickMyMissionList}
-                        currentUser={currentUser}
-                      />
-                    )
-                  }
-                  exact
-                ></Route>
+                <Route path="/my" exact>
+                  {currentUser ? <MyContainer /> : <Redirect to={'/login'} />}
+                </Route>
                 <Route path="/my/edit" exact>
+                  {currentUser ? <EditContainer /> : <Redirect to={'/login'} />}
+                </Route>
+                <Route path="/my/:id" exact>
                   {currentUser ? (
-                    <MyEdit
-                      currentUser={currentUser}
-                      LoadToGetCurrentUser={this.props.LoadToGetCurrentUser}
-                    />
+                    <SubmitContainer />
                   ) : (
-                    <Redirect to={'/'} />
+                    <Redirect to={'/login'} />
                   )}
                 </Route>
-                <Route
-                  path="/my/:id"
-                  render={() =>
-                    currentUser && <SubmitContainer currentUser={currentUser} />
-                  }
-                  exact
-                />
               </Switch>
-            </div>
+            </main>
           </>
         ) : (
           <div className="App__login">
-            <Route path="/login" exact component={Login}></Route>
+            <Route path="/login" exact>
+              {currentUser ? <Redirect to={'/'} /> : <Login />}
+            </Route>
           </div>
         )}
       </div>
@@ -102,16 +80,11 @@ export default withRouter(
     (state) => ({
       authenticated: state.loginAuth.authenticated,
       currentUser: state.loginAuth.currentUser,
-      loading: state.loginAuth.loading,
-      activemyMission: state.MissionReducer.activemyMission,
     }),
     {
       LoadToGetCurrentUser,
       getMissionList,
-      getHomeMissionList,
-      getHotMissionList,
       postAttednigMission,
-      onClickMyMissionList,
       closetAttendModal,
     },
   )(App),

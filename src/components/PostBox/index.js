@@ -4,7 +4,7 @@ import ImageDetailPopup from '../ImageDetailPopup';
 
 const CreatePostingBox = ({ post }) => {
   return (
-    <div className="post-box">
+    <article className="post-box">
       <div className="post-box__top">
         <img
           className="lazy post-box__img"
@@ -13,8 +13,8 @@ const CreatePostingBox = ({ post }) => {
         />
       </div>
       <div className="post-box__body">
-        <div className="post-box__title">{post.title}</div>
-        <div className="post-box__content">{post.content}</div>
+        <h2 className="post-box__title">{post.title}</h2>
+        <p className="post-box__content">{post.content}</p>
       </div>
       <div className="post-box__bottom">
         <div>
@@ -35,18 +35,23 @@ const CreatePostingBox = ({ post }) => {
             </strong>
           </span>
         </div>
-        <div className="post-box__date">{post.modifiedDate.substr(0, 10)}</div>
+        <span className="post-box__date">
+          {post.modifiedDate.substr(0, 10)}
+        </span>
       </div>
-    </div>
+    </article>
   );
 };
 
-const PostBox = (props) => {
-  const { posts, isPopUp, activePostImg, handleClose } = props;
-
+const PostBox = ({ posts, isPopUp, activePostImg, handleClose }) => {
   return (
-    <div className="post">
-      <div className="post__upper-text">📃 포스팅</div>
+    <section className="post">
+      <h1 className="post__upper-text">
+        <span role="img" aria-label="postring">
+          📃
+        </span>{' '}
+        포스팅
+      </h1>
       <div className="post__list-wrap">
         {posts
           ? posts.map((post) => (
@@ -61,7 +66,7 @@ const PostBox = (props) => {
         />
       )}
       <div className="scroll-detector"></div>
-    </div>
+    </section>
   );
 };
 

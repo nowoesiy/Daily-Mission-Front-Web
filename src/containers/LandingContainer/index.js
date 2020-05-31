@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Landing from '../../components/Landing';
-
+import {
+  getHomeMissionList,
+  getHotMissionList,
+} from '../../modules/reducer_mission';
 class LandingContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -61,6 +64,9 @@ class LandingContainer extends React.Component {
   };
 
   componentDidMount() {
+    const { getHomeMissionList, getHotMissionList } = this.props;
+    getHomeMissionList();
+    getHotMissionList();
     this.handleReactiveList();
     window.addEventListener('resize', this.handleReactiveList);
   }
@@ -119,5 +125,5 @@ export default connect(
     newMissions: state.MissionReducer.homeMissions,
     hotMissions: state.MissionReducer.hotMissions,
   }),
-  {},
+  { getHomeMissionList, getHotMissionList },
 )(LandingContainer);

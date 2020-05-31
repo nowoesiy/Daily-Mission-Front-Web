@@ -53,7 +53,7 @@ const Aside = ({
   toggleBox,
 }) => {
   return (
-    <div className="App-aside">
+    <aside className="App-aside">
       <ul className="nav">
         <NavLink to="/" exact activeStyle={activeStyle}>
           <li className="nav__list nav__list--home">🏠 홈</li>
@@ -97,7 +97,7 @@ const Aside = ({
           <CreateLoginAlert isMyNavVisible={isMyNavVisible} />
         )}
       </ul>
-    </div>
+    </aside>
   );
 };
 

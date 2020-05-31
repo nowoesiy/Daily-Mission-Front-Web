@@ -1,7 +1,7 @@
 .landing {
   //width: calc(100vw - 400px);
   margin: 0 auto;
-  padding: 30px 30px;
+  padding: 15px 30px;
   &__button-wrap {
     margin: auto;
   }
@@ -41,14 +41,12 @@
   &__text {
     font-size: 1.3rem;
     font-weight: 700;
-    padding-bottom: 15px;
   }
 
   &__box {
     margin: -0.5rem;
     display: flex;
     //flex-wrap: wrap;
-    padding-bottom: 60px;
     justify-content: center;
   }
 
@@ -88,7 +86,7 @@
   }
 
   &__title {
-    margin-top: 7px;
+    margin: 0;
     font-size: 1.1rem;
     font-weight: 700;
   }
@@ -111,9 +109,9 @@
   }
 
   &__content {
-    margin-top: 7px;
+    margin: 10px 0;
     font-size: 0.9rem;
-    height: 43px;
+    height: 40px;
     line-height: 23px;
   }
 

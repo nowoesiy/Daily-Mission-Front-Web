@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
 import { Line } from 'rc-progress';
-import { withRouter } from 'react-router-dom';
 
 const MissionAttendPopup = ({
   mission,
@@ -62,13 +61,68 @@ const MissionAttendPopup = ({
   );
 };
 
+const CreateDayInfo = ({ mission }) => {
+  return (
+    <>
+      <div
+        className={`content-wrap__day ${
+          mission.week.sun ? '' : 'content-wrap__day--not-submit'
+        }`}
+      >
+        일
+      </div>
+      <div
+        className={`content-wrap__day ${
+          mission.week.mon ? '' : 'content-wrap__day--not-submit'
+        }`}
+      >
+        월
+      </div>
+      <div
+        className={`content-wrap__day ${
+          mission.week.tue ? '' : 'content-wrap__day--not-submit'
+        }`}
+      >
+        화
+      </div>
+      <div
+        className={`content-wrap__day ${
+          mission.week.wed ? '' : 'content-wrap__day--not-submit'
+        }`}
+      >
+        수
+      </div>
+      <div
+        className={`content-wrap__day ${
+          mission.week.thu ? '' : 'content-wrap__day--not-submit'
+        }`}
+      >
+        목
+      </div>
+      <div
+        className={`content-wrap__day ${
+          mission.week.fri ? '' : 'content-wrap__day--not-submit'
+        }`}
+      >
+        금
+      </div>
+      <div
+        className={`content-wrap__day ${
+          mission.week.sat ? '' : 'content-wrap__day--not-submit'
+        }`}
+      >
+        토
+      </div>
+    </>
+  );
+};
+
 const CreatePeriodProgress = ({ mission }) => {
   const now = new Date();
   const startDate = new Date(mission.startDate);
   const endDate = new Date(mission.endDate);
   endDate.setDate(endDate.getDate() + 1);
   const startToNow = now.getTime() - startDate.getTime();
-  const startToNowDay = startToNow / (1000 * 3600 * 24);
   const leftTime = endDate.getTime() - now.getTime();
   const leftDay = Math.floor(leftTime / (1000 * 3600 * 24) + 1);
   const diffTime = endDate.getTime() - startDate.getTime();
@@ -152,55 +206,7 @@ const MissionDetail = ({
                 <CreatePeriodProgress mission={mission} />
               </div>
               <div className="content-wrap__submit-day">
-                <div
-                  className={`content-wrap__day ${
-                    mission.week.sun ? '' : 'content-wrap__day--not-submit'
-                  }`}
-                >
-                  일
-                </div>
-                <div
-                  className={`content-wrap__day ${
-                    mission.week.mon ? '' : 'content-wrap__day--not-submit'
-                  }`}
-                >
-                  월
-                </div>
-                <div
-                  className={`content-wrap__day ${
-                    mission.week.tue ? '' : 'content-wrap__day--not-submit'
-                  }`}
-                >
-                  화
-                </div>
-                <div
-                  className={`content-wrap__day ${
-                    mission.week.wed ? '' : 'content-wrap__day--not-submit'
-                  }`}
-                >
-                  수
-                </div>
-                <div
-                  className={`content-wrap__day ${
-                    mission.week.thu ? '' : 'content-wrap__day--not-submit'
-                  }`}
-                >
-                  목
-                </div>
-                <div
-                  className={`content-wrap__day ${
-                    mission.week.fri ? '' : 'content-wrap__day--not-submit'
-                  }`}
-                >
-                  금
-                </div>
-                <div
-                  className={`content-wrap__day ${
-                    mission.week.sat ? '' : 'content-wrap__day--not-submit'
-                  }`}
-                >
-                  토
-                </div>
+                <CreateDayInfo mission={mission} />
               </div>
               <div className="content-wrap__button-wrap">
                 {currentUser ? (
@@ -241,4 +247,4 @@ const MissionDetail = ({
   );
 };
 
-export default withRouter(MissionDetail);
+export default MissionDetail;

@@ -1,0 +1,80 @@
+.detail-info {
+  padding: 20px 0;
+  &__post-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -0.5rem auto;
+    width: 1140px;
+  }
+  //background-color: #ffffff;
+
+  &__post-label {
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 9px;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+  }
+
+  &__mission-info-title {
+    width: 1100px;
+    margin: 0 auto;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  &__mission-info-body {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1140px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+    border-radius: 18px;
+    // margin-top: 30px;
+    // margin-bottom: 30px;
+  }
+
+  &__user-profile {
+    background: #ffffff;
+    //padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #eee;
+    padding-right: 20px;
+    margin-top: 10px;
+  }
+
+  &__user-profile-img {
+    border: 1px solid #ffffff;
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  &__user-profile-img-wrap {
+  }
+  &__user-profile-name {
+    vertical-align: middle;
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+    margin-left: 5px;
+
+    &--banned {
+      text-decoration: line-through;
+    }
+  }
+
+  &__mission-info-title-sub {
+    color: #00b2b2;
+    font-weight: bold;
+    font-size: 0.9rem;
+    background-color: blue($color: #000000);
+  }
+
+  &__post-title {
+    padding-bottom: 10px;
+    width: 1100px;
+    margin: 0 auto;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+}
