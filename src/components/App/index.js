@@ -17,12 +17,11 @@ import AsideContainer from '../../containers/AsideContainer';
 import Login from '../Login';
 import Post from '../../containers/PostContainer';
 import SubmitContainer from '../../containers/SubmitContainer';
-import MissionDetail from '../MissionDetail';
-import MissionDetailB from '../MissionDetailB';
 import My from '../My';
 import MyEdit from '../MyEdit';
 import MissionListContainer from '../../containers/MissionListContainer';
 import LandingContainer from '../../containers/LandingContainer';
+import MissionDetailContainer from '../../containers/MissionDetailContainer';
 
 class App extends React.Component {
   componentDidMount() {
@@ -33,13 +32,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {
-      currentUser,
-      onClickMyMissionList,
-      activeMyMissionId,
-      isPasswordRight,
-      closetAttendModal,
-    } = this.props;
+    const { currentUser, onClickMyMissionList } = this.props;
 
     return (
       <div className="App">
@@ -57,18 +50,7 @@ class App extends React.Component {
               <Switch>
                 <Route
                   path="/mission/detail/:id"
-                  render={() =>
-                    currentUser ? (
-                      <MissionDetail
-                        postAttednigMission={this.props.postAttednigMission}
-                        currentUser={currentUser}
-                        isPasswordRight={isPasswordRight}
-                        closetAttendModal={closetAttendModal}
-                      />
-                    ) : (
-                      <MissionDetailB />
-                    )
-                  }
+                  component={MissionDetailContainer}
                 />
                 <Route path="/" exact component={LandingContainer} />
                 <Route path="/mission" exact component={MissionListContainer} />
@@ -121,9 +103,7 @@ export default withRouter(
       authenticated: state.loginAuth.authenticated,
       currentUser: state.loginAuth.currentUser,
       loading: state.loginAuth.loading,
-      activeMyMissionId: state.MissionReducer.activeMyMissionId,
       activemyMission: state.MissionReducer.activemyMission,
-      isPasswordRight: state.MissionReducer.isPasswordRight,
     }),
     {
       LoadToGetCurrentUser,
