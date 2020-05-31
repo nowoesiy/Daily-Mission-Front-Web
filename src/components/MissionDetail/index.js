@@ -1,9 +1,7 @@
 import React from 'react';
 import './index.scss';
 import { Line } from 'rc-progress';
-import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import ImageDetailPopup from '../ImageDetailPopup';
 
 const MissionAttendPopup = ({
   mission,
@@ -104,14 +102,8 @@ const CreatePeriodProgress = ({ mission }) => {
 const CreateMissionAttendButton = ({ mission, handleOnClickPopUp }) => {
   const now = new Date();
   const startDate = new Date(mission.startDate);
-  const endDate = new Date(mission.endDate);
 
   const startToNow = now.getTime() - startDate.getTime();
-  const startToNowDay = startToNow / (1000 * 3600 * 24);
-  const leftTime = endDate.getTime() - now.getTime();
-  const leftDay = Math.floor(leftTime / (1000 * 3600 * 24) + 1);
-  const diffTime = endDate.getTime() - startDate.getTime();
-  const diffDay = diffTime / (1000 * 3600 * 24);
   return startToNow > 0 ? (
     mission.ended ? (
       ''
@@ -127,347 +119,126 @@ const CreateMissionAttendButton = ({ mission, handleOnClickPopUp }) => {
   );
 };
 
-const CreatePostingBox = ({ handleClickImage, post }) => {
+const MissionDetail = ({
+  postAttednigMission,
+  currentUser,
+  closetAttendModal,
+  isPasswordRight,
+  mission,
+  password,
+  isAttendPopup,
+  handleOnClickPopUp,
+  handleInputChange,
+}) => {
+  if (!mission) return <div></div>;
   return (
-    <div className="post-thumbnailbox">
-      <div className="post-thumbnailbox__top">
-        <img
-          className="post-thumbnailbox__img"
-          src={post.thumbnailUrlMission}
-          onClick={() => {
-            handleClickImage(post.thumbnailUrlMission);
-          }}
-          alt={post.id}
-        />
-      </div>
-      <div className="post-thumbnailbox__body">
-        <div className="post-thumbnailbox__title">{post.title}</div>
-        <div className="post-thumbnailbox__content">{post.content}</div>
-      </div>
-      <div className="post-thumbnailbox__bottom">
-        <div>
-          <span className="post-thumbnailbox__author-wrap">
-            <img
-              className="post-thumbnailbox__author-img"
-              src={post.userThumbnailUrl}
-            />
-            By{' '}
-            <strong className="post-thumbnailbox__author-name">
-              {post.userName}
-            </strong>
-          </span>
-        </div>
-        <div className="post-thumbnailbox__date">
-          {post.modifiedDate.substr(0, 10)}
+    <div className="App-detail">
+      <div className="detail">
+        <div className="detail__wrap">
+          <img
+            className="detail__img"
+            src={mission.thumbnailUrlDetail}
+            alt={mission.id}
+          />
+          <div className="detail__content-wrap">
+            <div className="content-wrap">
+              <div className="content-wrap__top">
+                <div className="content-wrap__title">
+                  {mission.userName}'s {mission.title}
+                </div>
+                <div className="content-wrap__content">{mission.content}</div>
+              </div>
+              <div className="content-wrap__period-info">
+                <CreatePeriodProgress mission={mission} />
+              </div>
+              <div className="content-wrap__submit-day">
+                <div
+                  className={`content-wrap__day ${
+                    mission.week.sun ? '' : 'content-wrap__day--not-submit'
+                  }`}
+                >
+                  일
+                </div>
+                <div
+                  className={`content-wrap__day ${
+                    mission.week.mon ? '' : 'content-wrap__day--not-submit'
+                  }`}
+                >
+                  월
+                </div>
+                <div
+                  className={`content-wrap__day ${
+                    mission.week.tue ? '' : 'content-wrap__day--not-submit'
+                  }`}
+                >
+                  화
+                </div>
+                <div
+                  className={`content-wrap__day ${
+                    mission.week.wed ? '' : 'content-wrap__day--not-submit'
+                  }`}
+                >
+                  수
+                </div>
+                <div
+                  className={`content-wrap__day ${
+                    mission.week.thu ? '' : 'content-wrap__day--not-submit'
+                  }`}
+                >
+                  목
+                </div>
+                <div
+                  className={`content-wrap__day ${
+                    mission.week.fri ? '' : 'content-wrap__day--not-submit'
+                  }`}
+                >
+                  금
+                </div>
+                <div
+                  className={`content-wrap__day ${
+                    mission.week.sat ? '' : 'content-wrap__day--not-submit'
+                  }`}
+                >
+                  토
+                </div>
+              </div>
+              <div className="content-wrap__button-wrap">
+                {currentUser ? (
+                  mission.participants.filter(
+                    (participant) => participant.id === currentUser.id,
+                  )[0] ? (
+                    <span className="content-wrap__attend-label">
+                      참여 중인 미션 🏃‍♂️🏃‍♀️
+                    </span>
+                  ) : (
+                    <CreateMissionAttendButton
+                      mission={mission}
+                      handleOnClickPopUp={handleOnClickPopUp}
+                    />
+                  )
+                ) : (
+                  <span className="content-wrap__attend-label">
+                    로그인 후 참여해 주세요!
+                  </span>
+                )}
+              </div>
+              {!isPasswordRight && isAttendPopup && (
+                <MissionAttendPopup
+                  mission={mission}
+                  password={password}
+                  postAttednigMission={postAttednigMission}
+                  closetAttendModal={closetAttendModal}
+                  isPasswordRight={isPasswordRight}
+                  handleOnClickPopUp={handleOnClickPopUp}
+                  handleInputChange={handleInputChange}
+                />
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
-class MissionDetail extends React.Component {
-  state = {
-    mission: '',
-    missionPost: '',
-    isAttendPopup: false,
-    inputPasswordMode: false,
-    password: '',
-    isPopUp: false,
-    activePostImg: '',
-  };
-
-  handleClickImage = (url) => {
-    this.setState({
-      isPopUp: !this.state.isPopUp,
-      activePostImg: url,
-    });
-  };
-
-  handleOnClickPopUp = () => {
-    this.setState({
-      isAttendPopup: !this.state.isAttendPopup,
-      password: '',
-    });
-  };
-
-  handleInputChange = (e) => {
-    this.setState({
-      password: e.target.value,
-    });
-  };
-
-  passwordToggle = (e) => {
-    this.setState((prevState) => ({
-      inputPasswordMode: !prevState.inputPasswordMode,
-    }));
-    e.preventDefault();
-  };
-
-  getMissionInfo = () => {
-    axios
-      .get(
-        `https://api.daily-mission.com/api/mission/${this.props.match.params.id}`,
-      )
-      .then((response) => {
-        this.setState({
-          mission: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log('failed', error);
-      });
-  };
-
-  getMissionPosting = () => {
-    axios
-      .get(
-        `https://api.daily-mission.com/api/post/all/mission/${this.props.match.params.id}`,
-      )
-      .then((response) => {
-        this.setState({
-          missionPost: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  componentDidMount() {
-    this.getMissionInfo();
-    this.getMissionPosting();
-  }
-
-  render() {
-    const {
-      postAttednigMission,
-      currentUser,
-      message,
-      closetAttendModal,
-      isPasswordRight,
-    } = this.props;
-    const {
-      missionPost,
-      mission,
-      password,
-      isPopUp,
-      activePostImg,
-    } = this.state;
-
-    if (!mission) return <div></div>;
-    return (
-      <div className="App-detail">
-        {isPopUp && (
-          <ImageDetailPopup
-            handleClickImage={this.handleClickImage}
-            activePostImg={activePostImg}
-          />
-        )}
-        <div className="detail">
-          <div className="detail__wrap">
-            <img className="detail__img" src={mission.thumbnailUrlDetail} />
-            <div className="detail__content-wrap">
-              <div className="content-wrap">
-                <div className="content-wrap__top">
-                  <div className="content-wrap__title">
-                    {mission.userName}'s {mission.title}
-                  </div>
-                  <div className="content-wrap__content">{mission.content}</div>
-                </div>
-                <div className="content-wrap__period-info">
-                  {/* {mission.startDate} ~ {mission.endDate} */}
-                  <CreatePeriodProgress mission={mission} />
-                </div>
-                <div className="content-wrap__submit-day">
-                  <div
-                    className={`content-wrap__day ${
-                      mission.week.sun ? '' : 'content-wrap__day--not-submit'
-                    }`}
-                  >
-                    일
-                  </div>
-                  <div
-                    className={`content-wrap__day ${
-                      mission.week.mon ? '' : 'content-wrap__day--not-submit'
-                    }`}
-                  >
-                    월
-                  </div>
-                  <div
-                    className={`content-wrap__day ${
-                      mission.week.tue ? '' : 'content-wrap__day--not-submit'
-                    }`}
-                  >
-                    화
-                  </div>
-                  <div
-                    className={`content-wrap__day ${
-                      mission.week.wed ? '' : 'content-wrap__day--not-submit'
-                    }`}
-                  >
-                    수
-                  </div>
-                  <div
-                    className={`content-wrap__day ${
-                      mission.week.thu ? '' : 'content-wrap__day--not-submit'
-                    }`}
-                  >
-                    목
-                  </div>
-                  <div
-                    className={`content-wrap__day ${
-                      mission.week.fri ? '' : 'content-wrap__day--not-submit'
-                    }`}
-                  >
-                    금
-                  </div>
-                  <div
-                    className={`content-wrap__day ${
-                      mission.week.sat ? '' : 'content-wrap__day--not-submit'
-                    }`}
-                  >
-                    토
-                  </div>
-                </div>
-                <div className="content-wrap__button-wrap">
-                  {currentUser ? (
-                    mission.participants.filter(
-                      (participant) => participant.id == currentUser.id,
-                    )[0] ? (
-                      <span className="content-wrap__attend-label">
-                        참여 중인 미션 🏃‍♂️🏃‍♀️
-                      </span>
-                    ) : (
-                      <CreateMissionAttendButton
-                        mission={mission}
-                        handleOnClickPopUp={this.handleOnClickPopUp}
-                      />
-                    )
-                  ) : (
-                    <span className="content-wrap__attend-label">
-                      로그인 후 참여해 주세요!
-                    </span>
-                  )}
-                </div>
-                {!isPasswordRight && this.state.isAttendPopup && (
-                  <MissionAttendPopup
-                    mission={mission}
-                    password={password}
-                    message={message}
-                    postAttednigMission={postAttednigMission}
-                    closetAttendModal={closetAttendModal}
-                    isPasswordRight={isPasswordRight}
-                    handleOnClickPopUp={this.handleOnClickPopUp}
-                    handleInputChange={this.handleInputChange}
-                  />
-                )}
-                {/* <div
-                className={`detail__password-wrap${
-                  inputPasswordMode ? '' : '--hidden'
-                }`}
-              >
-                <input
-                  className="detail__attend-pwd"
-                  type="password"
-                  value={password}
-                  onChange={e => this.handleInputChange(e)}
-                  placeholder="비밀번호"
-                />
-                <button
-                  className="detail__attend-btn detail__attend-btn--cancel"
-                  onClick={this.passwordToggle}
-                >
-                  취소
-                </button>
-                <button
-                  className="detail__attend-btn detail__attend-btn--enter"
-                  onClick={postAttednigMission(mission.id, password)}
-                >
-                  입장
-                </button>
-              </div> */}
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* <div className="detail-nav-tab">
-          <a>정보</a>
-          <a>구성원</a>
-        </div> */}
-        <div className="detail-info">
-          {/* <div className="detail-info__mission-info-title">미션 정보</div>
-          <div className="detail-info__mission-info-body">
-            <div className="mission-info">
-              <div className="mission-info__wrap">
-                <div className="mission-info__hoilyday-title">미션 기간</div>
-                <div className="mission-info__hoilyday">
-                  2020.02.13 ~ 2020.03.15
-                </div>
-              </div>
-              <div className="mission-info__wrap">
-                <div className="mission-info__hoilyday-title">제출 시간</div>
-                <div className="mission-info__hoilyday">익일 03:00시</div>
-              </div>
-
-              <div className="mission-info__wrap">
-                <div className="mission-info__hoilyday-title">휴무일</div>
-                <div className="mission-info__hoilyday">토요일 일요일</div>
-              </div>
-            </div>
-          </div> */}
-          <div className="detail-info__post-title">
-            참여자
-            <span className="detail-info__mission-info-title-sub">
-              {mission.participants.length}
-            </span>
-          </div>
-
-          <div className="detail-info__mission-info-body">
-            {mission.participants.map((p) => (
-              <div className="detail-info__user-profile">
-                <img
-                  className="detail-info__user-profile-img"
-                  src={p.thumbnailUrl}
-                />
-                <span
-                  className={`detail-info__user-profile-name ${
-                    p.banned ? 'detail-info__user-profile-name--banned' : ''
-                  }`}
-                >
-                  {p.userName}
-                </span>
-              </div>
-            ))}
-          </div>
-          <div className="detail-info__post-title">포스팅</div>
-          <div className="detail-info__post-wrap">
-            {missionPost.length ? (
-              missionPost.map((post) => (
-                <CreatePostingBox
-                  post={post}
-                  handleClickImage={this.handleClickImage}
-                />
-              ))
-            ) : (
-              <div className="detail-info__post-label">
-                미션 포스트가 없습니다 😐
-              </div>
-            )}
-            {/* <CreateSubmitDayTable mission={mission} /> */}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { currentUser } = this.props;
-
-    if (currentUser.missions !== prevProps.currentUser.missions) {
-      this.getMissionInfo();
-      this.getMissionPosting();
-    }
-  }
-}
 
 export default withRouter(MissionDetail);
