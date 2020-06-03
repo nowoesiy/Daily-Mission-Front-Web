@@ -71,9 +71,21 @@ export function lazyLoad() {
 두 기능 모두 IntersectionObserver 객체를 이용하여 image 파일을 observe하는 방식으로 구현하였습니다.
 
 ## JWT
-> Oauth 2.0 인증 기반 JWT 전송
+> Oauth 2.0 인증을 위한 JWT
 
-Bearer를 사용하여,  
+Bearer Authentication를 통해 User 인증을 구현하였습니다.
+
+```
+  if (localStorage.getItem(ACCESS_TOKEN)) {
+    headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem(ACCESS_TOKEN),
+    );
+  }
+
+  const defaults = { headers: headers };
+  options = Object.assign({}, defaults, options);
+```
 
 ## UI/UX
 
