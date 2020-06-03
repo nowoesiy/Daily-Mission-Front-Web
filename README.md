@@ -47,6 +47,35 @@
 
 이와 더불어, 스크롤 페이징을 이용하여 사용자 경험을 극대화하고 모바일에 최적화 된 페이지를 만들었습니다.
 
+```
+export function lazyLoad() {
+  const lazyImages = Array.from(document.querySelectorAll('img.lazy'));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entires, observer) => {
+      entires.forEach((entry) => {
+        if (entry.isIntersecting) {
+          let image = entry.target;
+          image.src = image.dataset.src;
+          image.classList.remove('lazy');
+          io.unobserve(image);
+        }
+      });
+    });
+
+    lazyImages.forEach((lazyImage) => {
+      io.observe(lazyImage);
+    });
+  }
+}
+
+```
+두 기능 모두 IntersectionObserver 객체를 이용하여 image 파일을 observe하는 방식으로 구현하였습니다.
+
+## JWT
+> Oauth 2.0 인증 기반 JWT 전송
+
+Bearer를 사용하여,  
+
 ## UI/UX
 
 ### 1. 로그인
