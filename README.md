@@ -6,7 +6,7 @@
 
 원하는 미션에 참여하여 매일 미션을 완료하고, 참여자들과 완료된 미션을 공유해 볼 수 있습니다.
 
-![mission](https://user-images.githubusercontent.com/39932233/80935943-f6854380-8e09-11ea-85b9-b41e78390b92.jpg)
+![ezgif com-resize (2)](https://user-images.githubusercontent.com/39932233/83599253-a6cf9e80-a5a6-11ea-9b07-f5c03654ba08.gif)
 
 ## 주요 기능
 
