@@ -37,6 +37,9 @@
 - 스크롤 페이징
 - JWT
 
+## 컴포넌트 구조
+> Presentational and Container Components 디자인 패턴을 사용 하였습니다.
+
 ## LazyLoading & Scroll Paging
 > 프로그레시브 렌더링을 통한 리소스 최적화
 
