@@ -36,6 +36,7 @@
 - 레이지 로딩
 - 스크롤 페이징
 - JWT
+- BEM
 
 ## 컴포넌트 구조
 > Presentational and Container Components 디자인 패턴을 사용 하였습니다.
