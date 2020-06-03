@@ -68,7 +68,27 @@ export function lazyLoad() {
 }
 
 ```
-두 기능 모두 IntersectionObserver 객체를 이용하여 image 파일을 observe하는 방식으로 구현하였습니다.
+레이지 로딩은 IntersectionObserver 객체를 이용하여 image 파일을 observe 하였습니다.
+
+```
+export function fetchScroll(func) {
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entires, observer) => {
+      entires.forEach((entry) => {
+        if (entry.isIntersecting) {
+          func();
+        }
+      });
+    });
+
+    if (document.querySelector('.scroll-detector')) {
+      io.observe(document.querySelector('.scroll-detector'));
+    }
+  }
+}
+
+```
+스크롤 페이징은 IntersectionObserver 객체를 이용하여 화면 하단에 있는 scroll-detector를 observer 하였습니다.
 
 ## JWT
 > Oauth 2.0 인증을 위한 JWT
