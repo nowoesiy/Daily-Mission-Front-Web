@@ -40,6 +40,7 @@
 
 ## LazyLoading & Scroll Paging
 > 프로그레시브 렌더링을 통한 리소스 최적화
+
 ![lazy & scroll](https://user-images.githubusercontent.com/39932233/83596105-c19e1500-a59e-11ea-8caa-502c85079fb9.gif)
 
 레이지 로딩을 사용하여 사용자의 화면에 이미지가 감지 되었을 때 로딩이 되도록 구현하였습니다.
