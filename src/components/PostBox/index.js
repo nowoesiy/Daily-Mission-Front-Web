@@ -1,6 +1,6 @@
 import React from 'react';
 import './index.scss';
-import ImageDetailPopup from '../ImageDetailPopup';
+import ImageDetailPopup from '../common/ImageDetailPopup';
 
 const CreatePostingBox = ({ post }) => {
   return (

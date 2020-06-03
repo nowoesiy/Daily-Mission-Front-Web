@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { lazyLoad } from '../util/lazyLoad';
+import { lazyLoad } from '../lib/lazyLoad';
 
 const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS';
 

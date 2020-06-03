@@ -1,4 +1,4 @@
-import { getCurrentUser } from '../util/login-util';
+import { getCurrentUser } from '../lib/login-util';
 import { ACCESS_TOKEN } from '../constants';
 
 const LOAD_USER_START = 'LOAD_USER_START';
@@ -8,7 +8,7 @@ const LOGOUT_USER = 'LOGOUT_USER';
 const MISSION_SUBMIT_TRUE = 'MISSION_SUBMIT_TRUE';
 
 export const handleLogout = () => {
-  return dispatch => {
+  return (dispatch) => {
     localStorage.removeItem(ACCESS_TOKEN);
     dispatch(logoutUser());
     document.location.href = '/';
@@ -16,20 +16,20 @@ export const handleLogout = () => {
 };
 
 export const LoadToGetCurrentUser = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(loadingBegin());
 
     getCurrentUser()
-      .then(response => {
+      .then((response) => {
         dispatch(loadingSucess(response));
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(loadingFail(error));
       });
   };
 };
 
-export const missionSubmitTrue = id => ({
+export const missionSubmitTrue = (id) => ({
   type: MISSION_SUBMIT_TRUE,
   id,
 });
@@ -38,12 +38,12 @@ const loadingBegin = () => ({
   type: LOAD_USER_START,
 });
 
-const loadingSucess = response => ({
+const loadingSucess = (response) => ({
   type: LOAD_USER_SUCCESS,
   response,
 });
 
-const loadingFail = error => ({
+const loadingFail = (error) => ({
   type: LOAD_USER_FAIL,
 });
 
@@ -91,7 +91,7 @@ export default function loginAuth(state = initialState, action) {
           {
             missions: [
               ...state.missions,
-              state.currentUser.missions.find(mission =>
+              state.currentUser.missions.find((mission) =>
                 mission.id === action.id
                   ? { ...mission, submit: true }
                   : mission,

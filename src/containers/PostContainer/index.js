@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../../modules/reducer_ReadPost';
 import PostBox from '../../components/PostBox';
-import { lazyLoad } from '../../util/lazyLoad.js';
-import { fetchScroll } from '../../util/fetchScroll.js';
+import { lazyLoad } from '../../lib/lazyLoad.js';
+import { fetchScroll } from '../../lib/fetchScroll.js';
 
 class Post extends React.Component {
   state = {

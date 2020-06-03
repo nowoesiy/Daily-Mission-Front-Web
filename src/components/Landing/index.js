@@ -6,7 +6,7 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
-import ButtonComponent from '../ButtonComponent';
+import ButtonComponent from '../common/ButtonComponent';
 
 const CreateMissionBox = ({ missions, type }) => {
   return missions.map((m) => {

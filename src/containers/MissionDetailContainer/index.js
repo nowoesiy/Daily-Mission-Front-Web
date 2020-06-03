@@ -5,11 +5,11 @@ import {
   postAttednigMission,
   closetAttendModal,
 } from '../../modules/reducer_mission';
-import { fetchScroll } from '../../util/fetchScroll.js';
-import { lazyLoad } from '../../util/lazyLoad';
+import { fetchScroll } from '../../lib/fetchScroll.js';
+import { lazyLoad } from '../../lib/lazyLoad';
 import MissionDetail from '../../components/MissionDetail';
-import PostBoxSmall from '../../components/PostBoxSmall';
-import ParticipantBox from '../../components/ParticipantBox';
+import PostBoxSmall from '../../components/common/PostBoxSmall';
+import ParticipantBox from '../../components/common/ParticipantBox';
 
 class MissionDetailContainer extends React.Component {
   state = {

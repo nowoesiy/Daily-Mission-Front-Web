@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../../components/Header';
-import Alert from '../../components/Alert';
+import Alert from '../../components/common/Alert';
 import {
   postMission,
   closetAttendCodeMessage,

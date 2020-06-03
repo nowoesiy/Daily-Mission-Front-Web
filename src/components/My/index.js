@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
-import ButtonComponent from '../ButtonComponent';
-import ImageDetailPopup from '../ImageDetailPopup';
+import ButtonComponent from '../common/ButtonComponent';
+import ImageDetailPopup from '../common/ImageDetailPopup';
 
 import {
   faChevronLeft,

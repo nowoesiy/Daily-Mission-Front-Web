@@ -1,6 +1,5 @@
 export function lazyLoad() {
   const lazyImages = Array.from(document.querySelectorAll('img.lazy'));
-  console.log(lazyImages);
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entires, observer) => {
       entires.forEach((entry) => {

@@ -1,6 +1,6 @@
 import { API_BASE_URL, ACCESS_TOKEN } from '../constants';
 
-const request = options => {
+const request = (options) => {
   const headers = new Headers({
     'Content-Type': 'application/json',
   });
@@ -15,8 +15,8 @@ const request = options => {
   const defaults = { headers: headers };
   options = Object.assign({}, defaults, options);
 
-  return fetch(options.url, options).then(response =>
-    response.json().then(json => {
+  return fetch(options.url, options).then((response) =>
+    response.json().then((json) => {
       if (!response.ok) {
         return Promise.reject(json);
       }

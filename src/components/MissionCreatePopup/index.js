@@ -2,7 +2,6 @@ import React from 'react';
 import './index.scss';
 import Popup from 'reactjs-popup';
 import moment from 'moment';
-import { postBoard } from '../../modules/reducer_submitPost';
 
 class MissionCreatePopup extends React.Component {
   state = {

@@ -11,7 +11,7 @@ const postBoardSuccess = () => ({
   type: POST_BOARD_SUCCESS,
 });
 
-export const postBoard = formData => {
+export const postBoard = (formData) => {
   const config = {
     headers: {
       'Content-type': 'multipart/form-data',
@@ -19,13 +19,13 @@ export const postBoard = formData => {
     },
   };
 
-  return dispatch => {
+  return (dispatch) => {
     axios
       .post('https://api.daily-mission.com/api/post', formData, config)
       .then(() => {
         dispatch(LoadToGetCurrentUser());
       })
-      .catch(error => {
+      .catch((error) => {
         console.log('failed', error);
       });
   };

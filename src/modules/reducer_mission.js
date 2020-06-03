@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { LoadToGetCurrentUser } from './reduer_loginAuth';
-import Alert from '../components/Alert';
+import Alert from '../components/common/Alert';
 const POST_ATTENDING_MISSION = 'POST_ATTENDING_MISSION';
 const ON_CLICK_MISSION_LIST = 'ON_CLICK_MISSION_LIST';
 const ON_CLICK_MY_MISSION_LIST = 'ON_CLICK_MY_MISSION_LIST';
