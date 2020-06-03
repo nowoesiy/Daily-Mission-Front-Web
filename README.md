@@ -35,6 +35,7 @@
 
 - 레이지 로딩
 - 스크롤 페이징
+- 이벤트 위임
 - JWT
 
 ## LazyLoading & Scroll Paging
