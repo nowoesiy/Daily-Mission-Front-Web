@@ -33,8 +33,8 @@
 
 ## 이외 사용 기술
 
+- 레이지 로딩
 - 스크롤 페이징
-- axios
 - JWT
 
 ## LazyLoading & Scroll Paging
