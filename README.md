@@ -7,7 +7,6 @@
 원하는 미션에 참여하여 매일 미션을 완료하고, 참여자들과 완료된 미션을 공유해 볼 수 있습니다.
 
 ![mission](https://user-images.githubusercontent.com/39932233/80935943-f6854380-8e09-11ea-85b9-b41e78390b92.jpg)
-
 ## 주요 기능
 
 - 미션생성
@@ -34,9 +33,85 @@
 
 ## 이외 사용 기술
 
+- 레이지 로딩
 - 스크롤 페이징
-- axios
 - JWT
+- BEM
+
+## 컴포넌트 구조
+> Presentational and Container Components 디자인 패턴을 사용 하였습니다.
+
+![Project Structure](https://user-images.githubusercontent.com/39932233/83713548-5407ec80-a663-11ea-9fb6-4a3bfa391b9b.png)
+
+## LazyLoading & Scroll Paging
+> 프로그레시브 렌더링을 통한 리소스 최적화
+
+![lazy & scroll](https://user-images.githubusercontent.com/39932233/83600296-3aa26a00-a5a9-11ea-973b-a03bd7c9db34.gif)
+
+레이지 로딩을 사용하여 사용자의 화면에 이미지가 감지 되었을 때 로딩이 되도록 구현하였습니다.
+
+이와 더불어, 스크롤 페이징을 이용하여 사용자 경험을 극대화하고 모바일에 최적화 된 페이지를 만들었습니다.
+
+```
+export function lazyLoad() {
+  const lazyImages = Array.from(document.querySelectorAll('img.lazy'));
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entires, observer) => {
+      entires.forEach((entry) => {
+        if (entry.isIntersecting) {
+          let image = entry.target;
+          image.src = image.dataset.src;
+          image.classList.remove('lazy');
+          io.unobserve(image);
+        }
+      });
+    });
+
+    lazyImages.forEach((lazyImage) => {
+      io.observe(lazyImage);
+    });
+  }
+}
+
+```
+레이지 로딩은 IntersectionObserver 객체를 이용하여 image 파일을 observe 하였습니다.
+
+```
+export function fetchScroll(func) {
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entires, observer) => {
+      entires.forEach((entry) => {
+        if (entry.isIntersecting) {
+          func();
+        }
+      });
+    });
+
+    if (document.querySelector('.scroll-detector')) {
+      io.observe(document.querySelector('.scroll-detector'));
+    }
+  }
+}
+
+```
+스크롤 페이징은 IntersectionObserver 객체를 이용하여 화면 하단에 있는 scroll-detector를 observer 하였습니다.
+
+## JWT
+> Oauth 2.0 인증을 위한 JWT
+
+Bearer Authentication를 통해 User 인증을 구현하였습니다.
+
+```
+  if (localStorage.getItem(ACCESS_TOKEN)) {
+    headers.append(
+      'Authorization',
+      'Bearer ' + localStorage.getItem(ACCESS_TOKEN),
+    );
+  }
+
+  const defaults = { headers: headers };
+  options = Object.assign({}, defaults, options);
+```
 
 ## UI/UX
 
