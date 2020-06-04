@@ -113,6 +113,14 @@ Bearer Authentication를 통해 User 인증을 구현하였습니다.
   options = Object.assign({}, defaults, options);
 ```
 
+## BEM
+>> 구조화 된 CSS 설계
+
+BEM 방법론을 사용하여 CSS 구조를 설계하였습니다.
+
+![BEM](https://user-images.githubusercontent.com/39932233/83714844-e231a200-a666-11ea-9bd5-eaca1228d5f6.png)
+![BEM 예시](https://user-images.githubusercontent.com/39932233/83714960-3c326780-a667-11ea-9def-b1fe5865d719.png)
+
 ## UI/UX
 
 ### 1. 로그인
