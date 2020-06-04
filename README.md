@@ -114,7 +114,7 @@ Bearer Authentication를 통해 User 인증을 구현하였습니다.
 ```
 
 ## BEM
->> 구조화 된 CSS 설계
+> 구조화 된 CSS 설계
 
 BEM 방법론을 사용하여 CSS 구조를 설계하였습니다.
 
