@@ -118,7 +118,7 @@ Bearer Authentication를 통해 User 인증을 구현하였습니다.
 
 BEM 방법론을 사용하여 CSS 구조를 설계하였습니다.
 
-![BEM](https://user-images.githubusercontent.com/39932233/83715193-d09cca00-a667-11ea-8374-71fee8323503.png)
+![BEM](https://user-images.githubusercontent.com/39932233/83716004-a8ae6600-a669-11ea-8ce8-bb0816e0f603.png)
 
 ## UI/UX
 
