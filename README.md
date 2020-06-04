@@ -41,7 +41,7 @@
 ## 컴포넌트 구조
 > Presentational and Container Components 디자인 패턴을 사용 하였습니다.
 
-![Project Structure](https://user-images.githubusercontent.com/39932233/83713548-5407ec80-a663-11ea-9fb6-4a3bfa391b9b.png)
+![Project Structure](https://user-images.githubusercontent.com/39932233/83713728-db556000-a663-11ea-890b-7e8db973454d.jpg)
 
 ## LazyLoading & Scroll Paging
 > 프로그레시브 렌더링을 통한 리소스 최적화
