@@ -27,6 +27,8 @@ const CreateUserMissionList = ({
               </li>
             </Link>
           );
+        } else {
+          return null;
         }
       })}
     </ul>
@@ -56,17 +58,34 @@ const Aside = ({
     <aside className="App-aside">
       <ul className="nav">
         <NavLink to="/" exact activeStyle={activeStyle}>
-          <li className="nav__list nav__list--home">🏠 홈</li>
+          <li className="nav__list nav__list--home">
+            <span role="img" aria-label="house">
+              🏠
+            </span>{' '}
+            홈
+          </li>
         </NavLink>
         <NavLink to="/mission" activeStyle={activeStyle}>
-          <li className="nav__list nav__list--all-mission">🚀 전체 미션</li>
+          <li className="nav__list nav__list--all-mission">
+            <span role="img" aria-label="rocket">
+              🚀
+            </span>{' '}
+            전체 미션
+          </li>
         </NavLink>
         <NavLink to="/post" activeStyle={activeStyle}>
-          <li className="nav__list nav__list--recent-posting">📃 포스팅</li>
+          <li className="nav__list nav__list--recent-posting">
+            <span role="img" aria-label="docs">
+              📃
+            </span>{' '}
+            포스팅
+          </li>
         </NavLink>
         <NavLink to={currentUser ? '/my' : '/login'} activeStyle={activeStyle}>
           <li className="nav__list nav__list--my">
-            👤 MY
+            <span role="img" aria-label="man">
+              👤 MY
+            </span>{' '}
             <input
               className="nav__list--my-toggle"
               type="checkbox"

@@ -3,7 +3,7 @@ import './index.scss';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { LoadToGetCurrentUser } from '../../modules/reduer_loginAuth';
-import OAuth2RedirectHandler from '../oauth2/OAuth2RedirectHandler';
+import OAuth2RedirectHandler from '../Oauth/OAuth2RedirectHandler';
 import HeaderContainer from '../../containers/HeaderContainer';
 import AsideContainer from '../../containers/AsideContainer';
 import Login from '../Login';

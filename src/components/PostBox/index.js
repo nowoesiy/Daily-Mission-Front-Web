@@ -2,13 +2,16 @@ import React from 'react';
 import './index.scss';
 import ImageDetailPopup from '../common/ImageDetailPopup';
 
-const CreatePostingBox = ({ post }) => {
+const CreatePostingBox = ({ post, handleClickImage }) => {
   return (
     <article className="post-box">
       <div className="post-box__top">
         <img
           className="lazy post-box__img"
           data-src={post.thumbnailUrl}
+          onClick={() => {
+            handleClickImage(post.thumbnailUrl);
+          }}
           alt={post.title}
         />
       </div>
@@ -43,7 +46,13 @@ const CreatePostingBox = ({ post }) => {
   );
 };
 
-const PostBox = ({ posts, isPopUp, activePostImg, handleClose }) => {
+const PostBox = ({
+  posts,
+  isPopUp,
+  activePostImg,
+  handleClickImage,
+  handleClose,
+}) => {
   return (
     <section className="post">
       <h1 className="post__upper-text">
@@ -55,7 +64,11 @@ const PostBox = ({ posts, isPopUp, activePostImg, handleClose }) => {
       <div className="post__list-wrap">
         {posts
           ? posts.map((post) => (
-              <CreatePostingBox key={post.postId} post={post} />
+              <CreatePostingBox
+                key={post.postId}
+                post={post}
+                handleClickImage={handleClickImage}
+              />
             ))
           : 'Loading'}
       </div>

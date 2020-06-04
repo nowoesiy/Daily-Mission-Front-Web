@@ -53,7 +53,10 @@ const PostBoxSmall = ({
       <>
         <div className="detail-info__post-wrap">
           <div className="detail-info__post-label">
-            미션 포스트가 없습니다 😐
+            미션 포스트가 없습니다{' '}
+            <span role="img" aria-label="sad">
+              😐
+            </span>
           </div>
         </div>
       </>

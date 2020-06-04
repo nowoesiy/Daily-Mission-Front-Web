@@ -163,7 +163,10 @@ const CreateMissionAttendButton = ({ mission, handleOnClickPopUp }) => {
       ''
     ) : (
       <span className="content-wrap__attend-label">
-        이미 시작한 미션입니다 😥
+        이미 시작한 미션입니다{' '}
+        <span role="img" aria-label="sad">
+          😥
+        </span>
       </span>
     )
   ) : (
@@ -214,7 +217,10 @@ const MissionDetail = ({
                     (participant) => participant.id === currentUser.id,
                   )[0] ? (
                     <span className="content-wrap__attend-label">
-                      참여 중인 미션 🏃‍♂️🏃‍♀️
+                      참여 중인 미션{' '}
+                      <span role="img" aria-label="running people">
+                        🏃‍♂️🏃‍♀️
+                      </span>
                     </span>
                   ) : (
                     <CreateMissionAttendButton

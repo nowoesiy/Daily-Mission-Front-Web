@@ -4,12 +4,15 @@ import axios from 'axios';
 import { postBoard } from '../../modules/reducer_submitPost';
 import { withRouter } from 'react-router-dom';
 import Submit from '../../components/Submit';
+import SubmitPopup from '../../components/SubmitPopup';
 
 class SubmitContainer extends React.Component {
   state = {
     isPostPopup: false,
     weekDates: [],
     histories: [],
+    title: '',
+    content: '',
     file: '',
     fileName: '',
     activeMyMission: '',
@@ -27,6 +30,12 @@ class SubmitContainer extends React.Component {
     this.setState({
       isPostPopup: !this.state.isPostPopup,
       file: '',
+    });
+  };
+
+  handleUpdateValue = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -56,7 +65,7 @@ class SubmitContainer extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.match.params.id !== prevState.activeMissionId)
       return {
-        activeMissionId: nextProps.match.params.id,
+        activeMissionId: parseInt(nextProps.match.params.id),
         activeMyMission: nextProps.currentUser.missions.filter(
           (mission) => mission.id === parseInt(nextProps.match.params.id),
         )[0],
@@ -77,6 +86,8 @@ class SubmitContainer extends React.Component {
     const { postBoard } = this.props;
     const {
       isPostPopup,
+      title,
+      content,
       file,
       fileName,
       activeMyMission,
@@ -85,18 +96,28 @@ class SubmitContainer extends React.Component {
     } = this.state;
     if (!activeMyMission) return <div></div>;
     return (
-      <Submit
-        activeMyMission={activeMyMission}
-        weekDates={weekDates}
-        histories={histories}
-        file={file}
-        fileName={fileName}
-        isPostPopup={isPostPopup}
-        postBoard={postBoard}
-        handleDrop={this.handleDrop}
-        handlePopUp={this.handlePopUp}
-        handleClickFile={this.handleClickFile}
-      />
+      <>
+        <Submit
+          activeMyMission={activeMyMission}
+          weekDates={weekDates}
+          histories={histories}
+          handleDrop={this.handleDrop}
+          handlePopUp={this.handlePopUp}
+        />
+        {isPostPopup && (
+          <SubmitPopup
+            title={title}
+            content={content}
+            id={activeMyMission.id}
+            postBoard={postBoard}
+            file={file}
+            fileName={fileName}
+            handlePopUp={this.handlePopUp}
+            handleClickFile={this.handleClickFile}
+            handleUpdateValue={this.handleUpdateValue}
+          />
+        )}
+      </>
     );
   }
 

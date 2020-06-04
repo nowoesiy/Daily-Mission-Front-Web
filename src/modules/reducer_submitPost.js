@@ -1,15 +1,8 @@
 import axios from 'axios';
 import { LoadToGetCurrentUser } from './reduer_loginAuth';
-import { createBrowserHistory } from 'history';
-import { Redirect } from 'react-router-dom';
 const POST_BOARD_SUCCESS = 'POST_BOARD_SUCCESS';
 
 // 액션 타입 함수
-export const history = createBrowserHistory();
-
-const postBoardSuccess = () => ({
-  type: POST_BOARD_SUCCESS,
-});
 
 export const postBoard = (formData) => {
   const config = {

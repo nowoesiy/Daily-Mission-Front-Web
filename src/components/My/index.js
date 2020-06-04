@@ -77,7 +77,9 @@ const CreateMissionList = ({ mission }) => {
         {mission.banned ? (
           mission.ended ? (
             <div className="list-box__footer list-box__footer--ended">
-              종료된 미션입니다 ❌
+              <span role="img" aria-label="ended">
+                종료된 미션입니다 ❌
+              </span>
             </div>
           ) : (
             <div className="list-box__footer list-box__footer--banned">
@@ -86,7 +88,9 @@ const CreateMissionList = ({ mission }) => {
           )
         ) : mission.submit ? (
           <div className="list-box__footer list-box__footer--submit">
-            제출 완료 😊
+            <span role="img" aria-label="success">
+              제출 완료 😊
+            </span>
           </div>
         ) : (
           <div className="list-box__footer">제출하러 가기 → </div>
@@ -116,7 +120,12 @@ const My = ({
         <div className="my__title">
           <h1 className="my__title-who">
             {currentUser.missions.length ? (
-              <Link to={'/my/edit'}>{currentUser.name}님의 미션😎</Link>
+              <Link to={'/my/edit'}>
+                {currentUser.name}님의 미션
+                <span role="img" aria-label="sunglassman">
+                  😎
+                </span>
+              </Link>
             ) : (
               '미션이 없네요😢'
             )}
@@ -163,7 +172,10 @@ const My = ({
               ))
             ) : (
               <div className="my-post__post-label">
-                포스팅 된 미션 글이 없습니다 😐
+                포스팅 된 미션 글이 없습니다{' '}
+                <span role="img" aria-label="sad">
+                  😐
+                </span>
               </div>
             )}
           </div>

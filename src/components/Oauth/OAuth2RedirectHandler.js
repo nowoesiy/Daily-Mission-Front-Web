@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from './node_modules/react';
 import { ACCESS_TOKEN } from '../../constants';
-import { Redirect } from 'react-router-dom';
+import { Redirect } from './node_modules/react-router-dom';
 
 class OAuth2RedirectHandler extends Component {
   getUrlParameter(name) {

@@ -26,18 +26,14 @@ class Post extends React.Component {
     });
   };
 
-  componentDidMount() {
-    window.addEventListener('click', (e) => {
-      const path = e.path;
-      const image = path.find((p) => p.className === 'post-box__img');
-
-      if (image) {
-        this.setState({
-          isPopUp: !this.state.isPopUp,
-          activePostImg: image.src,
-        });
-      }
+  handleClickImage = (src) => {
+    this.setState({
+      isPopUp: !this.state.isPopUp,
+      activePostImg: src,
     });
+  };
+
+  componentDidMount() {
     this.props.fetchPosts();
     fetchScroll(this.addPosts);
   }
@@ -51,6 +47,7 @@ class Post extends React.Component {
         posts={posts}
         isPopUp={isPopUp}
         activePostImg={activePostImg}
+        handleClickImage={this.handleClickImage}
         handleClose={this.handleClose}
       />
     );

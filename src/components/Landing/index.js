@@ -8,39 +8,35 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import ButtonComponent from '../common/ButtonComponent';
 
-const CreateMissionBox = ({ missions, type }) => {
-  return missions.map((m) => {
-    return (
-      <Link to={'mission/detail/' + m.id}>
-        <article className="mission-box">
-          <div className="mission-box__top">
-            <img
-              className="mission-box__img"
-              src={type === 'hot' ? m.thumbnailUrlHot : m.thumbnailUrlNew}
-              alt={m.title}
-            />
+const CreateMissionBox = ({ m, type }) => {
+  return (
+    <Link to={'mission/detail/' + m.id}>
+      <article className="mission-box">
+        <div className="mission-box__top">
+          <img
+            className="mission-box__img"
+            src={type === 'hot' ? m.thumbnailUrlHot : m.thumbnailUrlNew}
+            alt={m.title}
+          />
+        </div>
+        <div className="mission-box__body">
+          <h2 className="mission-box__title">{m.title}</h2>
+          <div className="mission-box__admin">
+            <span>
+              <img
+                className="mission-box__admin-image"
+                src={m.userThumbnailUrl}
+                alt={m.userName}
+              />
+            </span>
+            <span>{m.userName}</span>
           </div>
-          <div className="mission-box__body">
-            <h2 className="mission-box__title">{m.title}</h2>
-            <div className="mission-box__admin">
-              <span>
-                <img
-                  className="mission-box__admin-image"
-                  src={m.userThumbnailUrl}
-                  alt={m.userName}
-                />
-              </span>
-              <span>{m.userName}</span>
-            </div>
-            <p className="mission-box__content">{m.content}</p>
-            <div className="mission-box__people">
-              {m.userCount}명 미션 참여중
-            </div>
-          </div>
-        </article>
-      </Link>
-    );
-  });
+          <p className="mission-box__content">{m.content}</p>
+          <div className="mission-box__people">{m.userCount}명 미션 참여중</div>
+        </div>
+      </article>
+    </Link>
+  );
 };
 
 const Landing = ({
@@ -67,7 +63,9 @@ const Landing = ({
             />
           )}
         </div>
-        <CreateMissionBox type={type} missions={missions} />
+        {missions.map((mission) => {
+          return <CreateMissionBox type={type} m={mission} key={mission.id} />;
+        })}
         <div className="landing__button-wrap">
           {checkNavigator && (
             <ButtonComponent

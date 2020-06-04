@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.scss';
-import SubmitPopup from '../SubmitPopup';
 import FileDrop from 'react-file-drop';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +25,10 @@ const CreateSubmitBox = ({ submit, handleDrop, handlePopUp }) => {
             ) : (
               <div className="drop-upload-box__wrap--submit">
                 <span className="drop-upload-box__title">
-                  😊 오늘 하루도 수고하셨습니다!!!
+                  <span role="img" aria-label="smile">
+                    😊
+                  </span>{' '}
+                  오늘 하루도 수고하셨습니다!!!
                 </span>
               </div>
             )}
@@ -104,15 +106,10 @@ const CreateSubmitDetailBox = ({ histories, weekDates }) => {
 
 const Submit = ({
   activeMyMission,
-  isPostPopup,
-  file,
-  fileName,
-  postBoard,
   histories,
   weekDates,
   handleDrop,
   handlePopUp,
-  handleClickFile,
 }) => {
   return (
     <>
@@ -131,16 +128,6 @@ const Submit = ({
           <CreateSubmitDetailBox histories={histories} weekDates={weekDates} />
         </div>
       </div>
-      {isPostPopup && (
-        <SubmitPopup
-          id={activeMyMission.id}
-          postBoard={postBoard}
-          file={file}
-          fileName={fileName}
-          handlePopUp={handlePopUp}
-          handleClickFile={handleClickFile}
-        />
-      )}
     </>
   );
 };

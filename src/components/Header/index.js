@@ -1,8 +1,8 @@
 import React from 'react';
 import './index.scss';
 import { Link } from 'react-router-dom';
-import MissionCreatePopup from '../../components/MissionCreatePopup';
 import logo from '../../static/img/logo.png';
+import MissionCreateContainer from '../../components/MissionCreatePopup';
 
 const CreateProfileDropDown = ({ handleLogout, currentUser, boxRef }) => {
   return (
@@ -14,7 +14,12 @@ const CreateProfileDropDown = ({ handleLogout, currentUser, boxRef }) => {
         <span className="profile-dropdown__edit-profile">계정 정보 변경</span>
       </Link>
       <Link to="/my">
-        <span className="profile-dropdown__my-page">👤MY</span>
+        <span className="profile-dropdown__my-page">
+          <span role="img" aria-label="man">
+            👤
+          </span>
+          MY
+        </span>
       </Link>
       <button
         onClick={handleLogout}
@@ -49,7 +54,10 @@ const CreateUserSection = ({
   return (
     <div className="login">
       <div classNae="login__button-wrap">
-        <MissionCreatePopup postMission={postMission} attendCode={attendCode} />
+        <MissionCreateContainer
+          postMission={postMission}
+          attendCode={attendCode}
+        />
       </div>
       <img
         className="login__profile-img"
@@ -84,6 +92,7 @@ const Header = ({
           <img className="header__logo " src={logo} alt="Daily-Mission" />
         </Link>
       </div>
+
       <div className="header__login">
         {currentUser ? (
           <CreateUserSection

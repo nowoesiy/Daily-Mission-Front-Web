@@ -90,14 +90,14 @@ class MissionCreatePopup extends React.Component {
       >
         {(close) => (
           <div className="new-mission">
-            <a
+            <span
               className="submit-board__cancel-button"
               onClick={() => {
                 close();
               }}
             >
               ×
-            </a>
+            </span>
             <form
               onSubmit={() => {
                 this.props.postMission(formData);
